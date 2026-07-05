@@ -1,0 +1,639 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Bronze Should Be Boring | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="Designing a metadata-driven ingestion layer that disappears behind a YAML commit"> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | Bronze Should Be Boring"> <meta property="og:url" content="https://JavierSQL.github.io/blog/2026/bronze-should-be-boring/"> <meta property="og:description" content="Designing a metadata-driven ingestion layer that disappears behind a YAML commit"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="Bronze Should Be Boring"> <meta name="twitter:description" content="Designing a metadata-driven ingestion layer that disappears behind a YAML commit"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://JavierSQL.github.io/blog/2026/bronze-should-be-boring/",
+        "@type": "BlogPosting",
+        "description": "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        "headline": "Bronze Should Be Boring",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javiersql.github.io/blog/2026/bronze-should-be-boring/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Bronze Should Be Boring</h1> <p class="post-meta"> Created on April 16, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/bronze"> <i class="fa-solid fa-hashtag fa-sm"></i> bronze</a>   <a href="/blog/tag/ingestion"> <i class="fa-solid fa-hashtag fa-sm"></i> ingestion</a>   <a href="/blog/tag/yaml"> <i class="fa-solid fa-hashtag fa-sm"></i> yaml</a>   <a href="/blog/tag/medallion"> <i class="fa-solid fa-hashtag fa-sm"></i> medallion</a>   <a href="/blog/tag/microsoft-fabric"> <i class="fa-solid fa-hashtag fa-sm"></i> microsoft-fabric</a>   ·   <a href="/blog/category/yaml-ingestion"> <i class="fa-solid fa-tag fa-sm"></i> yaml-ingestion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>Open a tap and water comes out. Clean, safe, drinkable. Nobody celebrates. Nobody thinks about it. But behind that unremarkable moment there are treatment plants, distribution networks, pressure monitoring systems, quality tests, and centuries of engineering. The tap is boring because the infrastructure is excellent.</p> <p>Bronze should feel the same way.</p> <p>If adding a new data source to your Lakehouse requires a new pipeline, a round of debugging, a deployment, and a small prayer, you don’t have engineering. You have craft. Artisanal, hand-wired, one-pipeline-per-table craft that works fine at ten entities and becomes a liability at fifty.</p> <p>This post explores how to make Bronze boring, and why that requires more engineering than you’d expect. It’s the first in a series where we walk through the metadata-driven architecture that makes this simplicity possible. We start with the foundation: the Bronze layer and why YAML is the contract that holds it together.</p> <h2 id="the-problem-pipeline-proliferation">The problem: pipeline proliferation</h2> <p>Here’s a story you’ve probably lived. You start a Lakehouse project with ten entities and two sources. You build a pipeline per entity and an orchestrator pipeline on top. It works. It’s “agile.”</p> <p>A year later you have five sources, three countries, and 350 entities. You also have 350 pipelines. Each one with its own connection logic, its own error handling, its own technical columns (or not), and its own naming invented by whoever built it that day. Some have retry logic. Some don’t. Some log to a control table. Some log to nowhere.</p> <p>The problem is not the volume of data. It’s the volume of <em>pipelines</em>. Each one is code you need to maintain, test, document, and debug. Each one is a surface area for bugs. Each one is a deployment. And every new entity becomes a 2-3 day development ticket where it should be a 15-minute commit – because someone has to clone an existing pipeline, change fifteen things, forget to change two others, and debug in production until it works. Until it doesn’t, and nobody remembers why it was built that way.</p> <p>There’s another way. And it starts by rethinking what Bronze actually is.</p> <h2 id="bronze-redefined-not-just-raw-copy">Bronze redefined: not just “raw copy”</h2> <p>The classic Medallion definition is clean and tidy. Bronze is raw copy – data as it arrives, no transformations. Silver cleans. Gold aggregates. It’s a useful mental model with one practical problem: if Bronze is just a dump, the data enters without identity.</p> <p>You don’t know where it came from. You don’t know who sent it. You don’t know if it’s complete. You don’t know when it arrived. And more importantly, you don’t know who owns it. If you wait until Silver to answer those questions, you’ve already let someone into your building without asking for ID, and now you’re trying to figure out who they are after the fact.</p> <p>Our redefinition: Bronze is a copy with full fidelity to the source, <em>enriched</em> with metadata and governance from the point of entry.</p> <table> <thead> <tr> <th>Classic Bronze (“raw copy”)</th> <th>Enriched Bronze</th> </tr> </thead> <tbody> <tr> <td>Data as-is</td> <td>Data + technical columns (RunID, LoadDateUTC, BatchID, SnapshotDate)</td> </tr> <tr> <td>Generic schema (staging, raw)</td> <td>Schema that reflects source and domain in the name</td> </tr> <tr> <td>No classification</td> <td>Security and governance tags from ingestion</td> </tr> <tr> <td>Pass or fail</td> <td>Anomalies go to quarantine, they don’t break the load</td> </tr> <tr> <td>Unknown schema</td> <td>Schema capture and drift detection from day one</td> </tr> </tbody> </table> <p>“But that’s not Bronze anymore – that’s Silver.” No. The original data is not modified or cleaned. What gets added is <em>metadata</em>: technical columns, classification, schema naming. The data maintains its fidelity to the source. It’s raw data plus rich metadata.</p> <p>OK, enriched Bronze sounds good. But how do you implement it without ending up with 200 artisanal pipelines? That’s where YAML comes in.</p> <h2 id="the-solution-a-fixed-engine-plus-n-yamls">The solution: a fixed engine plus N YAMLs</h2> <p>The architecture in one sentence:</p> <blockquote> <p>A small, fixed engine of specialized components + N YAML files = N sources ingested without writing new code.</p> </blockquote> <p>The key insight: it’s not one magic notebook that does everything. It’s a <strong>finite set of generic components</strong>, each specialized in a single concern:</p> <ul> <li> <strong>Ingestion by source type</strong> – Different components for different origins. Files (CSV, Parquet, Excel): a notebook that reads, applies schema, writes Delta. Relational databases: a pipeline with ForEach and parameterized Copy Activity. APIs: a notebook with a request-paginate-land pattern.</li> <li> <strong>Schema capture</strong> – A notebook that records the data dictionary (table structure) with every ingestion. When the structure drifts from the last known version – new column, type change, field removed – the drift is logged to a registry so it can be reviewed before it surprises a downstream consumer.</li> <li> <strong>Volume validation</strong> – A notebook that compares rows received vs. expected and flags anomalies. Rows that fail integrity rules don’t break the load; they’re routed to a quarantine table tagged with the reason, while the rest proceed. Quarantine is a side channel, not a failure.</li> <li> <strong>Orchestration</strong> – A master pipeline that reads the YAMLs and triggers the appropriate components. Bronze has no cross-table dependencies by design: every entity lands independently. Dependency resolution is a Silver problem, not a Bronze one. Bronze takes data as-is – duplicates, nulls, and invalid foreign keys all land intact. That’s the contract. Referential integrity requires knowing that a referenced table loaded before its referencing one, and that ordering logic belongs in Silver.</li> </ul> <p>The number of engine components is <strong>small and bounded</strong> – five, seven, maybe ten in complex environments. It doesn’t grow with data volume or source count. What scales is the <em>configuration</em>: adding source number 201 doesn’t require a new component, just a new YAML the existing components already know how to read. New concerns like PII detection, freshness checks, or sample preview slot in as new notebooks wired to the same contract – not as new pipelines per source.</p> <h3 id="why-yaml-and-not-json-a-ui-or-sql-metadata-tables">Why YAML (and not JSON, a UI, or SQL metadata tables)</h3> <p>This isn’t an article about YAML syntax. It’s about the <em>properties</em> you need in your configuration format. Three axes:</p> <p><strong>1. Governability – Configuration lives in Git, not in a database</strong></p> <p>YAML in Git inherits all the code-review machinery you already use: PRs, diffs, blame, rollback, approval gates as strict as governance requires. “Who edited row 47 in <code class="language-plaintext highlighter-rouge">dbo.PipelineConfig</code> on Tuesday at 3am?” is a hard question. “Who edited <code class="language-plaintext highlighter-rouge">Sales_Salesforce.yml</code>?” is <code class="language-plaintext highlighter-rouge">git blame</code>.</p> <p>This is not a new pattern. It’s Infrastructure as Code – declarative configuration, version control, automated deployment, repeatability – applied to ingestion instead of infrastructure. The same fundamentals that made server provisioning predictable with Terraform make data-source provisioning predictable here. How it plugs into DevOps practice (pre-deploy validation, approval pipelines, rollback) is the topic of the next post.</p> <p><strong>2. Extensibility – The contract evolves without breaking</strong></p> <p>Adding a new section to a YAML doesn’t break existing YAMLs that don’t use it. <code class="language-plaintext highlighter-rouge">template_version: "1.0"</code> evolves to <code class="language-plaintext highlighter-rouge">"2.0"</code>, and the engine knows which version to process. Adding a column to a config table, by contrast, means ALTER TABLE, a deployment, and coordinating with everything that reads it. One is a commit; the other is a project.</p> <p><strong>3. Usability – Human readable, machine readable, AI readable</strong></p> <p>A new data engineer opens the YAML and understands what it does without documentation – no SQL knowledge required, no database access, no UI to learn. Copy an existing one, change five lines, submit a PR. And an argument nobody was making two years ago: YAML is structured plain text, the ideal format for an LLM to read, generate, and modify. Ask a model to produce an <code class="language-plaintext highlighter-rouge">INSERT INTO</code> with 15 nullable columns versus a YAML following a template – the difference in reliability is dramatic. We didn’t design this with AI agents in mind, but the structure accommodates them naturally: an agent can read existing YAMLs, review Git history to understand which changes correlated with incidents, and propose a new entity – committing the file and opening a PR on request. The contract is already machine-readable.</p> <p><strong>The alternatives, briefly:</strong></p> <ul> <li> <strong>JSON</strong> – Modern tooling (JSON5, schema-aware editors) narrows the gap, but long configs still drown in quotes and brackets, and diffing nested JSON is an eye test.</li> <li> <strong>UI (web portals)</strong> – Not versionable, not diffable, not scriptable. Config trapped in the platform.</li> <li> <strong>SQL metadata tables</strong> – Excellent for <em>operational</em> metadata (logs, status, metrics) – but for declarative configuration they mix concerns: the same place where you write config is where the runtime executes.</li> </ul> <h3 id="core-design-principles">Core design principles</h3> <p>Four principles that drive everything downstream:</p> <ol> <li> <strong>GitOps as source of truth</strong> – YAML is edited only in Git. Every change via PR. The Lakehouse contains deployed artifacts, not editable ones.</li> <li> <strong>Filename-as-metadata</strong> – The filename <em>is</em> metadata. <code class="language-plaintext highlighter-rouge">Sales_Salesforce.yml</code> means domain=Sales, source=Salesforce, and the Lakehouse schema is derived from the name. This is the riskiest bet in the design – and the one that pays the most; see the deep-dive below.</li> <li> <strong>One YAML per source-domain</strong> – Clear granularity. Not a mega-YAML with everything, not one YAML per individual table.</li> <li> <strong>Pure declarativity</strong> – The YAML never contains logic. Only parameters. “The YAML describes <em>what</em> gets ingested; the engine decides <em>how</em>.”</li> </ol> <h3 id="what-a-yaml-looks-like">What a YAML looks like</h3> <p>Here’s what a real ingestion YAML looks like, trimmed to the essentials:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># File: Sales_Salesforce.yml</span>
+<span class="c1"># Implicit metadata from filename: domain=Sales, source=Salesforce</span>
+<span class="c1"># Automatic destination schema: Sales_Salesforce</span>
+
+<span class="na">config</span><span class="pi">:</span>
+  <span class="na">template_version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+  <span class="na">source_type</span><span class="pi">:</span> <span class="s">relational</span>
+  <span class="na">source_system</span><span class="pi">:</span>
+    <span class="na">owner</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Revenue-Ops"</span>
+  <span class="na">tags</span><span class="pi">:</span>
+    <span class="na">security.sensitivity</span><span class="pi">:</span> <span class="s2">"</span><span class="s">confidential"</span>
+    <span class="na">governance.data_owner</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Sales"</span>
+
+<span class="na">entities</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Opportunities</span>
+    <span class="na">table</span><span class="pi">:</span> <span class="s">Salesforce.Opportunity</span>
+    <span class="na">tags</span><span class="pi">:</span>
+      <span class="na">security.sensitivity</span><span class="pi">:</span> <span class="s2">"</span><span class="s">restricted"</span>       <span class="c1"># overrides global tag</span>
+      <span class="na">security.classification</span><span class="pi">:</span> <span class="s2">"</span><span class="s">PII"</span>   
+    <span class="na">post_ingestion_tasks</span><span class="pi">:</span>
+      <span class="na">volume_check</span><span class="pi">:</span>
+        <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+        <span class="na">min_rows</span><span class="pi">:</span> <span class="m">500</span>
+      <span class="na">schema_capture</span><span class="pi">:</span>
+        <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Products</span>
+    <span class="na">table</span><span class="pi">:</span> <span class="s">Salesforce.Product</span>
+    <span class="na">tags</span><span class="pi">:</span>
+      <span class="na">security.sensitivity</span><span class="pi">:</span> <span class="s2">"</span><span class="s">internal"</span>
+    <span class="na">post_ingestion_tasks</span><span class="pi">:</span>
+      <span class="na">volume_check</span><span class="pi">:</span>
+        <span class="na">enabled</span><span class="pi">:</span> <span class="kc">false</span>
+      <span class="na">schema_capture</span><span class="pi">:</span>
+        <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div> <p>Everything you need to know about these two entities fits on a screen. The domain, the source, the governance owner, the security classification, the volume thresholds, the schema capture flag – all declared, no code. Adding a third entity is five more lines and a pull request.</p> <p>Entity-level tags override global ones – <code class="language-plaintext highlighter-rouge">Opportunities</code> inherits <code class="language-plaintext highlighter-rouge">confidential</code> from the file header, then <code class="language-plaintext highlighter-rouge">restricted</code> takes precedence. The narrower the scope wins. Security classifications can be tightened at the entity level without touching the global default.</p> <p>This YAML gets validated against a schema before it runs. That’s the topic of the next post.</p> <h3 id="filename-as-metadata-the-bet-that-pays">Filename-as-metadata: the bet that pays</h3> <p><code class="language-plaintext highlighter-rouge">Sales_Salesforce.yml</code> looks like a naming convention. It’s a governance contract.</p> <p>The natural instinct when registering a new source is to name it by origin: <code class="language-plaintext highlighter-rouge">Salesforce.yml</code>, <code class="language-plaintext highlighter-rouge">SAP.yml</code>, <code class="language-plaintext highlighter-rouge">Oracle.yml</code>. The source is unambiguous. Assigning a domain is not. Someone has to decide whether Salesforce data belongs to Sales, Revenue, or Customer Success, and those are different teams with different interests. That’s exactly why we require it.</p> <p>The filename forces a political question up front: who owns this data? Not later, not in a spreadsheet, not “we’ll figure it out in Silver.” Before the YAML can merge, someone has answered. The alternative – letting data land anonymously in Bronze and arguing about ownership six months later, when a dashboard is wrong and no one knows who to escalate to – is the default in most organizations, and it’s also what erodes trust in the Lakehouse faster than any technical failure.</p> <p>Requiring a domain gives you three things that source-only naming never could:</p> <ul> <li> <strong>An owner and a steward, mandatory and named.</strong> Every domain maps to a Product Owner and a Steward – real people, not “IT.” When an ingestion breaches its SLA, there’s someone to notify. When a column’s definition is disputed, there’s someone to arbitrate. Accountability is encoded in the architecture, not relegated to a wiki page that nobody maintains.</li> <li> <strong>Schema-level security.</strong> The domain becomes the Lakehouse schema: <code class="language-plaintext highlighter-rouge">Sales_Salesforce</code>, <code class="language-plaintext highlighter-rouge">Finance_SAP</code>, <code class="language-plaintext highlighter-rouge">HR_Workday</code>. That’s not cosmetic. Access can be granted to the <code class="language-plaintext highlighter-rouge">Sales</code> schema as a unit, and the whole domain is governed by the same ACL regardless of how many sources feed it. Try doing that when your schema is called <code class="language-plaintext highlighter-rouge">raw</code> or <code class="language-plaintext highlighter-rouge">staging</code>.</li> <li> <strong>Natural clustering of entities that belong together.</strong> Sales entities – Opportunities, Products, Accounts – share release calendars, business definitions, and consumption patterns. Grouping them by domain reflects the reality that they make sense together, and that ingesting them out of sync creates inconsistencies the business will feel downstream.</li> </ul> <p>The risk is real. A typo in the filename, a renamed domain mid-project, a name that doesn’t exist in the business glossary: any of these breaks the contract. The mitigation is boring: a CI check validates every new filename against an allow-list of approved domains and sources before the PR can merge. One linter, a few lines of code. The convention stops being a convention and becomes an enforceable contract.</p> <p>Bronze stops being IT’s problem. That’s the bet that pays.</p> <h2 id="the-result-the-tap-works">The result: the tap works</h2> <p>Numbers from representative implementations – order of magnitude, not SLAs:</p> <ul> <li> <strong>Adding a new entity</strong> – typically under 15 minutes for a standard relational table; more for an API with pagination quirks or a file with a messy schema. YAML only, no code.</li> <li> <strong>Configuration rollback</strong> – under 10 minutes. Revert the PR, redeploy the YAML.</li> <li> <strong>100% of configuration versioned in Git.</strong> This one isn’t approximate: every change has an author, a reviewer, and a timestamp, because there’s no other way to change config.</li> </ul> <p>Two targets the architecture is designed for, and has to keep earning:</p> <p><strong>Junior-engineer ergonomics.</strong> Someone new to the project should be able to add a source by copying an existing YAML, changing what’s different, and opening a PR – without reading notebook code or touching PySpark. When that stops being true, the engine is leaking complexity back into the configuration.</p> <p><strong>3am legibility.</strong> When a load fails at 3am, the on-call engineer should open the YAML for the failing entity and understand what was supposed to happen, without digging into pipeline code. The configuration <em>is</em> the documentation.</p> <p>When someone asks what your Bronze layer does, the best answer is: “nothing interesting.” Boring Bronze isn’t the goal; it’s the consequence of engineering that’s actually done. The excitement should live in what you build <em>on top</em>: Silver, Gold, semantic models, dashboards. Bronze is the invisible infrastructure that makes all of that possible.</p> <h2 id="honest-tradeoffs">Honest tradeoffs</h2> <p><strong>Secrets and credentials – out of scope by design.</strong> The YAML never carries secrets. No hardcoded connection strings, no tokens, no API keys. If a source needs authentication, the YAML points to a Key Vault entry; the engine resolves it at runtime through a service principal. The moment a secret lands in Git, your audit trail becomes a liability instead of an asset. Ingestion config in Git, secrets in Key Vault – two systems, zero overlap.</p> <p><strong>The engine is a single point of failure.</strong> Two hundred artisanal pipelines fail independently; a shared engine with a bug affects all two hundred sources at once. The mitigation surface is also shared (one fix heals all two hundred), but the blast radius is not symmetric – invest in the engine’s test coverage accordingly. A secondary effect: Fabric’s per-pipeline logs become less useful when every entity runs under the same orchestrator object. You need your own control tables. That’s Post 4.</p> <h2 id="whats-next">What’s next</h2> <p>But making something boring requires solving problems that are not boring at all.</p> <p><strong>Next: Metadata All the Way Down</strong> – Who validates the YAML? Who validates the validator? In a metadata-driven system, the metadata itself needs governance. It’s metadata all the way down.</p> <p><strong>The Scheduler’s Contract</strong> – The engine runs. But when? And what guarantees that the data is fresh enough for downstream consumers? Latency as a contract, not a hope.</p> <p><strong>Battle Scars</strong> – The YAML looked perfect in the PR. Then Spark 3.x rejected dates from 1753. Operational lessons and scars from production.</p> <p><strong>Runbooks as Infrastructure</strong> – Every scar has a fix. That fix becomes a runbook: versioned, auditable, deployable on demand.</p> <p><strong>Living Metadata</strong> – We capture metadata with every ingestion. But metadata that nobody reads is dead metadata. How to turn it into decisions.</p> <hr> <p><em>First post in the “YAML Metadata-Driven Ingestion” series. These patterns come from several enterprise Lakehouse implementations – platform-agnostic, though our reference stack is Microsoft Fabric.</em></p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/we-act-on-metadata/">We Act on Metadata</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/runbooks-as-infrastructure/">Runbooks as Infrastructure</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/battle-scars/">Battle Scars</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-schedulers-contract/">The Scheduler's Contract</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/metadata-all-the-way-down/">Metadata All the Way Down</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2025/plotly/">a post with plotly.js</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/photo-gallery/">a post with image galleries</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/tabs/">a post with tabs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/typograms/">a post with typograms</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/post-citation/">a post that can be cited</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <blockquote class="block-danger"> <h5>giscus comments misconfigured</h5> <p>Please follow instructions at <a href="http://giscus.app" rel="external nofollow noopener" target="_blank">http://giscus.app</a> and update your giscus configuration.</p> <p>Missing required keys: <code>repo_id, category_id</code>.</p> </blockquote> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "This is a description of the page. You can modify it in '_pages/cv.md'. You can also change or remove the top pdf download button.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler's Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "post-a-post-with-plotly-js",
+        
+          title: "a post with plotly.js",
+        
+        description: "this is what included plotly.js code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/plotly/";
+          
+        },
+      },{id: "post-a-post-with-image-galleries",
+        
+          title: "a post with image galleries",
+        
+        description: "this is what included image galleries could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/photo-gallery/";
+          
+        },
+      },{id: "post-a-post-with-tabs",
+        
+          title: "a post with tabs",
+        
+        description: "this is what included tabs in a post could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/tabs/";
+          
+        },
+      },{id: "post-a-post-with-typograms",
+        
+          title: "a post with typograms",
+        
+        description: "this is what included typograms code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/typograms/";
+          
+        },
+      },{id: "post-a-post-that-can-be-cited",
+        
+          title: "a post that can be cited",
+        
+        description: "this is what a post that can be cited looks like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/post-citation/";
+          
+        },
+      },{id: "post-a-post-with-pseudo-code",
+        
+          title: "a post with pseudo code",
+        
+        description: "this is what included pseudo code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/pseudocode/";
+          
+        },
+      },{id: "post-a-post-with-code-diff",
+        
+          title: "a post with code diff",
+        
+        description: "this is how you can display code diffs",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/code-diff/";
+          
+        },
+      },{id: "post-a-post-with-advanced-image-components",
+        
+          title: "a post with advanced image components",
+        
+        description: "this is what advanced image components could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/advanced-images/";
+          
+        },
+      },{id: "post-a-post-with-vega-lite",
+        
+          title: "a post with vega lite",
+        
+        description: "this is what included vega lite code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/vega-lite/";
+          
+        },
+      },{id: "post-a-post-with-geojson",
+        
+          title: "a post with geojson",
+        
+        description: "this is what included geojson code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/geojson-map/";
+          
+        },
+      },{id: "post-a-post-with-echarts",
+        
+          title: "a post with echarts",
+        
+        description: "this is what included echarts code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/echarts/";
+          
+        },
+      },{id: "post-a-post-with-chart-js",
+        
+          title: "a post with chart.js",
+        
+        description: "this is what included chart.js code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/chartjs/";
+          
+        },
+      },{id: "post-a-post-with-tikzjax",
+        
+          title: "a post with TikZJax",
+        
+        description: "this is what included TikZ code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/tikzjax/";
+          
+        },
+      },{id: "post-a-post-with-bibliography",
+        
+          title: "a post with bibliography",
+        
+        description: "an example of a blog post with bibliography",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/post-bibliography/";
+          
+        },
+      },{id: "post-a-post-with-jupyter-notebook",
+        
+          title: "a post with jupyter notebook",
+        
+        description: "an example of a blog post with jupyter notebook",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/jupyter-notebook/";
+          
+        },
+      },{id: "post-a-post-with-custom-blockquotes",
+        
+          title: "a post with custom blockquotes",
+        
+        description: "an example of a blog post with custom blockquotes",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/custom-blockquotes/";
+          
+        },
+      },{id: "post-a-post-with-table-of-contents-on-a-sidebar",
+        
+          title: "a post with table of contents on a sidebar",
+        
+        description: "an example of a blog post with table of contents on a sidebar",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/sidebar-table-of-contents/";
+          
+        },
+      },{id: "post-a-post-with-audios",
+        
+          title: "a post with audios",
+        
+        description: "this is what included audios could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/audios/";
+          
+        },
+      },{id: "post-a-post-with-videos",
+        
+          title: "a post with videos",
+        
+        description: "this is what included videos could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/videos/";
+          
+        },
+      },{id: "post-displaying-beautiful-interactive-tables",
+        
+          title: "displaying beautiful interactive tables",
+        
+        description: "an example of how to use interactive tables in al-folio",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/tables/";
+          
+        },
+      },{id: "post-a-post-with-table-of-contents",
+        
+          title: "a post with table of contents",
+        
+        description: "an example of a blog post with table of contents",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/table-of-contents/";
+          
+        },
+      },{id: "post-a-post-with-giscus-comments",
+        
+          title: "a post with giscus comments",
+        
+        description: "an example of a blog post with giscus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/giscus-comments/";
+          
+        },
+      },{id: "post-a-post-with-redirect",
+        
+          title: "a post with redirect",
+        
+        description: "you can also redirect to assets like pdf",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/assets/pdf/example_pdf.pdf";
+          
+        },
+      },{id: "post-a-post-with-diagrams",
+        
+          title: "a post with diagrams",
+        
+        description: "an example of a blog post with diagrams",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2021/diagrams/";
+          
+        },
+      },{id: "post-a-distill-style-blog-post",
+        
+          title: "a distill-style blog post",
+        
+        description: "an example of a distill-style blog post and main elements",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2021/distill/";
+          
+        },
+      },{id: "post-a-post-with-twitter",
+        
+          title: "a post with twitter",
+        
+        description: "an example of a blog post with twitter",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2020/twitter/";
+          
+        },
+      },{id: "post-a-post-with-disqus-comments",
+        
+          title: "a post with disqus comments",
+        
+        description: "an example of a blog post with disqus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/disqus-comments/";
+          
+        },
+      },{id: "post-a-post-with-math",
+        
+          title: "a post with math",
+        
+        description: "an example of a blog post with some math",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/math/";
+          
+        },
+      },{id: "post-a-post-with-code",
+        
+          title: "a post with code",
+        
+        description: "an example of a blog post with some code",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/code/";
+          
+        },
+      },{id: "post-a-post-with-images",
+        
+          title: "a post with images",
+        
+        description: "this is what included images could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/images/";
+          
+        },
+      },{id: "post-a-post-with-formatting-and-links",
+        
+          title: "a post with formatting and links",
+        
+        description: "march & april, looking forward to summer",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/formatting-and-links/";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather/";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2/";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

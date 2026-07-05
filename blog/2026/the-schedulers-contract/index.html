@@ -1,0 +1,716 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> The Scheduler's Contract | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="How scheduling becomes infrastructure -- data freshness as a promise, not a hope"> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | The Scheduler's Contract"> <meta property="og:url" content="https://JavierSQL.github.io/blog/2026/the-schedulers-contract/"> <meta property="og:description" content="How scheduling becomes infrastructure -- data freshness as a promise, not a hope"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="The Scheduler's Contract"> <meta name="twitter:description" content="How scheduling becomes infrastructure -- data freshness as a promise, not a hope"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://JavierSQL.github.io/blog/2026/the-schedulers-contract/",
+        "@type": "BlogPosting",
+        "description": "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        "headline": "The Scheduler's Contract",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javiersql.github.io/blog/2026/the-schedulers-contract/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The Scheduler's Contract</h1> <p class="post-meta"> Created on April 23, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/scheduling"> <i class="fa-solid fa-hashtag fa-sm"></i> scheduling</a>   <a href="/blog/tag/orchestration"> <i class="fa-solid fa-hashtag fa-sm"></i> orchestration</a>   <a href="/blog/tag/sla"> <i class="fa-solid fa-hashtag fa-sm"></i> sla</a>   <a href="/blog/tag/data-freshness"> <i class="fa-solid fa-hashtag fa-sm"></i> data-freshness</a>   <a href="/blog/tag/microsoft-fabric"> <i class="fa-solid fa-hashtag fa-sm"></i> microsoft-fabric</a>   ·   <a href="/blog/category/yaml-ingestion"> <i class="fa-solid fa-tag fa-sm"></i> yaml-ingestion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>Open a tap. Water comes out – boring, reliable, the way Post 1 described it. But Post 1 left a question open: <em>how old is the water?</em></p> <p>A tap that opens at the wrong time, or not at all, delivers stale data. An analyst who pulls <code class="language-plaintext highlighter-rouge">Sales_Opportunities</code> at 9:00 am and gets data from two days ago doesn’t have a pipeline problem. They have a freshness problem. A table called <code class="language-plaintext highlighter-rouge">Sales_Opportunities</code> is not a static artifact – it’s a snapshot of a moment that’s already passed. Every query is an answer to an implicit question: how old is this data? Can you promise – to an analyst, to a downstream pipeline, to a business process that depends on it – that the data is no more than four hours old? Or six? Do you know, or do you just hope?</p> <p>Hope is not a schedule.</p> <p>This post is about the component of a metadata-driven Bronze layer that nobody talks about until something breaks at 3:00 am: the scheduler. Not because it’s complex – it isn’t. It matters because it’s the part that turns data freshness from a property you discover after the fact into a freshness <strong>window</strong> you commit to in advance – not an exact timestamp, but a bounded promise.</p> <p>That “bounded” matters more than it sounds. The Lakehouse model is <em>BASE</em> – Basically Available, Soft state, Eventually consistent – not ACID. Bronze is expected to <em>converge</em> to source truth over time, not to reflect it at the instant a transaction commits. The scheduler’s contract is the operational expression of that consistency model: not when the data is exact, but how stale it’s allowed to be.</p> <h2 id="the-constraint-that-forces-the-design">The constraint that forces the design</h2> <p>Start with a simple reality. Native pipeline schedules in Microsoft Fabric work fine for a handful of pipelines on common cadences – attach a schedule, set the time, done. The limit appears when scheduling stops being just <em>when</em> and starts being <em>which-given-state</em>: “run Sales Salesforce on Tuesday at 04:00 <em>unless</em> Finance SAP is paused for migration, and stagger Marketing 30 minutes later because the gateway saturates otherwise.”</p> <p>Conditional logic across loads doesn’t belong in a scheduling UI. It belongs in a file – versionable, diffable, reviewable in a PR. Native schedules can tell a pipeline <em>when</em> to run; they can’t read the YAML that declares which loads are due, which are paused, which carry an offset, and which have to wait for a dependency to release a lock. That logic has to live somewhere outside the platform’s scheduling UI.</p> <p>There’s a secondary scaling issue worth naming. Fabric limits each pipeline to 20 attached schedules, a <a href="https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-runs" rel="external nofollow noopener" target="_blank">documented platform constraint</a>. For a Lakehouse with 350+ loads across multiple sources, domains, and countries, that ceiling matters – but it’s not the reason native scheduling doesn’t fit. Even with no limit at all, you’d still need the YAML to carry the conditional logic. The 20-schedule cap is the symptom, not the cause.</p> <p>In a real Lakehouse – multiple sources, multiple domains, multiple countries – you have 350+ loads. You are not building 350 individual scheduled pipelines. That path leads to the same proliferation problem Post 1 opened with: 200 pipelines, each with its own schedule hardcoded in a portal, none of them visible in Git, none of them diffable, none of them auditable. You can’t answer “what changed and when?” and you can’t answer “what runs at 4:00 am and why?” without clicking through every pipeline manually.</p> <p>The metadata-driven solution is the same pattern applied here: one master pipeline that evaluates every few minutes which loads are due, and a single YAML file that declares the schedule for all of them. The complexity moves from the platform into a file where it belongs: versionable, reviewable, and writable in a text editor.</p> <h2 id="two-contracts-two-files">Two contracts, two files</h2> <p>The most important design decision in this post: the scheduler YAML is <em>never</em> the same file as the ingestion YAML.</p> <p>Post 1 introduced the ingestion YAML: <code class="language-plaintext highlighter-rouge">Sales_Salesforce.yml</code>, which declares <em>what</em> to ingest and <em>how</em>. The scheduler YAML – call it <code class="language-plaintext highlighter-rouge">_scheduler.yml</code> – declares <em>when</em>. They are two separate files because they answer two different questions, evolve at two different rates, and belong to two different audiences.</p> <p>The ingestion YAML changes when the data model changes: a new entity, a schema update, a new security tag. It’s a data engineering artifact.</p> <p>The scheduler YAML changes when the operational contract changes: a source goes offline, a load needs to run more frequently, a new business process requires intraday data. It’s an operational artifact. Ops teams with no interest in schema details still have opinions about timing windows and retry policies. In one of our implementations, Ops blocked the merge of a new Salesforce load because it was scheduled at 02:30 – the same gateway was already saturated with Marketing at that hour. The PR review surfaced a conversation that wouldn’t have happened if schedule and ingestion lived in the same file: we shifted the load to 03:15 and the merge went through.</p> <p>Mixing both concerns into a single file creates a merge conflict waiting to happen. Two separate files means two separate PRs, two separate reviewers, two separate cadences. The contract that governs <em>what</em> data is ingested stays decoupled from the contract that governs <em>when</em>.</p> <p>The same field name – <code class="language-plaintext highlighter-rouge">enabled</code> – means different things in each file: a business decision in the ingestion YAML (Data Owner sets it), an operational one in the scheduler (Ops sets it). The operational effect is the same – the load doesn’t run – but the owner and the approval chain differ.</p> <p>The two files carry different <a href="https://en.wikipedia.org/wiki/Responsibility_assignment_matrix" rel="external nofollow noopener" target="_blank">RACI</a> assignments:</p> <table> <thead> <tr> <th><strong>Dimension</strong></th> <th>Ingestion YAML</th> <th>Scheduler YAML</th> </tr> </thead> <tbody> <tr> <td><strong>Declares</strong></td> <td>What to ingest, how to classify</td> <td>When to run, retry policy</td> </tr> <tr> <td><strong>Responsible</strong></td> <td>Data Owner</td> <td>Operations</td> </tr> <tr> <td><strong>Informed</strong></td> <td>Operations</td> <td>Business</td> </tr> <tr> <td><strong>Changes when</strong></td> <td>Data model changes</td> <td>Operational contract changes</td> </tr> </tbody> </table> <h2 id="anatomy-of-the-scheduler-yaml">Anatomy of the scheduler YAML</h2> <p>Here is what a complete scheduler YAML looks like with English keys:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># File: _scheduler.yml</span>
+<span class="c1"># Controls WHEN each load runs -- separate from WHAT and HOW</span>
+
+<span class="na">timezone</span><span class="pi">:</span> <span class="s2">"</span><span class="s">America/Mexico_City"</span>
+<span class="na">execution_window</span><span class="pi">:</span>
+  <span class="na">interval_minutes</span><span class="pi">:</span> <span class="m">10</span>          <span class="c1"># Master pipeline polls every 10 min</span>
+
+<span class="na">retry_policy</span><span class="pi">:</span>
+  <span class="na">max_attempts</span><span class="pi">:</span> <span class="m">2</span>
+  <span class="na">backoff_minutes</span><span class="pi">:</span> <span class="m">20</span>
+
+<span class="na">loads</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Sales</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Salesforce</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">weekly</span>
+      <span class="na">day_of_week</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Tuesday"</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">04:00"</span>
+
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Finance</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">SAP</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">disable_reason</span><span class="pi">:</span> <span class="s2">"</span><span class="s">SAP</span><span class="nv"> </span><span class="s">S/4</span><span class="nv"> </span><span class="s">migration</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">progress</span><span class="nv"> </span><span class="s">--</span><span class="nv"> </span><span class="s">re-enable</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">cutover"</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">daily</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">02:00"</span>
+
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Operations</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">ERP</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">intraday</span>
+      <span class="na">interval_hours</span><span class="pi">:</span> <span class="m">4</span>
+      <span class="na">window_start</span><span class="pi">:</span> <span class="s2">"</span><span class="s">06:00"</span>
+      <span class="na">window_end</span><span class="pi">:</span> <span class="s2">"</span><span class="s">22:00"</span>
+
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Finance</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Close</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">monthly</span>
+      <span class="na">day_of_month</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">03:00"</span>
+      <span class="na">business_day</span><span class="pi">:</span> <span class="kc">true</span>   <span class="c1"># if the 1st falls on weekend, run the next business day</span>
+
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Marketing</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">WebAnalytics</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">cron</span>
+      <span class="na">expression</span><span class="pi">:</span> <span class="s2">"</span><span class="s">0</span><span class="nv"> </span><span class="s">3</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">1-5"</span>   <span class="c1"># escape hatch: weekdays only at 03:00</span>
+</code></pre></div></div> <p>Walk the sections:</p> <p><strong><code class="language-plaintext highlighter-rouge">timezone</code></strong> – All times in the file are local. The master pipeline converts to UTC internally. Every team that reads this file should be able to reason about “04:00” without doing mental timezone math. Use a single timezone for the whole file.</p> <p><strong><code class="language-plaintext highlighter-rouge">execution_window.interval_minutes</code></strong> – The master pipeline runs on a native Fabric schedule, every 10 minutes in this case. It wakes up, reads this YAML, evaluates which loads are due based on their schedule and last run time, and triggers them. The interval is the precision floor of your freshness guarantees: if a load is due at 06:00 and the pipeline runs at 05:58 and 06:08, it fires at 06:08. That 8-minute jitter is acceptable for daily loads. It matters more for intraday ones, which we’ll return to.</p> <p><strong><code class="language-plaintext highlighter-rouge">retry_policy</code></strong> – Two retry attempts, 20-minute backoff. Defined once, applies to all loads. The policy is centralized because retry behavior is a cross-cutting concern – the next section explains why it must live here and not in the individual notebooks.</p> <p><strong><code class="language-plaintext highlighter-rouge">loads</code></strong> – Each entry maps to one ingestion YAML: <code class="language-plaintext highlighter-rouge">domain</code> and <code class="language-plaintext highlighter-rouge">source</code> together form the lookup key. The orchestrator derives the filename as <code class="language-plaintext highlighter-rouge">{Domain}_{Source}.yml</code> – the same convention established in Post 1. No configuration table, no mapping file. The filename is the contract. The <code class="language-plaintext highlighter-rouge">enabled</code>/<code class="language-plaintext highlighter-rouge">disable_reason</code> pair is worth its own section below.</p> <p>Five schedule types cover the operational patterns we keep running into: <code class="language-plaintext highlighter-rouge">weekly</code>, <code class="language-plaintext highlighter-rouge">daily</code>, and <code class="language-plaintext highlighter-rouge">intraday</code> for steady cadences; <code class="language-plaintext highlighter-rouge">monthly</code> with a <code class="language-plaintext highlighter-rouge">business_day</code> flag for financial close and similar end-of-period loads (if the 1st of the month falls on a weekend, the load runs the next business day); and <code class="language-plaintext highlighter-rouge">cron</code> as an escape hatch for anything irregular – weekdays-only loads, quarter-end reports, the long tail of “we need this twice a year.” First-class types stay first-class because most production loads fall into them; <code class="language-plaintext highlighter-rouge">cron</code> exists so the YAML doesn’t grow a new top-level type every time Operations encounters something exotic.</p> <h2 id="retry-belongs-here-not-in-the-notebook">Retry belongs here, not in the notebook</h2> <p>A notebook can retry. You can wrap the ingestion loop in a <code class="language-plaintext highlighter-rouge">try/except</code>, catch transient errors, sleep, and re-attempt. Many teams do this.</p> <p>The problem: when each notebook manages its own retry, the behavior is inconsistent. Different notebooks have different retry counts, different backoff durations, different error categories they consider retryable. One has 3 attempts with 10-minute backoff. Another has 5 attempts with no backoff. A third has no retry at all. When something fails at 3:00 am, you’re not looking at one retry policy – you’re looking at whatever the person who wrote that notebook decided on that day.</p> <p>The scheduler centralizes the policy. One declaration governs all loads. If the policy changes – business decides 3 attempts is the new standard, or a source becomes flaky and needs extended backoff – you edit one YAML and one PR. Not fifty notebooks.</p> <p>The deeper principle: retry is not specific to a data source. It’s a cross-cutting concern about system reliability. Reliability concerns belong in the orchestration layer, not scattered across individual execution units. This is the same argument Infrastructure as Code makes about server provisioning – configuration that applies everywhere should live in one place, not be repeated with variations in every deployment manifest.</p> <p><strong>Why retry is uniform, not per-load.</strong> A reader might ask: what if one source is genuinely flaky and another isn’t? Shouldn’t we override retry on just the flaky one? No – and the reason is the one Post 1 used to defend <code class="language-plaintext highlighter-rouge">{Domain}_{Source}.yml</code> as a contract. The domain is the unit of operational consistency. Entities in the same YAML load together, fail together, retry together – they belong to the same operational baseline by design.</p> <p>This is a deliberate constraint, not a missing feature. Per-load retry overrides would turn the scheduler YAML from “this is how the platform retries” into “this is how each domain retries independently” – a contract becomes a collection. If a developer wants different retry for one domain, they have to create a new platform deployment, which implicitly creates a new operational boundary. That conversation – “is this really part of this platform, or is it something else?” – is exactly the conversation the architecture is supposed to surface.</p> <h2 id="enableddisablereason-audit-trail-not-just-a-toggle">Enabled/DisableReason: audit trail, not just a toggle</h2> <p>The Finance SAP entry above has <code class="language-plaintext highlighter-rouge">enabled: false</code>. Without context, that’s noise.</p> <p>With <code class="language-plaintext highlighter-rouge">disable_reason: "SAP S/4 migration in progress -- re-enable after cutover"</code>, it’s institutional memory – and the orchestrator propagates it. The entry isn’t removed from the registry; on every evaluation cycle, the master pipeline writes a skip event to the NotebookLog (Post 4’s control schema sidebar) carrying the same <code class="language-plaintext highlighter-rouge">disable_reason</code> string the YAML declares. The reason starts in the YAML and lands in every log entry the load skips. Six months from now, a new engineer opens the logs at 2:00 am because someone complained Finance data hasn’t updated since February. The answer is already there – in the YAML, and in every skip event between February and now. Nobody has to remember. Nobody has to dig through Slack history or ask the person who made the decision.</p> <p>This matters more because of who owns this file. Operations sets <code class="language-plaintext highlighter-rouge">enabled: false</code> – but Business is the Informed party. They depend on the data being available; when it isn’t, they need an explanation that doesn’t require a Slack thread, a ticket, or an escalation. <code class="language-plaintext highlighter-rouge">disable_reason</code> is that explanation, embedded in the contract itself. The engineer at 3:00 am can read it. So can the analyst who expected fresh data at 8:00 am.</p> <p>The rule: <strong><code class="language-plaintext highlighter-rouge">enabled: false</code> without <code class="language-plaintext highlighter-rouge">disable_reason</code> should fail your pre-merge validation.</strong> Post 2 split validation into two layers: Yamale for structural checks (declarative), the engine for conditional rules at runtime. This rule has an <code class="language-plaintext highlighter-rouge">if</code> in it – “if <code class="language-plaintext highlighter-rouge">enabled</code> is false, <code class="language-plaintext highlighter-rouge">disable_reason</code> is required” – so it doesn’t fit in the Yamale schema. But it also shouldn’t wait for runtime: a disabled load with no reason is a contract bug, and contract bugs belong pre-deploy. A small Python validator runs alongside Yamale in the same pre-deploy step – same code-not-schema principle as Post 2, just a different home. If you’re deliberately halting a production load, you owe the next engineer – and the 3:00 am version of yourself – an explanation. The reason isn’t optional. It’s part of the contract.</p> <p>What belongs in a disable reason: enough context to make a decision without escalating. “Disabled for testing” fails that bar. “SAP S/4 migration in progress – re-enable after cutover, coordinate with finance@” passes it.</p> <h2 id="intraday-loads-when-the-scheduler-becomes-critical-infrastructure">Intraday loads: when the scheduler becomes critical infrastructure</h2> <p>Daily loads are convenient. Intraday loads are where the scheduler stops being optional.</p> <p>Most Bronze loads in a typical Lakehouse run once a day or once a week. The scheduler is useful there, but the stakes are low – a missed trigger means stale data for hours, which is recoverable. Now add a load that runs every four hours. Or every 15 minutes.</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Inventory</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">WMS</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">intraday</span>
+      <span class="na">interval_hours</span><span class="pi">:</span> <span class="m">4</span>
+      <span class="na">window_start</span><span class="pi">:</span> <span class="s2">"</span><span class="s">06:00"</span>
+      <span class="na">window_end</span><span class="pi">:</span> <span class="s2">"</span><span class="s">22:00"</span>
+</code></pre></div></div> <p>At <code class="language-plaintext highlighter-rouge">interval_hours: 4</code> with a 6:00 am–10:00 pm window, this load fires at 06:00, 10:00, 14:00, 18:00, and 22:00 – five times daily. Each run must complete, log its result, and release its lock before the next is due. The system tolerates a 10-minute jitter when data is expected once a week. It does not tolerate it when a warehouse replenishment process expects a snapshot every four hours.</p> <p>The scheduler’s <code class="language-plaintext highlighter-rouge">interval_minutes</code> (the master pipeline poll cadence) now matters. At 10 minutes, a due load fires within 10 minutes of its target time. Whether that’s acceptable depends on the downstream SLO. Ten minutes is the practical floor for batch – go lower and you’ve stopped doing batch.</p> <p>What is <strong>not</strong> a scheduler problem: loads where the run duration starts to approach the schedule interval. That line typically falls between 5 and 15 minutes, and it depends on three things – how long the load itself takes, how much jitter the downstream tolerates, and the evaluate-and-trigger overhead of the master pipeline. Once you cross it, you’re not in batch territory anymore: you’re paying batch overhead to chase a real-time problem. That belongs in streaming infrastructure – in Fabric, Eventstream.</p> <h2 id="the-scheduler-as-a-load-balancing-lever">The scheduler as a load-balancing lever</h2> <p>The scheduler answers “when” – but “when” is not purely a business question. It’s also an infrastructure question.</p> <p>200 loads firing simultaneously at 02:00 because every team wants their data “first thing in the morning” is not a schedule – it’s a thundering herd. It saturates the On-Premises Data Gateway, hammers source systems, and burns Fabric capacity in a spike instead of spreading it across the night.</p> <p>The scheduler is the knob that prevents this. Staggering loads across the night costs nothing and reduces every spike: gateway, source database, and Fabric capacity simultaneously.</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Before: thundering herd at 02:00</span>
+<span class="na">loads</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Sales</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Salesforce</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">daily</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">02:00"</span>
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Marketing</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Salesforce</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">daily</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">02:00"</span>
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Finance</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">SAP</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">daily</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">02:00"</span>
+
+<span class="c1"># After: staggered across the window</span>
+<span class="na">loads</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Sales</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Salesforce</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">daily</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">02:00"</span>
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Marketing</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Salesforce</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">daily</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">02:30"</span>
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Finance</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">SAP</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">daily</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">03:00"</span>
+</code></pre></div></div> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/yaml-thundering-480.webp 480w,/assets/img/yaml-thundering-800.webp 800w,/assets/img/yaml-thundering-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/yaml-thundering.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" data-zoomable="" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </picture> </figure> <div class="caption">Before: every load fires at 02:00 — a thundering herd that saturates the gateway and the source.</div> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/yaml-staggered-480.webp 480w,/assets/img/yaml-staggered-800.webp 800w,/assets/img/yaml-staggered-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/yaml-staggered.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" data-zoomable="" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </picture> </figure> <div class="caption">After: the same loads staggered across the window, smoothing the load on shared infrastructure.</div> <p><em>Bar durations are illustrative; the scheduler YAML configures start times only. Actual run duration depends on the source, volume, and gateway throughput.</em></p> <p>No new fields, no platform configuration – a timing change in YAML is all it takes.</p> <p>When performance problems appear in practice, the diagnostic sequence matters. Start with Fabric. If CU is below ~70% of capacity, Fabric is not the bottleneck – looking for a Fabric fix there is looking in the wrong place. If CU sits near or above capacity, options include moving workspaces between capacities or enabling autoscale billing for Spark jobs.</p> <p>If Fabric is clear, move outward to the gateway. In our implementations, On-Premises Gateways start queueing once concurrent connections climb past roughly 5–10 on standard hardware – the exact ceiling depends on the machine and the workloads. Signs of saturation: CPU above 75%, network throughput near its ceiling, or simple latency queries that are slower than they should be. <a href="https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-performance" rel="external nofollow noopener" target="_blank">Microsoft’s gateway performance guidance</a> covers the tuning levers but doesn’t publish a hard number – the ceiling is what your own load testing reveals.</p> <p>If the gateway is clear, move outward again to the source systems. For relational sources, the question is CPU, disk I/O, memory, and network <em>during the Bronze load window</em>. A source database that handles normal transactional load without issue can still buckle when the Bronze ETL hits it at 3:00 am, especially if it’s on-premises hardware without elastic capacity. Correlating source metrics with load timing is a straightforward investigation: if the source shows CPU spikes that coincide with your ingestion windows, the fix is staggering – moving two simultaneous loads to a 30-minute offset, for example – before it’s adding capacity.</p> <p>The scheduler is the cheapest tool in the stack for load-balancing. A timing change is a YAML commit and a PR. Adding capacity is a budget conversation.</p> <h2 id="the-lock-a-natural-consequence">The lock: a natural consequence</h2> <p>There is one more thing the scheduler creates that Post 4 will deal with directly: <strong>locks</strong>.</p> <p>When the master pipeline triggers a load, it acquires a lock in a control table – a row in a dedicated <code class="language-plaintext highlighter-rouge">control</code> schema that says “this load is currently running.” Post 4 defines the full <code class="language-plaintext highlighter-rouge">control</code> schema in a sidebar (<code class="language-plaintext highlighter-rouge">NotebookLog</code>, <code class="language-plaintext highlighter-rouge">SchedulerLocks</code>, <code class="language-plaintext highlighter-rouge">VolumeCheckQuarantine</code>); for this post we only need to know that the row exists, the orchestrator owns it, and it lives outside the data tables. The lock prevents the next evaluation cycle from firing the same load again before the first run has finished. Two concurrent runs of the same load would produce duplicate data or overwrite each other’s partitions. The lock is not optional.</p> <p>What the lock doesn’t handle is a run that crashes without releasing it. The pipeline fails. The lock stays acquired. The next scheduled run is blocked – and the one after that. A single notebook that fails at 2:00 am – mid-run, without releasing its lock – can freeze an entire domain’s ingestion until someone notices the data hasn’t refreshed at 9:00 am. Seven hours of stale data from one unhandled exception – not because the lock isn’t detectable until then, but because nobody’s watching. That’s a zombie lock. The detection threshold and the manual escape hatch appear in Post 4 as one of four production scars.</p> <p>The scheduler is what makes the tap predictable. A tap that opens at random is not infrastructure – it’s a leak.</p> <h2 id="honest-tradeoffs">Honest tradeoffs</h2> <p>The master pipeline is itself a single point of failure. If the pipeline that evaluates the scheduler YAML crashes or is paused, no loads fire – not one, not two, all of them. Monitor the master pipeline with the same alerting you’d apply to any critical infrastructure component.</p> <p>Timezone management is genuinely annoying. A single timezone declared at the top of the file is the right default. Multi-country implementations where different sources naturally “belong” to different timezones push toward per-load timezone fields. Resist this until you need it – a scheduler file where every entry lives in a different timezone will cost you at 3:00 am.</p> <p>The scheduler declares the contract; it does not enforce it. The orchestrator is fire-and-forget by design: it triggers each load and moves on without waiting for completion. The master pipeline marks itself “complete” when the last load was <em>triggered</em>, not when the last load finished. Detecting when freshness has drifted outside the contract is not the scheduler’s job – it’s the Monitor Pipeline’s, and that’s the next iteration (see below). The current scheduler is the spine that makes enforcement possible: it sets the cadence, declares which loads matter, and writes the logs the Monitor reads.</p> <h2 id="what-the-next-iteration-adds">What the next iteration adds</h2> <p>The scheduler YAML turns timing into a contract – but the contract today is implicit. “Daily at 04:00” means “data no older than ~24 hours plus jitter,” derived from the cadence rather than declared. Operations adjusts the schedule when business renegotiates the freshness expectation, and the schedule’s cadence carries the promise.</p> <p>The next iteration makes the SLO explicit – at the same level as <code class="language-plaintext highlighter-rouge">retry_policy</code>, not per-load:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">timezone</span><span class="pi">:</span> <span class="s2">"</span><span class="s">America/Mexico_City"</span>
+<span class="na">execution_window</span><span class="pi">:</span>
+  <span class="na">interval_minutes</span><span class="pi">:</span> <span class="m">10</span>
+
+<span class="na">retry_policy</span><span class="pi">:</span>
+  <span class="na">max_attempts</span><span class="pi">:</span> <span class="m">2</span>
+  <span class="na">backoff_minutes</span><span class="pi">:</span> <span class="m">20</span>
+
+<span class="na">freshness_sla</span><span class="pi">:</span>
+  <span class="na">max_age_hours</span><span class="pi">:</span> <span class="m">36</span>
+
+<span class="na">loads</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">domain</span><span class="pi">:</span> <span class="s">Sales</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Salesforce</span>
+    <span class="na">schedule</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">daily</span>
+      <span class="na">local_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">04:00"</span>
+</code></pre></div></div> <p><code class="language-plaintext highlighter-rouge">freshness_sla.max_age_hours</code> is on the roadmap, not wired yet. We describe it here because the discipline of declaring an SLO surfaces a conversation that “daily is fine” was hiding. The schedule and the SLO can move independently – ops can stagger to 03:00 for capacity reasons without changing the promise to downstream. Inconsistency between them (schedule daily, SLO 12h) becomes a pre-deploy validation failure, not tribal knowledge.</p> <p>Why at the file level, not per-load? Same reason <code class="language-plaintext highlighter-rouge">retry_policy</code> lives there: the SLO is a contract the <em>platform</em> makes, not a per-domain negotiation that fragments into thirty different promises. If a domain genuinely needs a different SLO, that’s a signal it belongs in a different platform, not in a different bucket of this one. Uniformity isn’t a restriction here – it’s what keeps the contract legible.</p> <p>This is the iterative and incremental rhythm Scrum names: every sprint of the platform finds a thing the previous version assumed. Post 1 declared <code class="language-plaintext highlighter-rouge">governance.data_owner</code> because anonymous data is a governance failure waiting to happen. Post 4 will add <code class="language-plaintext highlighter-rouge">parquet_date_fix</code> because Spark 3.x exposed corruption we’d been carrying for months. <code class="language-plaintext highlighter-rouge">freshness_sla.max_age_hours</code> is the same pattern – the field forces a conversation that “daily is fine” was avoiding.</p> <p>The SLO field is half of the iteration. The other half is the <strong>Monitor Pipeline</strong> – a separate component that reads execution logs, compares each load’s last successful run against <code class="language-plaintext highlighter-rouge">freshness_sla.max_age_hours</code>, and fires alerts when reality drifts outside the contract. It runs on its own native Fabric schedule, independent of the master pipeline, because it’s the only component that can detect when the master itself has gone down. Without the Monitor, the SLO is a static declaration; with it, the SLO becomes enforceable. The scheduler we built in this post is the spine; the Monitor is what turns “hope is not a schedule” from a slogan into a runtime property.</p> <p>The discipline isn’t “design it perfectly the first time.” It’s “make every iteration surface one more decision the last one left implicit.”</p> <h2 id="whats-next">What’s next</h2> <p><strong>Post 4 – Battle Scars:</strong> The YAML looked perfect in the PR. Then Spark 3.x rejected a date from year 8 – corruption that had been hiding in production for months. A lock outlived its run and blocked an entire domain for seven hours. The YAML in Git turned out not to be the one running in the Lakehouse. Operational lessons from production – and the patterns that contain the damage.</p> <p><strong>Post 5 – Runbooks as Infrastructure:</strong> When the tap breaks. Why the instructions for a human at 3:00 am are engineering, not documentation, and why they live in Git alongside the code they describe.</p> <p><strong>Post 6 – Living Metadata:</strong> We capture metadata with every ingestion. But metadata that nobody reads is dead metadata. How logs become reports, reports become decisions, and three different audiences end up consuming the same underlying data for three different purposes.</p> <hr> <p>The scheduler is what makes the tap predictable. A tap that opens at random is not infrastructure – it’s a leak.</p> <hr> <p><em>This is the third post in the series “YAML Metadata-Driven Ingestion.” The patterns described here have evolved across several enterprise Lakehouse implementations and are platform-agnostic, though our reference stack is Microsoft Fabric.</em></p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/we-act-on-metadata/">We Act on Metadata</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/runbooks-as-infrastructure/">Runbooks as Infrastructure</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/battle-scars/">Battle Scars</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/metadata-all-the-way-down/">Metadata All the Way Down</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/bronze-should-be-boring/">Bronze Should Be Boring</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2025/plotly/">a post with plotly.js</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/photo-gallery/">a post with image galleries</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/tabs/">a post with tabs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/typograms/">a post with typograms</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/post-citation/">a post that can be cited</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <blockquote class="block-danger"> <h5>giscus comments misconfigured</h5> <p>Please follow instructions at <a href="http://giscus.app" rel="external nofollow noopener" target="_blank">http://giscus.app</a> and update your giscus configuration.</p> <p>Missing required keys: <code>repo_id, category_id</code>.</p> </blockquote> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "This is a description of the page. You can modify it in '_pages/cv.md'. You can also change or remove the top pdf download button.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler's Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "post-a-post-with-plotly-js",
+        
+          title: "a post with plotly.js",
+        
+        description: "this is what included plotly.js code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/plotly/";
+          
+        },
+      },{id: "post-a-post-with-image-galleries",
+        
+          title: "a post with image galleries",
+        
+        description: "this is what included image galleries could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/photo-gallery/";
+          
+        },
+      },{id: "post-a-post-with-tabs",
+        
+          title: "a post with tabs",
+        
+        description: "this is what included tabs in a post could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/tabs/";
+          
+        },
+      },{id: "post-a-post-with-typograms",
+        
+          title: "a post with typograms",
+        
+        description: "this is what included typograms code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/typograms/";
+          
+        },
+      },{id: "post-a-post-that-can-be-cited",
+        
+          title: "a post that can be cited",
+        
+        description: "this is what a post that can be cited looks like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/post-citation/";
+          
+        },
+      },{id: "post-a-post-with-pseudo-code",
+        
+          title: "a post with pseudo code",
+        
+        description: "this is what included pseudo code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/pseudocode/";
+          
+        },
+      },{id: "post-a-post-with-code-diff",
+        
+          title: "a post with code diff",
+        
+        description: "this is how you can display code diffs",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/code-diff/";
+          
+        },
+      },{id: "post-a-post-with-advanced-image-components",
+        
+          title: "a post with advanced image components",
+        
+        description: "this is what advanced image components could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/advanced-images/";
+          
+        },
+      },{id: "post-a-post-with-vega-lite",
+        
+          title: "a post with vega lite",
+        
+        description: "this is what included vega lite code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/vega-lite/";
+          
+        },
+      },{id: "post-a-post-with-geojson",
+        
+          title: "a post with geojson",
+        
+        description: "this is what included geojson code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/geojson-map/";
+          
+        },
+      },{id: "post-a-post-with-echarts",
+        
+          title: "a post with echarts",
+        
+        description: "this is what included echarts code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/echarts/";
+          
+        },
+      },{id: "post-a-post-with-chart-js",
+        
+          title: "a post with chart.js",
+        
+        description: "this is what included chart.js code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/chartjs/";
+          
+        },
+      },{id: "post-a-post-with-tikzjax",
+        
+          title: "a post with TikZJax",
+        
+        description: "this is what included TikZ code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/tikzjax/";
+          
+        },
+      },{id: "post-a-post-with-bibliography",
+        
+          title: "a post with bibliography",
+        
+        description: "an example of a blog post with bibliography",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/post-bibliography/";
+          
+        },
+      },{id: "post-a-post-with-jupyter-notebook",
+        
+          title: "a post with jupyter notebook",
+        
+        description: "an example of a blog post with jupyter notebook",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/jupyter-notebook/";
+          
+        },
+      },{id: "post-a-post-with-custom-blockquotes",
+        
+          title: "a post with custom blockquotes",
+        
+        description: "an example of a blog post with custom blockquotes",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/custom-blockquotes/";
+          
+        },
+      },{id: "post-a-post-with-table-of-contents-on-a-sidebar",
+        
+          title: "a post with table of contents on a sidebar",
+        
+        description: "an example of a blog post with table of contents on a sidebar",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/sidebar-table-of-contents/";
+          
+        },
+      },{id: "post-a-post-with-audios",
+        
+          title: "a post with audios",
+        
+        description: "this is what included audios could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/audios/";
+          
+        },
+      },{id: "post-a-post-with-videos",
+        
+          title: "a post with videos",
+        
+        description: "this is what included videos could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/videos/";
+          
+        },
+      },{id: "post-displaying-beautiful-interactive-tables",
+        
+          title: "displaying beautiful interactive tables",
+        
+        description: "an example of how to use interactive tables in al-folio",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/tables/";
+          
+        },
+      },{id: "post-a-post-with-table-of-contents",
+        
+          title: "a post with table of contents",
+        
+        description: "an example of a blog post with table of contents",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/table-of-contents/";
+          
+        },
+      },{id: "post-a-post-with-giscus-comments",
+        
+          title: "a post with giscus comments",
+        
+        description: "an example of a blog post with giscus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/giscus-comments/";
+          
+        },
+      },{id: "post-a-post-with-redirect",
+        
+          title: "a post with redirect",
+        
+        description: "you can also redirect to assets like pdf",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/assets/pdf/example_pdf.pdf";
+          
+        },
+      },{id: "post-a-post-with-diagrams",
+        
+          title: "a post with diagrams",
+        
+        description: "an example of a blog post with diagrams",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2021/diagrams/";
+          
+        },
+      },{id: "post-a-distill-style-blog-post",
+        
+          title: "a distill-style blog post",
+        
+        description: "an example of a distill-style blog post and main elements",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2021/distill/";
+          
+        },
+      },{id: "post-a-post-with-twitter",
+        
+          title: "a post with twitter",
+        
+        description: "an example of a blog post with twitter",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2020/twitter/";
+          
+        },
+      },{id: "post-a-post-with-disqus-comments",
+        
+          title: "a post with disqus comments",
+        
+        description: "an example of a blog post with disqus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/disqus-comments/";
+          
+        },
+      },{id: "post-a-post-with-math",
+        
+          title: "a post with math",
+        
+        description: "an example of a blog post with some math",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/math/";
+          
+        },
+      },{id: "post-a-post-with-code",
+        
+          title: "a post with code",
+        
+        description: "an example of a blog post with some code",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/code/";
+          
+        },
+      },{id: "post-a-post-with-images",
+        
+          title: "a post with images",
+        
+        description: "this is what included images could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/images/";
+          
+        },
+      },{id: "post-a-post-with-formatting-and-links",
+        
+          title: "a post with formatting and links",
+        
+        description: "march & april, looking forward to summer",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/formatting-and-links/";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather/";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2/";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
