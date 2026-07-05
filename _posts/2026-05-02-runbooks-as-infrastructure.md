@@ -1,0 +1,289 @@
+---
+layout: post
+title: "Runbooks as Infrastructure"
+date: 2026-05-02 09:00:00
+description: "The 3am test, and why the instruction for a human is engineering, not documentation"
+tags: [runbooks, operations, devops, documentation, microsoft-fabric]
+categories: [yaml-ingestion]
+giscus_comments: true
+---
+
+Open a tap and water comes out. The first four posts in this series built the infrastructure behind that tap; this one is about what happens when the tap breaks at 3:00 am and a human has to answer the page. Posts 1 through 4 are linked when they come up. The thesis of this post: every scar leaves behind two artifacts -- a YAML field or partition strategy for the engine, and a runbook for the human. Post 4 ended on the first. This post is about the second.
+
+The infrastructure is excellent. The YAML is versioned. The scars are documented. And at 3:14am, the scheduler pages. `control.SchedulerLocks` shows `Sales_Salesforce` locked, acquired four hours ago, no release timestamp. The engineer on call did not build this system, did not write the YAML, and will not remember anything about scheduler lock semantics at this hour. What they have is a mobile phone, a VPN connection, and a runbook ID printed next to the alert: `OPS-LOCK-01`.
+
+That ID is either infrastructure or theater. The difference is everything.
+
+The relationship between scars and runbooks is the architecture, not a side effect. Each scar is a lesson the engine didn't anticipate. The YAML field encodes the fix so the engine handles it next time. The runbook encodes what the operator does in the window between "the engine hit a wall" and "the engine has been updated to handle this" -- a window that can be minutes or years, depending on whether absorbing the pattern into the YAML is worth the engineering investment. Some runbooks stay forever, because the failure mode requires judgment no config can encode. Many retire into the YAML and the knowledge becomes contract -- the organization's accumulated operational knowledge, built in production by people who learned it the hard way.
+
+{% include figure.liquid loading="eager" path="assets/img/yaml-runbook-lifecycle.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+<div class="caption">A runbook's lifecycle: a production failure generates a runbook; when the same pattern recurs often enough, the fix graduates into a YAML field the engine handles automatically.</div>
+
+---
+
+## Why most runbooks are already dead
+
+Most data engineering teams have *something* they call a runbook. A Confluence page. A SharePoint folder. A pinned Teams thread. A document in someone's OneDrive labeled "Operations Notes (v3 final)." The form varies. The failure mode doesn't.
+
+All of these drift from the running system. The YAML evolves. The control table gets renamed. A new partition strategy changes the retry logic. The runbook keeps describing the old version, silently, with no test that catches the divergence.
+
+Call it documentation theater. It produces the artifacts an audit expects to see. It fills a column in a compliance checklist. It looks like operational readiness. And the moment the actual incident happens, the runbook doesn't match the system, and the engineer reverts to the only reliable strategy -- guessing, and calling someone.
+
+Four symptoms of a rotted runbook:
+1. **Wrong names everywhere.** Table names, column names, paths -- the schema drifted and nobody updated the runbook.
+2. **Steps that are no longer steps.** "Run the nightly script" -- the nightly script was replaced by a pipeline six months ago.
+3. **Missing failure modes.** The runbook was written before `parquet_date_fix` existed. There's no entry for `INCONSISTENT_BEHAVIOR_CROSS_VERSION`. The engineer is on their own.
+4. **Silent on prevention.** The runbook assumes you already know there's a problem. It tells you what to do when an alert fires -- but not what to check before the alert fires. Proactive monitoring -- what dashboards to review at the start of a shift, what normal scheduler execution frequency looks like, what early signals precede a throttling event -- never gets written, because it's never the thing on fire today.
+
+The result: your runbooks are good at recovery and silent on prevention. The library only activates after something has already failed.
+
+---
+
+## The 3am test
+
+One test. Everything else follows from it.
+
+> **Hand the runbook to an engineer who did not build the system. Wake them up at 3am. Give them the alert and the runbook ID. Can they execute the runbook without calling you?**
+
+If no: the runbook isn't finished. Doesn't matter how well-written it is, how many diagrams it has, how many reviewers approved it. If executing it requires context that isn't on the page, the runbook is a memory aid, not a runbook.
+
+Four sub-tests that expose failure:
+- **The runnable test:** can the engineer execute the SQL cell in place against the attached lakehouse, or do they have to translate placeholders from memory before it works?
+- **The "what next" test:** after each action, is it clear what to verify before moving to the next step?
+- **The escalation test:** if action #3 doesn't resolve it, is there a named person to contact, and does the runbook have their contact information?
+- **The wrong-runbook test:** can the engineer tell within 30 seconds whether this is even the right runbook for their situation? Or does that require reading three sections first?
+
+The fourth sub-test is where most runbooks fail silently. The alert fires. The engineer finds a runbook that looks relevant. They execute step 1. Then step 2. In step 3 they realize the situation they have is subtly different from the one the runbook was written for -- and they've already taken an action that was correct in the wrong scenario.
+
+The most recognizable form of this failure: the system breaks at 3am, the engineer on call can't resolve it, and everyone waits until 8am for the original developer to arrive. The runbook exists. The SLA doesn't care.
+
+The runbook writer's temptation: assume the reader has context. They don't. They have adrenaline and a phone. Assume neither.
+
+---
+
+## Anatomy of a runbook -- seven sections, always
+
+Every runbook has the same seven sections, in the same order. Consistency matters because the 3am engineer is scanning, not reading.
+
+```markdown
+# OPS-LOCK-01 -- Scheduler Lock Not Released
+
+## Scope limits
+This runbook covers one scenario: a stale scheduler lock where the
+load is confirmed NOT running. If the load IS running (active RunID
+in control.NotebookLog), STOP -- do not release. If the release does
+not unblock the scheduler within 10 minutes, see OPS-RETRY-01.
+This runbook does NOT diagnose why the lock was never released.
+For recurring patterns (3+ in 7 days), see GOV-POST-MORTEM-01.
+
+## Symptom
+- Alert: SchedulerLocks shows IsLocked=true, LockAcquiredTime more
+  than 2x the longest expected run duration.
+- Downstream effect: load has not fired on its expected cadence.
+- Typical page: "OPS-LOCK-01: Sales_Salesforce stuck for 4h 12m"
+
+## Diagnosis
+Run this query to confirm the lock is stale:
+
+    SELECT LoadKey, IsLocked, LockAcquiredTime, LockReleasedTime,
+           TIMESTAMPDIFF(MINUTE, LockAcquiredTime, current_timestamp())
+             AS age_minutes
+    FROM control.SchedulerLocks
+    WHERE LoadKey = '<LoadKey from alert>';
+
+If LockReleasedTime is NULL and age_minutes > 120, proceed to Action.
+If age_minutes is under 120, the load may still be running -- STOP,
+check control.NotebookLog for an active RunID before releasing.
+
+## Action
+Release the lock with an explicit reason:
+
+    UPDATE control.SchedulerLocks
+    SET IsLocked = false,
+        LockReleasedTime = current_timestamp(),
+        ReleasedReason = 'OPS-LOCK-01: stale lock, RunID <X> failed at <ts>'
+    WHERE LoadKey = '<LoadKey>' AND IsLocked = true;
+
+Replace <X> with the failed RunID from control.NotebookLog.
+
+## Audit trail
+- ReleasedReason must reference OPS-LOCK-01 explicitly (grep-able later).
+- Open an incident ticket and link this execution.
+- If this is the 3rd OPS-LOCK-01 in 7 days for the same LoadKey, escalate.
+
+## Escalation
+- Primary: @oncall-data (Teams channel #data-oncall)
+- Secondary: @platform-lead (Teams DM)
+- If OPS-LOCK-01 repeats (3+ in 7 days), open a post-mortem.
+
+## Rollback
+Not applicable. Releasing a stale lock has no undo -- the scheduler
+will re-acquire a new lock normally on the next cycle. If the load
+fires after release and produces unexpected row counts, see OPS-VALIDATE-01.
+```
+
+Seven sections, why this order:
+
+**Scope limits** is the most underrated section in the set. It tells the engineer where this runbook ends. Without it, the engineer stretches the runbook into scenarios it wasn't designed for -- and takes actions that were correct in a different situation. Scope limits lets you exit in 30 seconds without executing a single step. Every other section assumes you stayed.
+
+**Symptom, Diagnosis, Action** do the obvious work: confirm the scenario, prevent executing the action in the wrong one, and give parameterized SQL that runs in place against the attached lakehouse.
+
+**Audit trail** is what separates an unlock from an unlogged intervention. Six months later, when someone queries the lock history, the reason is there in plain text -- not in someone's memory.
+
+**Escalation** lets the engineer hand off without guilt. A named person, a channel, a condition. Not "ask the team" -- that's not escalation, that's a shrug in writing.
+
+**Rollback** closes the loop: can this be undone? For purge operations and destructive schema changes, the honest answer is *no*, and the runbook says so explicitly. "Not applicable -- deleted data cannot be recovered" is the most important sentence a runbook about data deletion can contain. Writing it forces the author to confront the irreversibility before the action is taken, not after.
+
+Every runbook. Every time. No skipping "Audit trail" because "it's obvious." At 3am nothing is obvious.
+
+OPS-LOCK-01 references three other runbook IDs: OPS-RETRY-01 (when lock release doesn't unblock the load and a retry is needed), GOV-POST-MORTEM-01 (when the same lock recurs enough times to warrant pattern investigation rather than another incident response -- GOV rather than OPS because the output is a formal governance artifact, not an operational action), and OPS-VALIDATE-01 (when you need to assess the state of a recovery before declaring it complete). None of them are shown here -- that's the point. Runbooks in a library form a network of cross-references, not a flat list. Each one is bounded; the network covers the full scenario space. OPS-LOCK-01 tells you everything you need to release a stale lock. It doesn't try to be everything else.
+
+---
+
+## Three kinds of runbooks, one discipline
+
+Not all runbooks take the same kind of action. Three types, same seven-section anatomy.
+
+**Executable runbooks.** SQL, shell, or Python cells the engineer runs in place. OPS-LOCK-01 is executable: in 95% of cases the right action is identical. These are the majority and the ones most worth writing first.
+
+**Narrative runbooks.** Judgment-heavy. Decision trees. CFG-DATE-FIX-01 -- deciding whether to extend `parquet_date_fix` to a new column -- is narrative: three sequential diagnostic questions, each branching, because a wrong answer can silently corrupt data downstream. The structure forces the judgment instead of hiding it.
+
+**Diagnostic runbooks.** Read-only. No Action section. The goal is not to fix anything -- it's to produce a structured assessment that routes the engineer to the right runbook. OPS-VALIDATE-01, for example, looks like this:
+
+```markdown
+# OPS-VALIDATE-01 -- Assess State of a Failed Run
+
+## Scope limits
+Read-only. This runbook makes no changes. Use it to determine
+which recovery runbook applies before taking any action.
+
+## Procedure
+1. Retrieve the RunID from control.NotebookLog for the failed window.
+2. Check: did the ingestion notebook complete? (status = Failed or Partial?)
+3. Check: are there orphaned locks in SchedulerLocks for this RunID?
+4. Check: did post-ingestion tasks fire? (volume check, schema capture, publish)
+5. Map results to the decision table below.
+
+## Decision table
+| Ingestion  | Lock present | Post-ingestion | → Use        |
+|------------|-------------|----------------|--------------|
+| Failed     | Yes          | Not fired      | OPS-LOCK-01, then OPS-RETRY-01 |
+| Partial    | No           | Not fired      | OPS-RETRY-01 (partial path) |
+| Success    | No           | Failed         | OPS-POST-TASK-01 |
+| Success    | No           | Success        | No recovery -- investigate upstream |
+
+## Rollback
+Not applicable. This runbook performs no changes.
+```
+
+Its output is a routing decision, not a fix -- the triage layer that prevents the most expensive 3am mistake: running the right runbook for the wrong scenario. Diagnostic runbooks are the most underbuilt category in most libraries, and the most valuable before you commit to any action.
+
+The seven-section anatomy applies to all three. Difference is weight distribution: executable runbooks have heavy Action; narrative runbooks have heavy Diagnosis with branching; diagnostic runbooks have heavy Diagnosis and Decision table with no Action at all. Same structure, different center of mass.
+
+---
+
+## Where runbooks live
+
+In this architecture, runbooks live inside the same Fabric workspace as the engine -- not in a sibling repo, not in Confluence, not in SharePoint. Each runbook is itself a notebook: markdown cells for the seven sections, code cells for the SQL, typically attached to the same `lh_metadata` lakehouse the engine reads. The runbook doesn't *describe* the control tables -- it queries them. Whether this is the right choice for your platform depends on how your workspace is structured; the argument for it is the two properties that follow.
+
+**Versioned in Git.** Every runbook change is a commit. PR-reviewed, diffable, blameable. A PR that changes the unlock logic in the engine can update the runbook in the same commit. The reviewer catches drift at review time, not at 3am. The YAML and its runbook evolve together because they live in the same PR discipline.
+
+**Alive and close to the operation.** The runbook lives where the engineer already is. When OPS-LOCK-01 fires, the on-call engineer opens the OPS-LOCK-01 notebook in the same workspace -- not a different tab, a different tool, a different login. The Diagnosis cell runs against `control.SchedulerLocks`. The Action cell releases the lock. Whatever SQL actually worked is already in the cell that ran -- commit it. No "I'll document it later." Later never comes.
+
+---
+
+## Governance by design
+
+**The CFG vs OPS boundary.**
+
+In a production runbook library, one distinction turns out to be load-bearing: configuration runbooks versus operational runbooks. The difference isn't what they do -- it's the governance model they carry.
+
+**CFG runbooks** document proactive changes to the declared state of the system: YAML edits, schema changes, scheduler entries. Changes you decide to make before something breaks. Because they're proactive, they carry the full governance stack: a PR that can be reviewed and approved, a diff that shows exactly what changed and why, a `git revert` that undoes it cleanly if something goes wrong. Someone signed off before the change landed.
+
+**OPS runbooks** document reactive operations on running instances: retrying a failed run, releasing a lock, reprocessing a partition. Actions you take because something already went wrong. Because they're reactive, their governance model is different -- not approval before the action, but registration after it. `ReleasedReason` required. Incident ticket linked. Audit trail mandatory. The runbook doesn't ask permission; there's no time for that at 3am. It requires proof.
+
+The boundary matters because the wrong category produces the wrong instinct. An engineer who sees an ingestion failure and edits the YAML directly is applying CFG governance to an OPS problem -- the fix might work once and create config drift that nobody connects to last week's incident because the change never went through review. The category structure keeps that instinct in check: a YAML change goes through a CFG runbook, which means a PR, which means a reviewer.
+
+In a mature library, OPS runbooks frequently close with: *"If this pattern recurs, open a CFG runbook to address the root cause."* The OPS runbook registers today's action. The CFG runbook prevents tomorrow's incident.
+
+**The prefix as operational metadata.**
+
+The runbook ID prefix is not a filing convention. It's metadata that carries governance signal before you read a single word of the runbook.
+
+**CFG-** and **OPS-** carry the governance models defined above -- full-stack and registration-based respectively. The ones that actually change your risk exposure are the three most libraries declare and never get around to writing:
+
+**SEC-** marks security operations: access grants, service principal rotation, permission revocations. Two things set it apart from OPS. The actions often have regulatory exposure and can be partially or fully irreversible. And unlike OPS -- where you register after acting -- SEC requires a named approver in the escalation path. A SEC runbook without one isn't a governance oversight; it's a missing prerequisite. You'll find that out during the incident, not before.
+
+**DQ-** marks data quality operations: validation assessments, quarantine decisions, profiling runs that feed the governance record. DQ runbooks have two audiences: the on-call engineer executing them and the data steward reviewing the weekly quality report. The audit trail they produce outlives the incident that triggered them.
+
+**GOV-** marks formal compliance evidence: runbooks that exist to document procedures for external audits, regulatory reviews, or certifications. The risk of a missing GOV runbook isn't operational -- it surfaces when an auditor asks for evidence and the team discovers they have an index entry but not the runbook behind it.
+
+The index, structured by prefix, is a coverage map. An entry reading "SEC-REVOKE-01 -- Revoke Compromised Service Account: not yet documented" is more than a missing page -- it's a named governance gap. The security domain has known operations without a defined procedure. That's more useful than a library that doesn't acknowledge the gap. The risk is visible; someone owns the decision not to write it yet.
+
+This is the same principle that made `Sales_Salesforce.yml` more than a naming convention in Post 1: a governance contract compressed into a string. The runbook ID prefix does the same work for the operations library -- it encodes governance domain, ownership model, and risk profile before you open the file. That structure is load-bearing: it determines what governance model applies at the moment an engineer opens the runbook, not after they've read it.
+
+**The LLM angle -- the 2026 payoff.**
+
+Runbooks as notebooks, versioned in Git, living in the workspace, become something more than operator documentation. A model with retrieval access to the corpus knows the exact SQL, the exact escalation path, the exact scope limits for every known failure mode on this platform. Not generic SRE advice. Specific, ground-truth guidance for this engine.
+
+When the on-call engineer asks an LLM "what's OPS-LOCK-01?", the model pulls the current runbook from the workspace -- not a training snapshot from six months ago. The same Git discipline that keeps the runbook correct for humans keeps it correct for the model. After resolving an incident, the model can propose a PR that adds the new diagnosis step to the runbook. The human reviews and merges. Knowledge compounds.
+
+---
+
+## When runbooks retire -- and when they should have existed sooner
+
+Runbooks and the engine are in a conversation. When a runbook fires too often, its pattern should migrate into the YAML. When the engine changes, the runbook evolves in the same PR.
+
+Before `parquet_date_fix` existed, there was `OPS-LEGACY-DATES-01`. Symptom: load fails with `INCONSISTENT_BEHAVIOR_CROSS_VERSION.READ_ANCIENT_DATETIME`. Diagnosis: find the offending column from the stack trace. Action: manual SQL to nullify rows before 1900, rerun, verify. It worked. It passed the 3am test.
+
+It also fired three times in one quarter, across three different sources, each with slightly different columns. Every incident left the same pattern: the engine didn't know this source had placeholder dates; a human re-taught it each time.
+
+That's the retirement trigger. A runbook that fires this often is not a documentation problem -- it's an engine gap. The YAML grew a `parquet_date_fix` block. The manual SQL became declarative config. `OPS-LEGACY-DATES-01` was archived with a pointer: *"Retired: this scenario is now handled declaratively."* What replaced it -- CFG-DATE-FIX-01 -- is narrower: not "how to fix this emergency" but "how to decide whether to extend the existing declarative fix." Scope shrank because the engine got smarter.
+
+Runbooks aren't documentation. They're pending engine features. Every runbook that fires is evidence that the engine hasn't learned that failure mode yet. The goal isn't more runbooks -- it's the right set of runbooks, each firing at a rate that justifies not absorbing it into the contract.
+
+**The gap the post-mortem finds.**
+
+The inverse problem is harder. A runbook that should have existed before the system went to production, and didn't.
+
+Here's how it shows up. A production platform has three capacity runbooks: one for monitoring consumption, one for diagnosing saturation, one for scaling the compute tier. On paper, the chain looks complete. In practice, it has a gap nobody noticed during design. Scaling requires approval -- budget, process, a phone call. At 3am, when consumption is maxed and approvals are pending, you need a fourth runbook: what do you do *while you wait*? Which loads can you pause without missing SLAs? Which entities can defer to the next window? How do you drain the backlog once capacity is restored?
+
+That runbook was in the index but never written. The engineer at 3am improvises -- making judgment calls about which loads to pause that aren't theirs to make, documenting nothing because there's nothing to document against. The next engineer improvises differently.
+
+The chain from detection to mitigation has a gap right before the decision that requires authority. Nobody writes the bridge runbook because writing it would require deciding who has the authority to deprioritize which loads -- a political question the team deferred. The runbook gap is a proxy for the decision gap. Closing it requires both.
+
+**The day-one problem.**
+
+Even when all operational runbooks exist, there's a failure mode nobody writes for: a new engineer needing to provision a new environment from scratch. The runbooks for individual operations exist. The onboarding sequence -- which workspace to create first, which identity to configure before the first ingestion can run, which CFG runbook applies before any OPS runbook is relevant -- is nowhere.
+
+In one platform, the security runbook required as the prerequisite for all ingestion access had been declared in the index but never written. The engineer couldn't proceed without calling the person who built the system.
+
+A runbook library that only operates correctly when its author is available isn't infrastructure. It's documentation with a dependency.
+
+---
+
+## The two contracts
+
+The first four posts built the contract with the engine. The YAML tells the engine what to do. Yamale validates that the YAML is well-formed. The scheduler tells the engine when. The partition strategy tells the engine how to recover. All of that is about making the machine behave.
+
+This post is about the contract with the **operator**. At 3am, when the machine has done everything it can and still needs a human, the only question is whether that human has the instruction they need, in the place they need it, with the context they need.
+
+Post 4's scars produced both contracts simultaneously. `parquet_date_fix` in the YAML absorbed what the engine can now handle without human intervention. OPS-LOCK-01, CFG-DATE-FIX-01, OPS-IDEMPOTENCY-01, CFG-SYNC-01 hold what still requires a human -- and wait for the day they can retire too. The scars aren't just history. They're load-bearing. Every field in every YAML that solves a compatibility problem, every runbook ID that maps an alert to a procedure -- those are lessons the system learned in production, encoded into artifacts that outlast the team that learned them.
+
+That's the dual nature of a runbook: simultaneously the product of a past failure and the prevention infrastructure for the next one -- and what you retire into the YAML when the engine has finally learned the lesson.
+
+"Runbooks as infrastructure" sounds bureaucratic. What it means in practice: treat the thing that keeps the system running at 3am with the same engineering rigor you apply to the code that runs during the day. Put it in the workspace with everything else. Version it. Review it. Scope it explicitly. Wire it to the alert that pages the engineer. Let the LLM read it as ground truth. And when the same runbook fires too often, stop polishing the runbook -- fix the engine.
+
+The best outcome for a runbook is eventually not needing it.
+
+Every scar that generated a runbook is evidence the system is learning. Every runbook that retires into the YAML is evidence it learned.
+
+---
+
+## What's next
+
+**Post 6 -- Living Metadata:** Every runbook execution above generated data. Those control tables paged engineers and fixed incidents. They have a second life: dashboards, quality reports, governance scorecards. One source, three audiences.
+
+---
+
+*This is the fifth post in the series "YAML Metadata-Driven Ingestion." These patterns are drawn from several enterprise Lakehouse implementations and are platform-agnostic, though our reference stack is Microsoft Fabric.*
