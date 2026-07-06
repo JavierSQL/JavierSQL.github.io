@@ -9,6 +9,8 @@ categories: [yaml-ingestion]
 giscus_comments: true
 ---
 
+{% include figure.liquid loading="eager" path="assets/img/feat-we-act-on-metadata.png" class="img-fluid rounded z-depth-1" %}
+
 Open a tap and water comes out. Six posts in, that's still the right frame. If you're just arriving, start at [Post 1](https://substack.com/@pragmaticdataarchitect/p-195740793) -- this is the end of the series. If you've made it this far: here's what the infrastructure was quietly generating the whole time.
 
 ---

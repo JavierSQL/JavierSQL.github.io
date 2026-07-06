@@ -9,6 +9,8 @@ categories: [yaml-ingestion]
 giscus_comments: true
 ---
 
+{% include figure.liquid loading="eager" path="assets/img/feat-bronze-should-be-boring.jpg" class="img-fluid rounded z-depth-1" %}
+
 Open a tap and water comes out. Clean, safe, drinkable. Nobody celebrates. Nobody thinks about it. But behind that unremarkable moment there are treatment plants, distribution networks, pressure monitoring systems, quality tests, and centuries of engineering. The tap is boring because the infrastructure is excellent.
 
 Bronze should feel the same way.

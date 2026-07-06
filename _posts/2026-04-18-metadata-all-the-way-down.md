@@ -9,6 +9,8 @@ categories: [yaml-ingestion]
 giscus_comments: true
 ---
 
+{% include figure.liquid loading="eager" path="assets/img/feat-metadata-all-the-way-down.jpg" class="img-fluid rounded z-depth-1" %}
+
 A tap isn't reliable because someone installed it well. It's reliable because there's a **building code** that specifies how it must be installed. There's an inspector who verifies the installation. There's a certification seal on the fitting. There's a record -- in a filing cabinet somewhere -- of who approved the permit and when. Layers of governance verifying other layers of governance. Nobody trusts a single layer. Not in plumbing. Not in metadata.
 
 Last post, I said the YAML gets validated against a schema before it runs. Today I open that box.

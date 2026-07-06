@@ -9,6 +9,8 @@ categories: [yaml-ingestion]
 giscus_comments: true
 ---
 
+{% include figure.liquid loading="eager" path="assets/img/feat-schedulers-contract.jpg" class="img-fluid rounded z-depth-1" %}
+
 Open a tap. Water comes out -- boring, reliable, the way Post 1 described it. But Post 1 left a question open: *how old is the water?*
 
 A tap that opens at the wrong time, or not at all, delivers stale data. An analyst who pulls `Sales_Opportunities` at 9:00 am and gets data from two days ago doesn't have a pipeline problem. They have a freshness problem. A table called `Sales_Opportunities` is not a static artifact -- it's a snapshot of a moment that's already passed. Every query is an answer to an implicit question: how old is this data? Can you promise -- to an analyst, to a downstream pipeline, to a business process that depends on it -- that the data is no more than four hours old? Or six? Do you know, or do you just hope?

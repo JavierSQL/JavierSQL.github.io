@@ -9,6 +9,8 @@ categories: [yaml-ingestion]
 giscus_comments: true
 ---
 
+{% include figure.liquid loading="eager" path="assets/img/feat-runbooks.webp" class="img-fluid rounded z-depth-1" %}
+
 Open a tap and water comes out. The first four posts in this series built the infrastructure behind that tap; this one is about what happens when the tap breaks at 3:00 am and a human has to answer the page. Posts 1 through 4 are linked when they come up. The thesis of this post: every scar leaves behind two artifacts -- a YAML field or partition strategy for the engine, and a runbook for the human. Post 4 ended on the first. This post is about the second.
 
 The infrastructure is excellent. The YAML is versioned. The scars are documented. And at 3:14am, the scheduler pages. `control.SchedulerLocks` shows `Sales_Salesforce` locked, acquired four hours ago, no release timestamp. The engineer on call did not build this system, did not write the YAML, and will not remember anything about scheduler lock semantics at this hour. What they have is a mobile phone, a VPN connection, and a runbook ID printed next to the alert: `OPS-LOCK-01`.
