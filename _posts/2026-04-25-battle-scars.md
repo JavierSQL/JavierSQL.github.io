@@ -9,7 +9,7 @@ categories: [yaml-ingestion]
 giscus_comments: true
 ---
 
-{% include figure.liquid loading="eager" path="assets/img/feat-battle-scars.jpg" class="img-fluid rounded z-depth-1" %}
+![Battle Scars](/assets/img/feat-battle-scars.jpg)
 
 Open a tap and water comes out. The first three posts in this series were about building the infrastructure behind that tap -- a YAML-driven ingestion platform for a Lakehouse Bronze layer: a fixed engine plus N entity configuration files, metadata that governs metadata, a scheduler that turns freshness into a contract. The design is sound. The tests pass. The inspector signs off.
 

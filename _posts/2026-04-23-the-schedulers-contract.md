@@ -9,7 +9,7 @@ categories: [yaml-ingestion]
 giscus_comments: true
 ---
 
-{% include figure.liquid loading="eager" path="assets/img/feat-schedulers-contract.jpg" class="img-fluid rounded z-depth-1" %}
+![The Scheduler's Contract](/assets/img/feat-schedulers-contract.jpg)
 
 Open a tap. Water comes out -- boring, reliable, the way Post 1 described it. But Post 1 left a question open: *how old is the water?*
 

@@ -9,7 +9,7 @@ categories: [yaml-ingestion]
 giscus_comments: true
 ---
 
-{% include figure.liquid loading="eager" path="assets/img/feat-runbooks.webp" class="img-fluid rounded z-depth-1" %}
+![Runbooks as Infrastructure](/assets/img/feat-runbooks.webp)
 
 Open a tap and water comes out. The first four posts in this series built the infrastructure behind that tap; this one is about what happens when the tap breaks at 3:00 am and a human has to answer the page. Posts 1 through 4 are linked when they come up. The thesis of this post: every scar leaves behind two artifacts -- a YAML field or partition strategy for the engine, and a runbook for the human. Post 4 ended on the first. This post is about the second.
 
