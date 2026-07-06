@@ -450,7 +450,6 @@ h6,
 pre,
 code,
 form,
-legend,
 input,
 button,
 textarea,
@@ -594,14 +593,6 @@ input.raw_input {
   margin: 0em 0.25em;
   -webkit-box-shadow: none;
   box-shadow: none;
-}
-
-audio,
-video {
-  display: inline;
-  vertical-align: middle;
-  align-content: center;
-  margin-left: 20%;
 }
 
 
