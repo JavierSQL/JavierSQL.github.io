@@ -3,6 +3,7 @@ layout: post
 title: "Bronze Should Be Boring"
 date: 2026-04-16 09:00:00
 description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit"
+thumbnail: assets/img/feat-bronze-should-be-boring.jpg
 tags: [bronze, ingestion, yaml, medallion, microsoft-fabric]
 categories: [yaml-ingestion]
 giscus_comments: true

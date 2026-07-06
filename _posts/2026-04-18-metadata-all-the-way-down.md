@@ -3,6 +3,7 @@ layout: post
 title: "Metadata All the Way Down"
 date: 2026-04-18 09:00:00
 description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which"
+thumbnail: assets/img/feat-metadata-all-the-way-down.jpg
 tags: [metadata, governance, validation, yaml, microsoft-fabric]
 categories: [yaml-ingestion]
 giscus_comments: true

@@ -3,6 +3,7 @@ layout: post
 title: "Runbooks as Infrastructure"
 date: 2026-05-02 09:00:00
 description: "The 3am test, and why the instruction for a human is engineering, not documentation"
+thumbnail: assets/img/feat-runbooks.webp
 tags: [runbooks, operations, devops, documentation, microsoft-fabric]
 categories: [yaml-ingestion]
 giscus_comments: true

@@ -3,6 +3,7 @@ layout: post
 title: "We Act on Metadata"
 date: 2026-05-04 09:00:00
 description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project"
+thumbnail: assets/img/feat-we-act-on-metadata.png
 tags: [governance, data-quality, observability, metadata, microsoft-fabric]
 categories: [yaml-ingestion]
 giscus_comments: true

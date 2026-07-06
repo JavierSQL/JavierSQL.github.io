@@ -3,6 +3,7 @@ layout: post
 title: "The Scheduler's Contract"
 date: 2026-04-23 09:00:00
 description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope"
+thumbnail: assets/img/feat-schedulers-contract.jpg
 tags: [scheduling, orchestration, sla, data-freshness, microsoft-fabric]
 categories: [yaml-ingestion]
 giscus_comments: true

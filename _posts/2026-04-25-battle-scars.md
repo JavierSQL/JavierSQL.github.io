@@ -3,6 +3,7 @@ layout: post
 title: "Battle Scars"
 date: 2026-04-25 09:00:00
 description: "What happens when a YAML-driven platform meets production reality"
+thumbnail: assets/img/feat-battle-scars.jpg
 tags: [production, spark, lessons, operations, microsoft-fabric]
 categories: [yaml-ingestion]
 giscus_comments: true
