@@ -2,8 +2,8 @@
 layout: book-review
 title: "Microsoft SQL Server 2005: Database Essentials Step by Step"
 author: "Javier Loria — co-author (Solid Quality Learning)"
-isbn: 9780735622074 # Microsoft Press — cover fetched via ISBN
-categories: sql-server databases microsoft t-sql
+cover: assets/img/book_covers/database-essentials.jpg
+categories: "SQL Server"
 tags: microsoft-press
 buy_link: https://www.amazon.com/Microsoft-SQL-Server-2005-Essentials/dp/0735622078
 released: 2006

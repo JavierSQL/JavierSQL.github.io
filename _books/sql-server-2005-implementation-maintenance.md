@@ -2,8 +2,8 @@
 layout: book-review
 title: "MCTS Self-Paced Training Kit (Exam 70-431): Microsoft SQL Server 2005 Implementation and Maintenance"
 author: "Javier Loria — co-author (Solid Quality Learning)"
-isbn: 9780735622715 # Microsoft Press — cover fetched via ISBN
-categories: sql-server databases microsoft certification
+cover: assets/img/book_covers/impl-maintenance-70-431.webp
+categories: "SQL Server"
 tags: microsoft-press training-kit
 buy_link: https://www.microsoftpressstore.com/store/mcts-self-paced-training-kit-exam-70-431-microsoft-9780735622715
 released: 2006

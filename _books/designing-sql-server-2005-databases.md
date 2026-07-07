@@ -2,7 +2,8 @@
 layout: book-review
 title: "Course 2782A: Designing Microsoft SQL Server 2005 Databases"
 author: "Javier Loria — co-author (Microsoft Official Curriculum)"
-categories: sql-server databases microsoft courseware
+cover: assets/img/book_covers/designing-databases-2782a.webp
+categories: "SQL Server"
 tags: microsoft-official-curriculum
 released: 2006
 date: 2006-09-01
