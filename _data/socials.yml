@@ -5,4 +5,8 @@
 email: Jloria@primusdata.net # your email address
 linkedin_username: javiersql # https://www.linkedin.com/in/javiersql/
 github_username: JavierSQL # https://github.com/JavierSQL
+custom_social: # Substack (not a native jekyll-socials network)
+  logo: /assets/img/substack.svg # png, svg, or jpg
+  title: Substack
+  url: https://substack.com/@pragmaticdataarchitect
 rss_icon: true # comment this line to hide the RSS icon
