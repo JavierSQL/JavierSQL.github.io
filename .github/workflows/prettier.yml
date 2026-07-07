@@ -1,14 +1,11 @@
 name: Prettier code formatter
 
 on:
-  pull_request:
-    branches:
-      - master
-      - main
-  push:
-    branches:
-      - master
-      - main
+  # Auto-runs disabled: the upstream al-folio starter ships many files that don't
+  # satisfy this Prettier config (+ the @shopify/prettier-plugin-liquid plugin), so
+  # the check failed on every push/PR. It's cosmetic. Run manually from the Actions
+  # tab (workflow_dispatch) if you ever want to reformat.
+  workflow_dispatch:
 
 jobs:
   check:
