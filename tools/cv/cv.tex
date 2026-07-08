@@ -1,0 +1,166 @@
+\documentclass[10.5pt]{article}
+
+\usepackage[a4paper,top=1.6cm,bottom=1.6cm,left=1.9cm,right=1.9cm]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontawesome5}
+
+% --- palette -------------------------------------------------------------
+\definecolor{ink}{HTML}{1a1a1a}
+\definecolor{accent}{HTML}{27476e}
+\definecolor{muted}{HTML}{555555}
+\definecolor{rule}{HTML}{cbd2dc}
+
+\color{ink}
+
+% --- fonts ---------------------------------------------------------------
+\setmainfont{Latin Modern Roman}
+\newfontfamily\headingfont{Latin Modern Sans}
+
+% --- section styling -----------------------------------------------------
+\titleformat{\section}
+  {\headingfont\large\bfseries\color{accent}}
+  {}{0pt}{}[\vspace{1pt}{\color{rule}\titlerule[0.8pt]}]
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+\setlist[itemize]{leftmargin=1.1em,itemsep=1.5pt,topsep=2pt,parsep=0pt}
+\setlength{\parindent}{0pt}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accent,
+}
+
+% --- helpers -------------------------------------------------------------
+% \role{title}{organization}{location}{dates}
+\newcommand{\role}[4]{%
+  \vspace{4pt}%
+  {\bfseries #1} \hfill {\color{muted}\small #4}\\[1pt]%
+  {\itshape #2}\,\textperiodcentered\,{\color{muted}#3}\par%
+  \vspace{2pt}%
+}
+
+\newcommand{\hsep}{\ \raisebox{0.5pt}{\scriptsize\textbullet}\ }
+
+\begin{document}
+
+% =========================================================================
+% HEADER
+% =========================================================================
+\begingroup
+\centering
+{\headingfont\Huge\bfseries Javier Loria}\\[3pt]
+{\large\color{accent} Data Architect \textperiodcentered\ Semantic Models on the Microsoft Data Platform}\\[6pt]
+{\small
+San Jos\'e, Costa Rica \hsep
+\href{mailto:Jloria@primusdata.net}{Jloria@primusdata.net} \hsep
+\href{https://javierloria.com}{javierloria.com}\\[2pt]
+\href{https://www.linkedin.com/in/javiersql/}{linkedin.com/in/javiersql} \hsep
+\href{https://github.com/JavierSQL}{github.com/JavierSQL} \hsep
+\href{https://substack.com/@pragmaticdataarchitect}{Substack: @pragmaticdataarchitect}
+}\\[2pt]
+\par
+\endgroup
+
+\vspace{4pt}
+{\color{rule}\hrule height 0.8pt}
+\vspace{6pt}
+
+\noindent
+Data architect with 35+ years in software and 25+ specializing in business intelligence and semantic models on the Microsoft data platform. Founder and mentor at Primus Data. I focus on hands-on knowledge transfer --- learning by doing --- so every client builds lasting internal capability.
+
+% =========================================================================
+% EXPERIENCE
+% =========================================================================
+\section*{}
+\section{Experience}
+
+\role{Founder \& Mentor}{Primus Data}{San Jos\'e, Costa Rica}{2018 -- Present}
+Founder of a data consultancy specializing in the Microsoft data platform, with a team certified in Microsoft Fabric and Power BI.
+\begin{itemize}
+  \item Design, build, and rollout of corporate data warehouses, data lakehouses, data marts, and semantic models on Microsoft Fabric, Power BI, and SQL Server.
+  \item ``Learning by doing'' mentoring for client teams including Dole, El Colono, and Motiva.
+  \item Coordinated teams of up to 40 Fabric-certified professionals for support, SQL optimization, and continuous improvement.
+\end{itemize}
+
+\role{Mentor \& Consultant}{Solid Quality Mentors}{International}{2005 -- 2018}
+Data warehouse and BI mentoring and consulting on the Microsoft data platform.
+\begin{itemize}
+  \item DW/BI mentoring and consulting for clients such as Capital One, Atlanta Gas Light Company, Microsoft Spain, and Dole/Standard Fruit Co.
+  \item Author and co-author of official Microsoft courses (MS 2781, MS 2782A, MS 2784A) and SQL Server training materials.
+\end{itemize}
+
+\role{General Manager}{New Horizons Costa Rica}{San Jos\'e, Costa Rica}{1999 -- 2004}
+General management of the IT training center.
+
+\role{Instructor \& Training Manager}{New Horizons Costa Rica}{San Jos\'e, Costa Rica}{1995 -- 1999}
+Advanced Microsoft and Novell training.
+\begin{itemize}
+  \item Taught advanced Microsoft and Novell courses: Windows NT, Visual C\# and Visual Basic, SQL Server (7.0 onward), SSAS, MDX, and BizTalk.
+\end{itemize}
+
+\role{Software Developer}{Micromundo}{Costa Rica}{1993 -- 1998}
+\begin{itemize}
+  \item Designed and implemented POS systems and custom C++ solutions for hospitality and retail chains.
+\end{itemize}
+
+\role{Sales Manager}{Mercantil de Alimentos}{Costa Rica}{1991 -- 1993}
+Commercial and sales management.
+
+\role{General Manager}{Repauto}{Costa Rica}{1986 -- 1991}
+General management, overseeing company operations.
+
+% =========================================================================
+% PUBLICATIONS
+% =========================================================================
+\section{Selected Publications}
+Co-author (wrote specific chapters) of SQL Server books and courseware published by Microsoft Press and as Microsoft Official Curriculum:
+\begin{itemize}
+  \item \textit{MCTS Self-Paced Training Kit (Exam 70-445): SQL Server 2005 Business Intelligence --- Implementation and Maintenance}. Microsoft Press, 2007.
+  \item \textit{MCITP Self-Paced Training Kit (Exam 70-441): Designing Database Solutions by Using SQL Server 2005}. Microsoft Press, 2007.
+  \item \textit{MCTS Self-Paced Training Kit (Exam 70-431): SQL Server 2005 Implementation and Maintenance}. Microsoft Press, 2006.
+  \item \textit{Microsoft SQL Server 2005: Database Essentials Step by Step}. Microsoft Press, 2006.
+  \item \textit{Course 2782A: Designing Microsoft SQL Server 2005 Databases}. Microsoft Official Curriculum, 2006.
+\end{itemize}
+
+% =========================================================================
+% AWARDS
+% =========================================================================
+\section{Awards}
+\begin{itemize}
+  \item \textbf{Microsoft MVP --- Visual Studio} (2005), Microsoft.
+  \item \textbf{Microsoft MVP --- SQL Server} (2001--2002), Microsoft.
+\end{itemize}
+
+% =========================================================================
+% CERTIFICATIONS
+% =========================================================================
+\section{Certifications}
+\textbf{Data governance.} Certified Data Management Professional (CDMP) --- Associate, DAMA International (2026).\\[3pt]
+\textbf{Microsoft (current focus).} Fabric Analytics Engineer Associate (2026)\hsep Fabric Data Engineer Associate (2025)\hsep MCSE: Data Management and Analytics (2019)\hsep MCSA: SQL 2016 Database Development (2019)\hsep MCSA: SQL Server 2012/2014 (2013)\hsep Power BI Data Analyst Associate (2022).\\[3pt]
+\textbf{Microsoft (earlier).} MCITP: Database Developer 2008 (2011)\hsep MCTS: SQL Server 2008 --- Database Development \& Implementation and Maintenance (2011)\hsep MCAD: .NET (2004)\hsep MCDBA: SQL Server 2000 (1999)\hsep MCSD: Visual Studio 6.0 (1998)\hsep MCSE: Windows NT 4.0 (1998)\hsep MCP + Internet (1999)\hsep MCP (1997).
+
+% =========================================================================
+% SKILLS
+% =========================================================================
+\section{Skills}
+\textbf{Microsoft Data Platform.} Microsoft Fabric, Power BI, SQL Server, T-SQL, DAX, SSIS, SSAS, SSRS.\\[3pt]
+\textbf{Data Architecture.} Semantic models, dimensional modeling, data warehousing, data lakehouse, medallion architecture, ETL / ELT.\\[3pt]
+\textbf{Delivery \& Enablement.} Hands-on mentoring, team enablement, solution architecture, knowledge transfer.
+
+% =========================================================================
+% EDUCATION & LANGUAGES
+% =========================================================================
+\section{Education}
+\begin{itemize}
+  \item \textbf{Universidad Aut\'onoma de Centroam\'erica (UACA)} --- Economics, coursework completed (no degree). San Jos\'e, Costa Rica.
+  \item \textbf{Universidad Estatal a Distancia (UNED)} --- Financial Administration, coursework completed (no degree). Costa Rica.
+\end{itemize}
+
+\section{Languages}
+Spanish (native) \hsep English (advanced).
+
+\end{document}

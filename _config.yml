@@ -224,6 +224,7 @@ exclude:
   - LICENSE
   - lighthouse_results/
   - package.json
+  - tools/
   - package-lock.json
   - _pages/about_einstein.md
   - purgecss.config.js
