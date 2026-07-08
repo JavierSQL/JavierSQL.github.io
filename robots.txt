@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://JavierSQL.github.io/sitemap.xml
+Sitemap: https://javierloria.com/sitemap.xml
