@@ -42,6 +42,19 @@ English-speaking audiences.
 - **Claude Code — MCP for Power BI** *(Claude Code - MCP Power BI)* — Power BI
   User Group Costa Rica — March 2026
 
+## International speaking (2007–2012)
+
+Earlier in my career, with the support of SolidQ, I spoke regularly at
+international conferences and Microsoft events across Europe:
+
+- **DevWeek** (London) — the UK's largest conference for developers, DBAs, and
+  IT architects — 2007–2012, in English
+- **SQL Summit Madrid** — 2007–2016, in Spanish
+- **Windows IT Pro / SQL Magazine: SQL Server 2005 Roadshow** — across Spain,
+  Turkey, the Netherlands, and Finland: Madrid, Barcelona, Valencia, Seville,
+  Bilbao, Zaragoza, Istanbul, The Hague, and Helsinki
+- **Microsoft events** — TechNet, PDC, and others
+
 ## Invite me
 
 Available for conference sessions, user groups, and workshops, in English or
