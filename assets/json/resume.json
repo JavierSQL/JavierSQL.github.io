@@ -59,11 +59,20 @@
     },
     {
       "name": "New Horizons Costa Rica",
-      "position": "Instructor, Training Manager, General Manager",
+      "position": "General Manager",
+      "location": "San José, Costa Rica",
+      "startDate": "1999-01-01",
+      "endDate": "2004-01-01",
+      "summary": "General management of the IT training center.",
+      "highlights": []
+    },
+    {
+      "name": "New Horizons Costa Rica",
+      "position": "Instructor & Training Manager",
       "location": "San José, Costa Rica",
       "startDate": "1995-01-01",
-      "endDate": "2004-01-01",
-      "summary": "Advanced Microsoft and Novell training and center management.",
+      "endDate": "1999-01-01",
+      "summary": "Advanced Microsoft and Novell training.",
       "highlights": [
         "Taught advanced Microsoft and Novell courses: Windows NT, Visual C# and Visual Basic, SQL Server (7.0 onward), SSAS, MDX, and BizTalk."
       ]
@@ -72,12 +81,30 @@
       "name": "Micromundo",
       "position": "Software Developer",
       "location": "Costa Rica",
-      "startDate": "1992-01-01",
-      "endDate": "1999-01-01",
+      "startDate": "1993-01-01",
+      "endDate": "1998-01-01",
       "summary": "",
       "highlights": [
         "Designed and implemented POS systems and custom C++ solutions for hospitality and retail chains."
       ]
+    },
+    {
+      "name": "Mercantil de Alimentos",
+      "position": "Sales Manager",
+      "location": "Costa Rica",
+      "startDate": "1991-07-01",
+      "endDate": "1993-09-01",
+      "summary": "Commercial and sales management.",
+      "highlights": []
+    },
+    {
+      "name": "Repauto",
+      "position": "General Manager",
+      "location": "Costa Rica",
+      "startDate": "1986-06-01",
+      "endDate": "1991-06-01",
+      "summary": "General management, overseeing company operations.",
+      "highlights": []
     }
   ],
   "education": [
@@ -169,91 +196,106 @@
       "name": "Microsoft Certified: Fabric Analytics Engineer Associate",
       "date": "2026-04-08",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "Microsoft Certified: Fabric Data Engineer Associate",
       "date": "2025-01-16",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-4963/transcript/d41j9h0j64y0jxl"
     },
     {
       "name": "MCSE: Data Management and Analytics",
       "date": "2019-09-20",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "MCSA: SQL 2016 Database Development",
       "date": "2019-09-20",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "MCSA: SQL Server 2012/2014",
       "date": "2013-05-17",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "MCITP: Database Developer 2008",
       "date": "2011-08-19",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "MCTS: SQL Server 2008, Database Development",
       "date": "2011-08-12",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "MCTS: SQL Server 2008, Implementation and Maintenance",
       "date": "2011-08-12",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "Microsoft Certified: Power BI Data Analyst Associate (expired 2024)",
       "date": "2022-10-06",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "MCAD: Microsoft .NET",
       "date": "2004-10-14",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "MCDBA: Microsoft SQL Server 2000",
       "date": "1999-09-17",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "Microsoft Certified Professional + Internet",
       "date": "1999-02-19",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "MCSD: Visual Studio 6.0",
       "date": "1998-04-19",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "MCSE: Windows NT 4.0",
       "date": "1998-03-01",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     },
     {
       "name": "Microsoft Certified Professional",
       "date": "1997-10-28",
       "issuer": "Microsoft",
-      "icon": "fa-solid fa-certificate"
+      "icon": "fa-solid fa-certificate",
+      "url": "https://learn.microsoft.com/en-us/users/javierloria-5344/transcript/d82kns624254ong"
     }
   ],
   "skills": [
@@ -261,19 +303,40 @@
       "name": "Microsoft Data Platform",
       "level": "Expert",
       "icon": "fa-solid fa-database",
-      "keywords": ["Microsoft Fabric", "Power BI", "SQL Server", "T-SQL", "DAX", "SSIS", "SSAS", "SSRS"]
+      "keywords": [
+        "Microsoft Fabric",
+        "Power BI",
+        "SQL Server",
+        "T-SQL",
+        "DAX",
+        "SSIS",
+        "SSAS",
+        "SSRS"
+      ]
     },
     {
       "name": "Data Architecture",
       "level": "Expert",
       "icon": "fa-solid fa-diagram-project",
-      "keywords": ["Semantic models", "Dimensional modeling", "Data warehousing", "Data lakehouse", "Medallion architecture", "ETL / ELT"]
+      "keywords": [
+        "Semantic models",
+        "Dimensional modeling",
+        "Data warehousing",
+        "Data lakehouse",
+        "Medallion architecture",
+        "ETL / ELT"
+      ]
     },
     {
       "name": "Delivery & Enablement",
       "level": "Expert",
       "icon": "fa-solid fa-people-group",
-      "keywords": ["Hands-on mentoring", "Team enablement", "Solution architecture", "Knowledge transfer"]
+      "keywords": [
+        "Hands-on mentoring",
+        "Team enablement",
+        "Solution architecture",
+        "Knowledge transfer"
+      ]
     }
   ],
   "languages": [
