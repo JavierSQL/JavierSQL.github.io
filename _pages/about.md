@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Data Architect · Semantic Models on the Microsoft data platform.
+subtitle: Data Architect · The bridge between business strategy and technology execution.
 
 profile:
   align: right
@@ -26,24 +26,29 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Hi, I'm Javier Loria — a data architect focused on semantic models on the
-Microsoft data platform.
+Hi, I'm Javier Loria, a data architect on the Microsoft data platform. Data
+architecture is the bridge between business strategy and technology execution,
+and I've spent my career on both ends of it: the first half in management
+(finance, sales, general management), the second in technology (development,
+networks, architecture). So when I model your data, I'm modeling your business,
+not just your tables.
 
 I care about the parts that product demos skip: the modeling decisions, the
-trade-offs, and the details that decide whether a data solution holds up in
-production or quietly falls apart six months later.
+trade-offs, the governance -- who owns the data and what it means -- and the
+details that decide whether a data solution holds up in production or quietly
+falls apart six months later.
 
 For 25 years I've designed and delivered data architectures on the Microsoft
 data platform for organizations across Latin America. Earlier in my career I
 spoke internationally on the Microsoft data stack with the support of SolidQ.
 I later founded [Primus Data](https://primusdata.net), a data consultancy in
-Costa Rica, where I work as manager and mentor — and where I've spent years in
+Costa Rica, where I work as manager and mentor, and where I've spent years in
 the trenches of real-world data projects across the region.
 
 In the Spanish-speaking data community, I'm a known voice. This site is where
 I bring that work to a wider, English-speaking audience.
 
-I'm currently writing a series of books on semantic models — the modeling
+I'm currently writing a series of books on semantic models: the modeling
 foundations behind analytics that scale, aimed at practitioners who build
 these systems for a living.
 
