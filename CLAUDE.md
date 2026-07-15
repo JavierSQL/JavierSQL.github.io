@@ -6,6 +6,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The import above (`AGENTS.md`, which itself defers to `.github/copilot-instructions.md` and `docs/BOUNDARIES.md`) is the canonical short entry point: ownership boundaries, the validated command set, and PR-routing rules. Keep `AGENTS.md` short and ecosystem-neutral — put Claude-specific or longer-form guidance here instead. Everything below is the cross-repo "big picture" that those files assume but don't spell out.
 
+## THIS REPO IN PRACTICE — Javier Loria's personal site (read first)
+
+This is not a generic al-folio checkout: it is **Javier Loria's personal website, live at https://javierloria.com** (GitHub `JavierSQL/JavierSQL.github.io`), built *on top of* the al-folio v1 starter. Javier is a **user** of al-folio, not a maintainer of its gem ecosystem — the gem-routing/CI detail below is background you'll rarely touch. Day-to-day work is content and config in `_pages`, `_posts`, `_data`, `_config.yml`, and `assets/`.
+
+- **▶ Read `planning/STATUS.md` FIRST every session.** It's the living dashboard (git-ignored, local): what's done, what's pending, and the exact "retomar aquí" resume point. Long-form plan/content drafts: `planning/javierloria-site-plan.md`.
+- **No local Ruby/Bundler/Jekyll/Docker on this Windows machine** → you cannot `jekyll build`/`serve` locally. Validate YAML/JSON with Python; **verify rendering LIVE after Javier commits+pushes** (GitHub Actions builds & deploys). Commit/push only when he asks — he usually does it himself.
+- **There IS a LaTeX + PDF toolchain** even though there's no Ruby: XeLaTeX (TinyTeX, at `~/AppData/Roaming/TinyTeX/bin/windows`) + `pdftoppm` (MiKTeX) for preview. The downloadable **CV PDF** is generated from `tools/cv/cv.tex` — a **hand-maintained mirror of `assets/json/resume.json`** (CV uses `cv_format: jsonresume`). Edit the JSON → update the `.tex` to match → recompile → copy to `assets/pdf/cv.pdf`. `tools/` is excluded from the Jekyll build.
+- **Positioning throughline:** *"data architecture is the bridge between business strategy and technology execution"* (Javier has been on both sides), with a data-governance (CDMP) angle. Keep site ↔ CV ↔ LinkedIn consistent with it.
+- **Writing voice:** for any prose, use the skills `Javier-writing-style-en` / `Javier-writing-style-es` (voseo is mandatory in ES). Reply to Javier in Spanish.
+- **Mailing list:** MailerLite (form embedded in `_pages/books.md` + `_pages/blog.md`). LinkedIn profile rework drafts live outside the repo in `Javier-Vault/04 Projects/Primus-LinkedIn/`.
+
 ## What this repo is
 
 `al-folio` v1.x is a **thin Jekyll starter**, not a theme. It owns only: starter wiring (`Gemfile`, `_config.yml`, `_data/featured_plugins.yml`), example content (`_pages`, `_posts`, `_projects`, `_news`, `_teachings`, `_books`, `_bibliography`), docs (`docs/`), cross-gem integration tests (`test/integration_*.sh`), and visual/parity tests (`test/visual/`). **All runtime, layouts, includes, Sass, tags, filters, and feature JS live in versioned gems**, published independently on RubyGems. `docs/BOUNDARIES.md` is the authoritative area→gem ownership table.
