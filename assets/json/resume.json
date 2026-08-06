@@ -186,10 +186,24 @@
   ],
   "certificates": [
     {
+      "name": "CDMP Data Modelling & Design — Specialist Exam",
+      "date": "2026-07-26",
+      "issuer": "DAMA International",
+      "url": "https://certificates.cdmp.info/profile/eu-javierloria757770/wallet",
+      "icon": "fa-solid fa-certificate"
+    },
+    {
+      "name": "CDMP Data Management Fundamentals — Exam",
+      "date": "2026-07-03",
+      "issuer": "DAMA International",
+      "url": "https://certificates.cdmp.info/profile/eu-javierloria757770/wallet",
+      "icon": "fa-solid fa-certificate"
+    },
+    {
       "name": "Certified Data Management Professional (CDMP) — Associate",
       "date": "2026-07-03",
       "issuer": "DAMA International",
-      "url": "https://certificates.cdmp.info/80d2bda5-a96f-486d-8e32-177075185217",
+      "url": "https://certificates.cdmp.info/profile/eu-javierloria757770/wallet",
       "icon": "fa-solid fa-certificate"
     },
     {
