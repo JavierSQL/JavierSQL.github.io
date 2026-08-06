@@ -1,0 +1,289 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="tMLR3lEPZQVDuO8yLy00aYO3RCBwTgFO5o4tZJJlkkw"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> The Table Is Not the Concept | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="You can define the concept perfectly and still model it wrong."> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling, data governance, business intelligence"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | The Table Is Not the Concept"> <meta property="og:url" content="https://javierloria.com/blog/2026/the-table-is-not-the-concept/"> <meta property="og:description" content="You can define the concept perfectly and still model it wrong."> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="The Table Is Not the Concept"> <meta name="twitter:description" content="You can define the concept perfectly and still model it wrong."> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://javierloria.com/blog/2026/the-table-is-not-the-concept/",
+        "@type": "BlogPosting",
+        "description": "You can define the concept perfectly and still model it wrong.",
+        "headline": "The Table Is Not the Concept",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL","https://substack.com/@pragmaticdataarchitect"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javierloria.com/blog/2026/the-table-is-not-the-concept/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The Table Is Not the Concept</h1> <p class="post-meta"> Created on August 06, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-governance"> <i class="fa-solid fa-hashtag fa-sm"></i> data-governance</a>   <a href="/blog/tag/data-management"> <i class="fa-solid fa-hashtag fa-sm"></i> data-management</a>   <a href="/blog/tag/business-intelligence"> <i class="fa-solid fa-hashtag fa-sm"></i> business-intelligence</a>   <a href="/blog/tag/semantic-modeling"> <i class="fa-solid fa-hashtag fa-sm"></i> semantic-modeling</a>   <a href="/blog/tag/data-quality"> <i class="fa-solid fa-hashtag fa-sm"></i> data-quality</a>   ·   <a href="/blog/category/trust-erosion"> <i class="fa-solid fa-tag fa-sm"></i> trust-erosion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><img src="/assets/img/feat-the-table-is-not-the-concept.webp" alt="The Table Is Not the Concept"></p> <p><em>You can define the concept perfectly and still model it wrong.</em></p> <p>A margin report at a manufacturer flagged a problem. Hundreds of products were selling below cost, some with no sale price at all, just an internal cost and a negative margin that made the whole product-profitability dashboard look broken. Finance opened an investigation. Somebody was pricing things to lose money, or the cost data was broken, or both.</p> <p>Neither. The definition of “product” was fine. Everyone in the room could tell you exactly what a product was. The problem was the table.</p> <p>The <code class="language-plaintext highlighter-rouge">Products</code> table held products, and it also held intermediate materials, work in process, samples, internal codes for things that move between plants but never reach a customer. None of those have a sale price, because none of them are sold. Run a margin report across that table and you get hundreds of “products” with no revenue and full cost. The number wasn’t miscalculated. The population was the wrong shape.</p> <p>This is the antipattern that hides under the previous one. You can agree on what a thing <em>is</em> and still disagree (silently, structurally) about which rows are that thing. Agreeing on the definition is the easy part. The table encodes a different answer, and the table is the one your reports actually read.</p> <h2 id="the-flag-the-demo-got-right">The flag the demo got right</h2> <p>Here’s the part that should sting, because it inverts the usual complaint.</p> <p>Most of the time, the vendor demo skips the hard part. The happy path runs, the data is clean, and the messy reality you live in never shows up on the slide. Not here. Open AdventureWorks (Microsoft’s sample database, the one in every tutorial) and look at the <code class="language-plaintext highlighter-rouge">Product</code> table. There’s a column called <code class="language-plaintext highlighter-rouge">FinishedGoodsFlag</code>. The demo modeled the distinction. It knew, out of the box, that not every row in a product table is a sellable product.</p> <p>Then real production databases drop it. The flag exists, or a column like it, and nobody populates it, nobody filters on it, and over a few years the table fills with finished goods, intermediates, samples, and obsolete codes, all flat, all equally “products.” The demo got the modeling right and the practitioners forgot. That’s the opposite of what I usually argue: the tool handed you the distinction and the discipline threw it away.</p> <p>The mechanism is simple. An intermediate material has a cost and no price. A sample has neither. Count them as products and your product count inflates. Average a margin across them and the average is fiction. Build a catalog from them and half of it is unsellable. The concept “product we sell” never changed. The <em>extension</em> – the actual rows in the table – quietly stopped matching it.</p> <p>Nobody defined “product” wrong. The table just admitted things the concept excludes, and no one was watching the door.</p> <h2 id="the-opposite-failure-the-table-that-erases-the-difference">The opposite failure: the table that erases the difference</h2> <p>The product table failed by lumping distinct kinds into one undifferentiated pile. The next failure is its mirror image: collapsing genuinely distinct concepts into a single type because they happen to share some columns.</p> <p>Take a university. Professors and students share attributes – an ID, a name, an email, a date of birth. So the tempting move is a single <code class="language-plaintext highlighter-rouge">Person</code> table that holds both. Cleaner, fewer tables, less duplication. And when the design isn’t disciplined, and often it isn’t, that’s where it stops: the difference between a professor and a student stops existing anywhere in the schema.</p> <p>A professor and a student are not the same thing, even though both are people. They have different relationships to the institution, different lifecycles, different rules, different everything that matters once you move past name and email. The overlap ends at the columns. Flatten them into <code class="language-plaintext highlighter-rouge">Person</code> and you’ve optimized for the columns they share and thrown away the meaning of what each one <em>is</em>.</p> <p>So the obvious repair is to specialize: keep <code class="language-plaintext highlighter-rouge">Professor</code> and <code class="language-plaintext highlighter-rouge">Student</code> as their own tables with a foreign key up to <code class="language-plaintext highlighter-rouge">Person</code>, shared attributes in the parent, distinction preserved. That is the answer I would have given you, and it is the answer I wrote in this section first. It is wrong, and what shows it to be wrong is the same rule that condemns the merge.</p> <p>Subtypes are supposed to be <strong>non-overlapping</strong> and <strong>exhaustive</strong>: every instance of the parent falls into exactly one subtype, and none falls outside it. (Simsion and Witt make the case in <em>Data Modeling Essentials</em>, and it is worth reading their version.) That is a strict constraint, and it earns its keep, because a clean partition is what lets you say anything about the parent at all.</p> <p>Now run the university against it. Is a person exactly one of professor or student? No. The graduate teaching assistant is both at the same time, and that is not an edge case to be handled, it is an entire population with its own office. Is every person one of the two? Also no: the registrar, the janitor, the alum, the applicant who was rejected, the parent paying the tuition.</p> <p>The partition fails both tests, and that failure is the most useful thing in the whole exercise. It is telling you that the things you called subtypes were never <em>kinds</em> of the parent at all. <code class="language-plaintext highlighter-rouge">Professor</code> and <code class="language-plaintext highlighter-rouge">Student</code> are not species of person. They are <strong>roles</strong> a person holds with respect to the institution: acquired on a date, held for a period, held alongside other roles, given up and sometimes taken up again. A subtype is what something <em>is</em>. A role is what something is <em>doing</em>, for now, in relation to somebody else.</p> <p>Model the role and everything that was fighting you goes quiet. <code class="language-plaintext highlighter-rouge">Person</code> holds the human being: the name, the ID, the date of birth, the facts that stay true whether or not the university exists. <code class="language-plaintext highlighter-rouge">Enrollment</code> and <code class="language-plaintext highlighter-rouge">Appointment</code> hold the roles, each with its own start, its own end, its own rules, its own lifecycle. The teaching assistant gets two rows and no contradiction. The janitor gets a third kind of role without distorting either of the first two. Nobody has to be misfiled to fit in the table.</p> <p>“So I never subtype people.” No. The supertype was never the enemy. Run the same test on a different pair and it passes, using almost the same word.</p> <p>Most legal systems split a legal subject into a <strong>natural person</strong> and a <strong>legal person</strong> – <em>persona física</em> and <em>persona jurídica</em> in the civil-law tradition I work in. The human being on one side, the entity brought into existence by registration on the other. That partition is non-overlapping and it isn’t a matter of taste or convenience: a subject is a human being or it is a legal fiction, never both, on any day, in any jurisdiction. Nothing drifts across. And the subtypes carry real weight, which is the tell that they are earning their place: a date of birth and a national ID on one side, an incorporation date and a tax registration on the other, none of it shared and none of it sitting there nullable because the other kind has no use for it. Exhaustiveness is the half your jurisdiction can bend, so check it rather than assume it – trusts and autonomous patrimonies are where the surprises live. Non-overlapping holds regardless.</p> <p>The one-person business looks like the counter-example and turns out to be the argument. It feels like it should be both at once. It isn’t: the legal subject is the human being, and “the business” is a role that human being holds. The apparent exception is the role model arriving by another road.</p> <p>So the difference was never generalization versus specialization. It was the level of abstraction, and the test is what found it. Professor and student were the wrong subtypes because they were never kinds of anything. Natural and legal person are the right ones because they are nothing else.</p> <p>And notice what the legitimate subtype buys you. Once a company is modeled as what it <em>is</em> – a legal person – you are free to model separately what it is <em>doing</em> to you. Which you will need, because organizations break the overlap rule as reliably as people do. A company in your data is a customer and a supplier and a competitor, often inside the same quarter. Type it as one of the three and you will be maintaining the exception for as long as the model lives. Those aren’t <em>kinds</em> of company. They are roles it holds toward you, and the roles are the part you actually have data about.</p> <p>There’s a name for the lookup-table cousin of this instinct. Joe Celko spent years warning about the One True Lookup Table: the urge to fold every code and category into a single all-purpose table. (Paul Keister coined the term; Celko made the critique famous.) A lookup table isn’t an entity table, so it isn’t quite the same failure. But the instinct is: one table to rule them all, convenient for the person building it and ruinous for everyone reading it.</p> <p>Eric Evans comes at it from the other direction. The whole point of a model, in Domain-Driven Design, is to serve the language the domain experts actually speak. When your model fuses two concepts the business keeps separate (when “professor” and “student” become an undifferentiated “person”), you’ve stopped speaking the domain’s language. The model got simpler and the meaning leaked out. As Evans puts it, persistent use of the shared language will force the model’s weak spots into the open. A <code class="language-plaintext highlighter-rouge">Person</code> table that can’t tell you who teaches and who enrolls is a weak spot hiding in plain sight. Listen to how the domain says it, too: nobody at a university says “she is a professor-type person.” They say she <em>teaches</em>, and he <em>enrolls</em>. The business was speaking in roles the whole time.</p> <h2 id="same-axis-opposite-ends">Same axis, opposite ends</h2> <p>Step back and the two failures are the same mistake pointing in opposite directions.</p> <table> <thead> <tr> <th> </th> <th>What it does</th> <th>The cost</th> </tr> </thead> <tbody> <tr> <td>The product table</td> <td>Won’t specialize – lumps distinct kinds together</td> <td>Counts and margins include things that aren’t products</td> </tr> <tr> <td>The person table</td> <td>Types a role as if it were a kind of thing</td> <td>Loses the meaning of professor vs. student</td> </tr> </tbody> </table> <p>One refuses to draw a line that exists. The other erases a line that matters. Both flatten a real taxonomy into a single, undifferentiated table, and both leave you with a table whose shape no longer matches the concept it claims to hold.</p> <p>There’s old language for what’s going on. The <em>intension</em> of a concept is what it means: what makes something a product, or a professor. The <em>extension</em> is the actual population: which rows exist, and of what kind. Agreeing on the intension does nothing for the extension. You can write the perfect definition and still build a table that disagrees with it.</p> <p>Because here’s the thing a table actually is: a claim about what exists. Every row asserts “this is one of these.” Flatten the table and you’ve made a claim you never meant to make (that intermediates are products, that professors are interchangeable with students), and every query downstream takes that claim at face value.</p> <h2 id="every-metric-inherits-the-shape-of-the-table">Every metric inherits the shape of the table</h2> <p>This is why it isn’t a cosmetic problem. A metric is only as honest as the population underneath it. Product count, average margin, headcount, active-customer totals – none of them are computed from the definition in your glossary. They’re computed from the rows in the table. If the table’s shape is wrong, the metric is wrong, and not because anyone made an arithmetic error. The error was committed at design time and inherited ever since.</p> <p>And like most of these problems, it survives because it looks normal. The table was always shaped this way. Nobody remembers deciding it; it’s just how the system works. That’s not a technical fact, it’s modeling debt that hardened into a convention nobody re-examines.</p> <h2 id="the-cure-model-the-ontology-not-the-convenience">The cure: model the ontology, not the convenience</h2> <p>Both failures get fixed by the same discipline: model the concept’s real boundaries instead of the columns that happen to overlap.</p> <p>For the product table, that means specializing. Finished good, intermediate material, sample: distinct types under a common parent, each with its own rules about what it is and what you can do with it. The <code class="language-plaintext highlighter-rouge">FinishedGoodsFlag</code> is the minimum viable version of this; an actual product type hierarchy is the real fix. Either way, the rule is the same: a margin report should query “finished goods,” not “everything that ended up in the products table.”</p> <p>It is worth measuring the tooling against that rule, because the industry is finally building for this. Microsoft has been putting an Ontology item into Fabric: entity types, properties, relationships, bound to data sitting in OneLake. The diagnosis behind it is exactly right, and it is the diagnosis of this post – a concept deserves to be modeled above any single table.</p> <p>The implementation, as of August 2026, is in preview, and it lands on the wrong side of this argument in two places. An entity type takes one static data binding, and you cannot combine static data from more than one source into it. Nor is there a step where you narrow a source to a subset of its rows: you choose a table and you get the table. So bind <code class="language-plaintext highlighter-rouge">Product</code> to that <code class="language-plaintext highlighter-rouge">Products</code> table and your <code class="language-plaintext highlighter-rouge">Product</code> entity type will hold the intermediates and the samples, faithfully. Generate the ontology from a semantic model and you get one entity type per table, by design. And there is no subtype – an entity type takes a name and some properties, with no parent – so “finished good under product” is not a thing you can currently say.</p> <p>Half the cure does survive, and it isn’t the half I expected. Relationships carry attributes, including validity, which is the role model working as intended.</p> <p>The workaround is the part worth sitting with. You build tables filtered and modeled on purpose, purely to feed the ontology. That works. And notice what it means: the modeling did not move up into the semantic layer. It stayed down in the table, where it always was, and the ontology inherited whatever shape you handed it.</p> <p>None of which is a verdict. Microsoft ships a minimum viable version and adds to it, this is early in that cycle, and I expect these gaps to close – the direction is good news for anyone who has spent years arguing that concepts belong above tables. It is just too early to get much leverage out of it. And no version of it, however complete, is going to excuse you from the modeling.</p> <p>We did exactly that, by hand, years before there was an ontology item to feed. The first version of the filter was the obvious one: in the analytics layer, only include products that had ever been invoiced.</p> <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">distinct</span> <span class="n">ProductCode</span> <span class="k">from</span> <span class="n">Sales</span>
+</code></pre></div></div> <p>It worked. The intermediates went away, the samples went away, and the margin report stopped reporting crimes.</p> <p>It also had a side effect I had not thought about. A product that is perfectly sellable but has not sold yet is not in that list. New items, seasonal items, the ones the catalog is betting on next quarter: all of them dropped out of a report about the products we sell. The consequence was mild and we lived with it for a while, but look at what had happened. I had fixed a population that was too wide by making it too narrow. The extension still did not match the concept. It just missed in the other direction.</p> <p>That mistake is worth naming, because it is an easy one to repeat. Filtering by sales history defines the concept by its <em>extension</em> – by what happened – when what I needed was its criterion. Having sold is evidence that a product is sellable. It is not what makes it sellable.</p> <p>What finally fixed it was a different table: the price list. A product with a price is one the business has decided to sell, whether or not anybody has bought it yet. That is a membership condition, maintained by people who maintain it for their own reasons, and it says what <code class="language-plaintext highlighter-rouge">FinishedGoodsFlag</code> was always trying to say. The population stopped being a residue of past transactions and became a statement about intent.</p> <p>For the person table, it means running the partition test before you decide where anything goes. Non-overlapping, exhaustive: can every instance land in exactly one bucket, and does every instance land somewhere? Natural person against legal person passes. Professor against student does not. If it passes, specialize – distinct subtypes under a common parent, shared attributes in the parent, and the supertype is legitimate precisely because the subtypes survive it. If it fails, stop building subtypes. You were never looking at kinds of a thing. Model the roles: the party in one place, each role it holds as its own entity with its own dates and its own rules. The test takes a minute and it tells you which of the two models you are actually in.</p> <p>That’s the whole rule, and it cuts three ways: <strong>specialize what genuinely differs; generalize only what is genuinely the same; and when neither fits because the categories keep overlapping, you are holding a role, not a kind.</strong> Model the boundaries of the concept, not the convenience of the schema.</p> <h2 id="closing">Closing</h2> <p>The definition lives in the dictionary. The meaning lives in the shape of the table.</p> <p>You can run a flawless workshop, get every stakeholder to agree on what a product is and what a person is, write it all down in a clean glossary – and still ship a model that quietly contradicts every word of it. Because the agreement was about what the concepts <em>mean</em>, and the table is a statement about which rows <em>are</em> those concepts. Those are different claims, and only one of them is what your reports read every morning.</p> <p>A table that respects the concept’s real boundaries tells the truth by construction. A table that flattens them tells a lie nobody chose to tell – and keeps telling it, row after row, until someone opens a margin report and finds a crime scene that was never a crime.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/false-semantic-consensus/">False Semantic Consensus</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/we-act-on-metadata/">We Act on Metadata</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/runbooks-as-infrastructure/">Runbooks as Infrastructure</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/battle-scars/">Battle Scars</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-schedulers-contract/">The Scheduler's Contract</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/metadata-all-the-way-down/">Metadata All the Way Down</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/bronze-should-be-boring/">Bronze Should Be Boring</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <blockquote class="block-danger"> <h5>giscus comments misconfigured</h5> <p>Please follow instructions at <a href="http://giscus.app" rel="external nofollow noopener" target="_blank">http://giscus.app</a> and update your giscus configuration.</p> <p>Missing required keys: <code>repo_id, category_id</code>.</p> </blockquote> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Technical books and courseware I have co-authored.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Javier Loria — data architect and mentor. 35+ years in software, 25+ specializing in BI and semantic models on the Microsoft data platform.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-the-table-is-not-the-concept",
+        
+          title: "The Table Is Not the Concept",
+        
+        description: "You can define the concept perfectly and still model it wrong.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-table-is-not-the-concept/";
+          
+        },
+      },{id: "post-false-semantic-consensus",
+        
+          title: "False Semantic Consensus",
+        
+        description: "Everyone agreed on the number. That was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/false-semantic-consensus/";
+          
+        },
+      },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler&#39;s Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "news-spoke-at-global-fabric-day-2026-hosted-by-microsoft-costa-rica-in-spanish",
+          title: 'Spoke at **Global Fabric Day 2026**, hosted by Microsoft Costa Rica. *(in Spanish)*...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-the-real-impact-of-ai-on-our-society-impacto-real-de-la-inteligencia-artificial-en-nuestra-sociedad-with-the-power-bi-panamá-community-in-spanish",
+          title: 'Spoke on *The Real Impact of AI on Our Society* (*Impacto Real de...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-mcp-for-power-bi-claude-code-with-unidos-por-venezuela-in-spanish",
+          title: 'Spoke on *MCP for Power BI + Claude Code* with Unidos por Venezuela....',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-modelling-amp-design-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Modelling &amp;amp; Design** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://substack.com/@pragmaticdataarchitect", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
