@@ -6,7 +6,6 @@ description: "Designing a metadata-driven ingestion layer that disappears behind
 thumbnail: assets/img/feat-bronze-should-be-boring.jpg
 tags: [bronze, ingestion, yaml, medallion, microsoft-fabric]
 categories: [yaml-ingestion]
-giscus_comments: true
 ---
 
 ![Bronze Should Be Boring](/assets/img/feat-bronze-should-be-boring.jpg)

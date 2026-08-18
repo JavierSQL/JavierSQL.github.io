@@ -6,7 +6,6 @@ description: "How a boring ingestion layer becomes the foundation for ops, quali
 thumbnail: assets/img/feat-we-act-on-metadata.png
 tags: [governance, data-quality, observability, metadata, microsoft-fabric]
 categories: [yaml-ingestion]
-giscus_comments: true
 ---
 
 ![We Act on Metadata](/assets/img/feat-we-act-on-metadata.png)

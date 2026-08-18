@@ -6,7 +6,6 @@ description: "The 3am test, and why the instruction for a human is engineering, 
 thumbnail: assets/img/feat-runbooks.webp
 tags: [runbooks, operations, devops, documentation, microsoft-fabric]
 categories: [yaml-ingestion]
-giscus_comments: true
 ---
 
 ![Runbooks as Infrastructure](/assets/img/feat-runbooks.webp)

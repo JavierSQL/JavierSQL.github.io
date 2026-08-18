@@ -6,7 +6,6 @@ description: "The general manager wanted his quantity column. The model kept ret
 thumbnail: assets/img/feat-when-aggregation-lies.webp
 tags: [data-governance, data-management, business-intelligence, semantic-modeling, data-modeling, data-quality, unit-of-measure]
 categories: [trust-erosion]
-giscus_comments: true
 ---
 
 ![When Aggregation Lies](/assets/img/feat-when-aggregation-lies.webp)

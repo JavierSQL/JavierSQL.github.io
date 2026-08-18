@@ -6,7 +6,6 @@ description: "You can define the concept perfectly and still model it wrong."
 thumbnail: assets/img/feat-the-table-is-not-the-concept.webp
 tags: [data-governance, data-management, business-intelligence, semantic-modeling, data-quality]
 categories: [trust-erosion]
-giscus_comments: true
 ---
 
 ![The Table Is Not the Concept](/assets/img/feat-the-table-is-not-the-concept.webp)

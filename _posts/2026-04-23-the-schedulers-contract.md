@@ -6,7 +6,6 @@ description: "How scheduling becomes infrastructure -- data freshness as a promi
 thumbnail: assets/img/feat-schedulers-contract.jpg
 tags: [scheduling, orchestration, sla, data-freshness, microsoft-fabric]
 categories: [yaml-ingestion]
-giscus_comments: true
 ---
 
 ![The Scheduler's Contract](/assets/img/feat-schedulers-contract.jpg)

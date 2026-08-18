@@ -6,7 +6,6 @@ description: "Governing your ingestion metadata with more metadata -- and knowin
 thumbnail: assets/img/feat-metadata-all-the-way-down.jpg
 tags: [metadata, governance, validation, yaml, microsoft-fabric]
 categories: [yaml-ingestion]
-giscus_comments: true
 ---
 
 ![Metadata All the Way Down](/assets/img/feat-metadata-all-the-way-down.jpg)

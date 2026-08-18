@@ -6,7 +6,6 @@ description: "Everyone agreed on the number. That was the problem."
 thumbnail: assets/img/feat-false-semantic-consensus.webp
 tags: [semantic-modeling, data-governance, data-modeling, data-ethics, dmbok]
 categories: [trust-erosion]
-giscus_comments: true
 ---
 
 ![False Semantic Consensus](/assets/img/feat-false-semantic-consensus.webp)

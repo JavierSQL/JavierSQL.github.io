@@ -6,7 +6,6 @@ description: "What happens when a YAML-driven platform meets production reality"
 thumbnail: assets/img/feat-battle-scars.jpg
 tags: [production, spark, lessons, operations, microsoft-fabric]
 categories: [yaml-ingestion]
-giscus_comments: true
 ---
 
 ![Battle Scars](/assets/img/feat-battle-scars.jpg)

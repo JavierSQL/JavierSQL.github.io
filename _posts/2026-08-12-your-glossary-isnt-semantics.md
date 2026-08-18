@@ -6,7 +6,6 @@ description: "A definition tells you what a customer is. It doesn't tell you whi
 thumbnail: assets/img/feat-your-glossary-isnt-semantics.webp
 tags: [data-governance, data-management, business-intelligence, semantic-modeling, data-modeling, business-glossary, data-quality]
 categories: [trust-erosion]
-giscus_comments: true
 ---
 
 ![Your Glossary Isn't Semantics](/assets/img/feat-your-glossary-isnt-semantics.webp)
