@@ -1,0 +1,318 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="tMLR3lEPZQVDuO8yLy00aYO3RCBwTgFO5o4tZJJlkkw"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> When Aggregation Lies | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula."> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling, data governance, business intelligence"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | When Aggregation Lies"> <meta property="og:url" content="https://javierloria.com/blog/2026/when-aggregation-lies/"> <meta property="og:description" content="The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula."> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="When Aggregation Lies"> <meta name="twitter:description" content="The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula."> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://javierloria.com/blog/2026/when-aggregation-lies/",
+        "@type": "BlogPosting",
+        "description": "The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.",
+        "headline": "When Aggregation Lies",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL","https://substack.com/@pragmaticdataarchitect"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javierloria.com/blog/2026/when-aggregation-lies/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">When Aggregation Lies</h1> <p class="post-meta"> Created on August 18, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-governance"> <i class="fa-solid fa-hashtag fa-sm"></i> data-governance</a>   <a href="/blog/tag/data-management"> <i class="fa-solid fa-hashtag fa-sm"></i> data-management</a>   <a href="/blog/tag/business-intelligence"> <i class="fa-solid fa-hashtag fa-sm"></i> business-intelligence</a>   <a href="/blog/tag/semantic-modeling"> <i class="fa-solid fa-hashtag fa-sm"></i> semantic-modeling</a>   <a href="/blog/tag/data-modeling"> <i class="fa-solid fa-hashtag fa-sm"></i> data-modeling</a>   <a href="/blog/tag/data-quality"> <i class="fa-solid fa-hashtag fa-sm"></i> data-quality</a>   <a href="/blog/tag/unit-of-measure"> <i class="fa-solid fa-hashtag fa-sm"></i> unit-of-measure</a>   ·   <a href="/blog/category/trust-erosion"> <i class="fa-solid fa-tag fa-sm"></i> trust-erosion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><img src="/assets/img/feat-when-aggregation-lies.webp" alt="When Aggregation Lies"></p> <p><em>The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.</em></p> <p>This happens to me about once a month, and that’s a conservative count. Big clients and small ones, production models and half-hour demos. Somebody sums a column called QUANTITY, and somebody divides revenue by that sum to get an average price. Both operations are the most normal thing in the world. Neither one is right.</p> <p>What makes the time I want to tell you about memorable is that I watched it from outside.</p> <p>Costa Rica, 2021 or 2022. An importer of chemicals and packaging material. Ricardo, one of our mentors, was presenting a new version of the sales analytics model to the client. The general manager wanted his quantity column, the one he had used for years. In the new model that column went blank whenever the things underneath it were not addable to each other, and in that catalog they almost never were. Living in there together: chemicals sold by the pound, chemicals sold by the 55-gallon drum (an <em>estañón</em>, where I come from), empty bottles counted by the unit, and sacks whose weight changed from one product to the next. None of it lives on the same scale. So the general manager asked for a number and the dashboard handed him an empty cell.</p> <p>I was Ricardo’s boss and I was in the room. I said nothing. I decided to watch him work.</p> <p>(A parenthesis about the word <em>mentor</em>, because at Primus Data it’s a title and not a term of endearment. We separate mentoring from consulting in what we sell: from a consultant you buy the solution, from a mentor you also buy the transfer of the knowledge. I mention it because it explains what happened next better than any praise I could write about Ricardo. The thirty minutes that followed weren’t a personality trait. They were the job.)</p> <h2 id="the-thirty-minutes">The thirty minutes</h2> <p>The easy path was in plain sight and took two minutes: drop the condition from the measure. The sum exists, the engine computes it without complaint, the general manager leaves happy, and the meeting ends twenty minutes early.</p> <p>Ricardo spent half an hour explaining why the quantity lied and why the average price lied. He wasn’t defending a formula. He was defending a meaning, which is the part of the work you can’t delegate to the engine.</p> <p>That’s the scene I care about in all of this, and it’s the reason this post exists. The technical half of this problem is four lines of code. What’s hard is holding an empty cell in front of someone who has spent years making decisions with the number that used to fill it.</p> <p>Because the sentences that number authorized sound impeccable. <em>We sold two million more in quantity than last year.</em> That does not mean we sold more. <em>The average price line is trending down.</em> That does not mean we’re selling cheaper. Each one has a subject, a verb, a figure, and a comparison against the prior period. They’re grammatically perfect and they’re claims about nothing.</p> <h2 id="adding-a-drum-to-a-thousand-bottles">Adding a drum to a thousand bottles</h2> <p>Here is the thing that took me years to say cleanly: <em>the sum looked like math, but it was a claim.</em></p> <p>When you write <code class="language-plaintext highlighter-rouge">1 + 1 + 1 = 3</code>, the result is only true if the three ones are the same kind of thing. A drum of chemical, plus a thousand empty bottles, plus one sack does not equal three of anything. There is no unit in which that 3 is a quantity. It is three labels counted as if they were three measurements.</p> <p>The plus sign carries a hidden assumption every time you use it: <em>these things are commensurable, same kind, same unit, addable.</em> In honest arithmetic you declare that assumption out loud. In a spreadsheet, the plus sign makes the claim silently, and nobody in the room signs off on it. You did not decide that a drum and a thousand bottles belong in the same total. The SUM function decided for you, and it does not ask.</p> <p>So “quantity = 3” is not an imprecise number. It is an <em>undefined operation</em> wearing the costume of a defined one. Adding a drum to a thousand bottles is the same category of nonsense as adding a drum to a Tuesday. The spreadsheet will return a number either way. The number is the lie.</p> <p>A column called QUANTITY looks clean, and row by row it is: every number is a real quantity, genuinely measured, in its own unit. The trouble starts when you stack them. One row counts kilos, the next liters, the next pieces, and underneath all of them sits a label, the product type, that nobody decided to sum across on purpose. (The more academic reader will recognize Stevens’ levels of measurement here: you count labels, you don’t add them. What sent me down this line of thinking was a Joe Celko piece on nominal scales, and I’ve distrusted every column named after a generic noun ever since.)</p> <p>Then a second number gets built on top of that sum, and it’s the one that reaches the meeting. Average price is revenue divided by that quantity, and a ratio is only as sound as its denominator. The denominator here is a pile of different units pretending to be one, so the average price that looks so precise is measuring nothing at all.</p> <p>The old folk version says it better than any textbook: you cannot add apples and oranges. The phrase survives because it is a reminder, not a prohibition. You <em>can</em> add fruit, if you first agree what “a fruit” is. The whole problem lives in that “if.”</p> <h2 id="why-this-lie-is-worse-than-an-error">Why this lie is worse than an error</h2> <p>A wrong number announces itself eventually. A formula that divides by the wrong column throws an error, or returns something absurd on its face, and someone catches it. The aggregation lie does none of that. It produces a clean, plausible, precise-looking number, and precision is persuasive.</p> <p>That average price came with decimals. It sat in a tidy column next to last year’s figure. It fed a percentage change, which fed a sentence, and that sentence sounded like a fact. Nobody doubted it. And they didn’t doubt it precisely because it looked so much like every other true number they had ever acted on. The lie does not look like a mistake. It looks like rigor.</p> <p>And that is how it requisitions resources. A meeting that opens with a moved average is not headed toward “let’s double-check the math.” It’s headed toward “let’s understand the cause.” Did the supplier mix change? Did a price adjustment slip through? Is demand shifting toward premium lines? I have watched teams get within minutes of spending weeks reverse-engineering a movement in a number that was never a measurement. The aggregation lie does not just sit on a dashboard. It hands out assignments.</p> <h2 id="the-cure-declare-the-unit-before-you-add">The cure: declare the unit before you add</h2> <p>The fix is not “stop aggregating.” Aggregating is the entire point of a reporting system. The fix is to make the hidden claim explicit: to agree on a unit of equivalence before the plus sign runs.</p> <p>And here it pays to look again at that importer’s sacks, because they are the hard case hiding in the list. Bottles against drums is an obvious clash: nobody really believes those are the same thing. Sacks are different. Every sack is a sack, the column looks homogeneous, and yet a sack of one product doesn’t weigh what a sack of another does. Summing sacks looks legitimate and isn’t, which is the dangerous version of this problem: the one that gives you no signal.</p> <p>The cleanest example I know of how that gets solved comes from Dole. They export bananas in boxes that do not all weigh the same, which is the sack problem at export scale. Sum “boxes” and you are back in drum-plus-thousand-bottles territory, because a box is not a consistent unit. So they defined one. The <em>Dole Box</em> is a fixed quantity of banana, and every shipment is converted into it: units multiplied by their weight, divided by the standard box weight. Now the sum means something, because everyone agreed on the unit before they summed.</p> <p>That is the whole discipline in one move. Dole did not ban the total. They earned it. They declared the unit of equivalence in the open, so the addition rests on an agreement instead of an accident.</p> <h2 id="make-the-model-refuse-to-lie">Make the model refuse to lie</h2> <p>The other move lives in the model itself, and it was the one on screen the day of that meeting: making the semantic layer decline to add what is not addable.</p> <p>The rule is simple to encode. Only sum a quantity when there is a single unit of measure in scope. In DAX, that’s a few lines:</p> <pre><code class="language-dax">Quantity =
+IF(
+    DISTINCTCOUNT( SalesLines[UnitOfMeasure] ) = 1,
+    SUM( SalesLines[Quantity] ),
+    BLANK()
+)
+</code></pre> <p>Slice to a single unit, pounds only, bottles only, and the measure sums and returns a real number. Mix units, and it returns blank. Not a wrong total. Nothing. The model declines to answer a malformed question.</p> <p>A blank is more honest than a confident wrong number. The empty cell sends someone to ask “what unit are we in?” instead of sending a team to hunt a cause that was never there.</p> <p><strong>Technical note, for whoever implements this.</strong> The unit has to be counted over the rows you are summing, not over the catalog. If the measure counts distinct units on the product dimension, it is measuring the entire catalog rather than what’s in the visual: it will blank out cells where only one product type was actually sold, and it will let mixed totals through. That’s why the unit column above lives on the sales line. That’s also where it tends to live for real: the same product sells by the unit at retail and by the case at wholesale. If in your model the unit of measure only exists on the product, force the count against the facts:</p> <pre><code class="language-dax">UnitsInScope =
+CALCULATE( DISTINCTCOUNT( Products[UnitOfMeasure] ), SalesLines )
+</code></pre> <p>This is illustrative, not a finished pattern. In a real model you might surface a message, or force a breakdown by unit of measure, instead of blanking. The point is the stance: the rule ends up written in the place where the plus sign was breaking it silently.</p> <p>And here’s the warning Ricardo’s scene makes plain: the blank doesn’t win the argument, it starts it. A model that refuses to lie hands a human being the work of explaining why. If you don’t have someone willing to stand in front of the general manager for half an hour, that condition will last until the first Friday somebody is in a hurry.</p> <h2 id="everybody-does-this-wrong-so-whats-the-alternative">“Everybody does this wrong. So what’s the alternative?”</h2> <p>Those were the client’s two questions at the end, and they’re the right ones. The first is easy: yes, everybody does it wrong, which is why this post is about an operation all of us run several times a day. The second is the one that matters, because taking someone’s number away without handing them another isn’t data governance, it’s obstruction.</p> <p>The answer is called <strong>PVM analysis</strong>, for price, volume, and mix. I didn’t invent it and it isn’t new: it’s an old tool from financial and commercial analysis. It decomposes the change in revenue (or margin) between two periods by where the change came from, instead of collapsing it into a single ratio:</p> <ul> <li> <strong>Price effect.</strong> How much of the change comes from the same products selling at a different price.</li> <li> <strong>Volume effect.</strong> How much comes from selling more or less of the same things.</li> <li> <strong>Mix effect.</strong> How much comes from a change in the composition of what was sold, with no price moving at all.</li> </ul> <p>There is the phantom, with a name on it. An average price that rises without any price rising is <strong>mix effect</strong>, reported as if it were price effect. PVM doesn’t repair the ratio. It relieves the ratio of a job it couldn’t do: it splits into three figures what the ratio was blending into one.</p> <p>And this is the part that makes PVM the right ending for this post rather than a tangent. PVM is computed per product, or per comparable family, and only then aggregated. What gets summed at the end isn’t quantities, it’s <strong>effects in money</strong>, and money is a consistent unit. PVM works because it aggregates in currency what should never have been aggregated in “quantity.”</p> <p>Which means PVM doesn’t rescue you from this post. It presupposes it. It needs a volume defined inside a perimeter where the unit is one single thing, and if you never declared that perimeter, your mix effect comes out contaminated all the same, only now with three more decimals and a technical name that sounds like somebody checked.</p> <p>I built my first PVM about twenty years ago, for BTICINO in Costa Rica. Both things came out of that job at the same time: the decomposition as the answer to the manager’s question, and the habit of making my quantity calculations conditional, in SQL, in MDX, and today in DAX. Honestly, I can’t tell you which came first. I don’t know whether I learned to decompose because I distrusted the average, or whether I started distrusting the average because I had seen the decomposition. I can’t remember the first time a summed QUANTITY column made me wince, either. All I know is that by the time Ricardo walked into that meeting, the blank was already house practice, and he didn’t have to invent it. He inherited it.</p> <h2 id="closing">Closing</h2> <p>Every sum is a claim about commensurability. The honest version states the claim and puts a name on the unit: the Dole Box, the comparable family, the agreed standard. The dishonest version, almost always by accident, buries the claim in a column called QUANTITY and lets the plus sign decide on the organization’s behalf. One declares. The other hides. Both return a number with decimals.</p> <p>The general manager was convinced. That model is still in production, and the measure still hides the value when it’s asked to sum things that don’t add up. I tell it not because it’s a happy ending, but because the price of that ending was thirty minutes of a mentor explaining meaning instead of two minutes adjusting a formula, and that bill almost always gets paid the other way around.</p> <p>I have to admit the bias, because at this point it gets in my way: on this subject I’m stubborn. I have seen it so many times that it looks obvious to me, and I struggle to understand how people don’t see it. I know that difficulty of mine is part of the problem and not part of the solution, because the person who walks into a meeting convinced something is obvious doesn’t explain: he gets impatient. Ricardo’s thirty minutes worked precisely because he still had the patience to explain it.</p> <p>So if you’re about to sum a column named QUANTITY, the question isn’t whether the number will come out. It will. The question is in what unit, and who signed off that those things were the same thing.</p> <p>And you? If you have an average in production that nobody has ever audited, look at the denominator before you look at the trend. Tell me what you found.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-glossary-isnt-semantics/">Your Glossary Isn't Semantics</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-table-is-not-the-concept/">The Table Is Not the Concept</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/false-semantic-consensus/">False Semantic Consensus</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/we-act-on-metadata/">We Act on Metadata</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/runbooks-as-infrastructure/">Runbooks as Infrastructure</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/battle-scars/">Battle Scars</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-schedulers-contract/">The Scheduler's Contract</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/metadata-all-the-way-down/">Metadata All the Way Down</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/bronze-should-be-boring/">Bronze Should Be Boring</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <blockquote class="block-danger"> <h5>giscus comments misconfigured</h5> <p>Please follow instructions at <a href="http://giscus.app" rel="external nofollow noopener" target="_blank">http://giscus.app</a> and update your giscus configuration.</p> <p>Missing required keys: <code>repo_id, category_id</code>.</p> </blockquote> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Technical books and courseware I have co-authored.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Javier Loria — data architect and mentor. 35+ years in software, 25+ specializing in BI and semantic models on the Microsoft data platform.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-when-aggregation-lies",
+        
+          title: "When Aggregation Lies",
+        
+        description: "The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-aggregation-lies/";
+          
+        },
+      },{id: "post-your-glossary-isn-39-t-semantics",
+        
+          title: "Your Glossary Isn&#39;t Semantics",
+        
+        description: "A definition tells you what a customer is. It doesn&#39;t tell you which rows qualify.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-glossary-isnt-semantics/";
+          
+        },
+      },{id: "post-the-table-is-not-the-concept",
+        
+          title: "The Table Is Not the Concept",
+        
+        description: "You can define the concept perfectly and still model it wrong.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-table-is-not-the-concept/";
+          
+        },
+      },{id: "post-false-semantic-consensus",
+        
+          title: "False Semantic Consensus",
+        
+        description: "Everyone agreed on the number. That was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/false-semantic-consensus/";
+          
+        },
+      },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler&#39;s Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "news-spoke-at-global-fabric-day-2026-hosted-by-microsoft-costa-rica-in-spanish",
+          title: 'Spoke at **Global Fabric Day 2026**, hosted by Microsoft Costa Rica. *(in Spanish)*...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-the-real-impact-of-ai-on-our-society-impacto-real-de-la-inteligencia-artificial-en-nuestra-sociedad-with-the-power-bi-panamá-community-in-spanish",
+          title: 'Spoke on *The Real Impact of AI on Our Society* (*Impacto Real de...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-mcp-for-power-bi-claude-code-with-unidos-por-venezuela-in-spanish",
+          title: 'Spoke on *MCP for Power BI + Claude Code* with Unidos por Venezuela....',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-modelling-amp-design-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Modelling &amp;amp; Design** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://substack.com/@pragmaticdataarchitect", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
