@@ -1,0 +1,337 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="tMLR3lEPZQVDuO8yLy00aYO3RCBwTgFO5o4tZJJlkkw"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> The Number Without Perimeter | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="+12%. Correct to the decimal. Nobody in the room could defend it."> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling, data governance, business intelligence"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | The Number Without Perimeter"> <meta property="og:url" content="https://javierloria.com/blog/2026/the-number-without-perimeter/"> <meta property="og:description" content="+12%. Correct to the decimal. Nobody in the room could defend it."> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="The Number Without Perimeter"> <meta name="twitter:description" content="+12%. Correct to the decimal. Nobody in the room could defend it."> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://javierloria.com/blog/2026/the-number-without-perimeter/",
+        "@type": "BlogPosting",
+        "description": "+12%. Correct to the decimal. Nobody in the room could defend it.",
+        "headline": "The Number Without Perimeter",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL","https://substack.com/@pragmaticdataarchitect"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javierloria.com/blog/2026/the-number-without-perimeter/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The Number Without Perimeter</h1> <p class="post-meta"> Created on August 27, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-governance"> <i class="fa-solid fa-hashtag fa-sm"></i> data-governance</a>   <a href="/blog/tag/data-management"> <i class="fa-solid fa-hashtag fa-sm"></i> data-management</a>   <a href="/blog/tag/business-intelligence"> <i class="fa-solid fa-hashtag fa-sm"></i> business-intelligence</a>   <a href="/blog/tag/semantic-modeling"> <i class="fa-solid fa-hashtag fa-sm"></i> semantic-modeling</a>   <a href="/blog/tag/data-modeling"> <i class="fa-solid fa-hashtag fa-sm"></i> data-modeling</a>   <a href="/blog/tag/data-quality"> <i class="fa-solid fa-hashtag fa-sm"></i> data-quality</a>   <a href="/blog/tag/financial-reporting"> <i class="fa-solid fa-hashtag fa-sm"></i> financial-reporting</a>   ·   <a href="/blog/category/trust-erosion"> <i class="fa-solid fa-tag fa-sm"></i> trust-erosion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><img src="/assets/img/feat-the-number-without-perimeter.webp" alt="The Number Without Perimeter"></p> <p><em>+12%. Correct to the decimal. Nobody in the room could defend it.</em></p> <p>The slide said it in large type, dead center: <strong>Sales Growth: +12%.</strong> The CEO presented it to the board the way you present good news, which is to say briefly, expecting applause.</p> <p>Then a director asked a question. “Does that include the eight stores we opened this year?”</p> <p>Silence. The analyst who built the model was not in the room. The CEO did not know. And here is the part worth noticing: the number was not wrong. Nobody had miscalculated anything. The +12% was correct to the decimal. It just could not survive a question.</p> <h2 id="first-a-confession-this-meeting-never-happened">First, a confession: this meeting never happened</h2> <p>I built it.</p> <p>It’s the opening scene of a book I’m writing – the first of a trilogy, in Spanish, on semantic models for sales analytics: <em>Diagnóstico Analítico de Ventas</em>. That scene is the case the whole book is built on, and I’m bringing it here because the post and the book argue the same thing.</p> <p>I say so up front for two reasons. The first is that if I told you this as something that happened to me, it would be a lie, and a series about eroding trust cannot afford one. The second is more useful: the scene isn’t a case, it’s a composite. I saw each piece somewhere different, and I assembled the meeting so all four edges break at once – which in real life they never do. They arrive one at a time, years apart. You’ll recognize some part of it, larger or smaller. That recognition is the point.</p> <p>The figures in the scene, +12% included, are illustrative. They’re built to add up, not measured. What is real is where each edge came from, and that’s what I’ll tell you in each section.</p> <p>With that on the table, back to the room.</p> <h2 id="four-questions-and-no-answers">Four questions and no answers</h2> <p>One good question breeds others, and the room found them fast. Up 12% compared to <em>when</em>: last month, or last year? If last month, is that adjusted for seasonality, or are we comparing December to November and calling a calendar a result? Is the figure real or nominal – did anyone strip out inflation? Does “sales” include the new product line we launched in the spring?</p> <p>Four questions. The number answered none of them. Trust did not erode because someone caught an error. It eroded because a correct number turned out to mean nothing anyone could pin down, and four people at the table had each quietly assumed a different answer.</p> <h2 id="what-a-perimeter-is">What a perimeter is</h2> <p>A perimeter is the boundary of what a number counts. Which things are inside it, which are outside, and what it is being compared against. Every number has one. The only question is whether it was declared.</p> <p>“+12%” with no declared perimeter is not one claim. It is every claim at once, and each person in the room collects the version that fits what they already believe. The optimist hears organic growth, the business genuinely getting better. The skeptic hears “we opened eight stores and counted the obvious.” Both are pointing at the same +12%. Neither is lying. The number never declared a perimeter, so there is nothing to violate: only a vacuum, and a vacuum gets filled by whoever is most certain.</p> <p>The number has not one boundary but several. Let’s take them one at a time, and at each one I’ll tell you where I saw it.</p> <h2 id="first-face-organic-versus-inorganic">First face: organic versus inorganic</h2> <p>Both are growth; they are not the same kind. <em>Organic</em> growth is the same business doing more: existing markets, better products, repeat customers. <em>Inorganic</em> growth comes from outside the existing engine: acquisitions, new locations, new lines. The board’s first question was really this one. Open eight new stores and revenue rises. Of course it does. But that is the business getting <em>bigger</em>, not <em>better</em>, and the two demand completely different decisions.</p> <p>The first time this hit me head-on was in 2010, at an administrative-services company in the United States. They sold to clinics, doctors, and chains of physical therapy and rehab: appointment-scheduling software, patient management, and above all document management against the insurers, which was the part that actually mattered. They signed two-year contracts.</p> <p>That two-year-contract detail is what makes the problem unavoidable. With contracts entering and leaving all the time, “how much did the business grow” doesn’t have one answer, it has two. A quarter can grow because the clients already on the books bill more documents, or because new contracts came in. On the revenue line the two look identical. But one tells you the service works and the other tells you the sales team works, and if you confuse them you’ll congratulate the wrong department.</p> <p>There the <em>same-as</em> comparison – against the same base of contracts active in both periods – wasn’t a refinement of the report. It was the analysis. Everything else was read through it.</p> <p>In financial modeling this separation is routine. Open the quarterly report of almost any publicly traded company and you’ll find it, with its breakdown and its footnote. I’ve sat in plenty of financial-model builds, and there nobody argues about whether to separate; they argue about how.</p> <p>And here’s an opinion, because it’s the part of all this that catches my eye: that rigor almost never makes it down to the commercial side. You’ll see it in the investor report and not in the sales dashboard of the same company, from the same quarter. And in companies with no public stock, where nobody outside demands the breakout, it often doesn’t exist at all. They know how to do it. What’s missing is someone with the authority to ask for it.</p> <p>The way to keep the two apart is already solved, and you don’t have to invent it. In retail it’s the <em>same-store sales</em> comparison (comparable-store sales), which counts only the locations open in both periods; I built the base of that model for a retail chain in Mexico. The same logic gives you the same-product comparison: strip out the new line and you can see whether the existing catalog actually moved. And in a contract business, like the one in 2010, it’s the base of contracts active in both periods.</p> <p>A +12% that is four points organic and eight points new stores tells a completely different strategic story than a +12% that is all organic. One is largely repeatable; the other was bought, and buying it again costs again.</p> <h2 id="second-face-time">Second face: time</h2> <p>“Up 12% versus last month” is one of the most common ways a number lies without a single false digit. Most businesses have a season. A retailer rises into December every year and falls in January every year, and comparing one to the next measures the calendar, not the company. The honest comparison is like-for-like, the same month a year earlier, or a seasonally adjusted series. Without a stated base period, “+12%” is a number floating in time.</p> <p>This face is the best known of the three and the one that needs the least arguing. I mention it anyway because it’s the one I’ve most often seen break on its own, with nobody making any decision: someone changes the dashboard’s date filter, the comparison stops being against the same month last year, and the number sits there with the same title.</p> <h2 id="third-face-money-and-a-correction-to-what-i-wrote-last-month">Third face: money, and a correction to what I wrote last month</h2> <p>In the <a href="/blog/2026/when-aggregation-lies/">previous post in this series</a> I wrote that money, at least, is a consistent unit. That you can add colones even if you can’t add drums and bottles.</p> <p>That’s true as long as there’s one currency and one date. With two currencies, or with two dates and a devaluation in between, money is exactly as treacherous as a column called QUANTITY. I wrote it without thinking it through, and the case that follows is what forced me to.</p> <p>Let’s start with the easy part. If the figure is nominal and inflation ran at eight percent, growth of twelve is closer to four. A nominal number presented without that note flatters by default, and in a high-inflation economy it turns a contraction into a celebration. The fix is one line on the slide: real or nominal, and if real, deflated by what.</p> <p>Here in Costa Rica the problem comes the other way around, and that’s the version almost nobody is trained for. The colón went from ₡697.32 to the dollar (June 21, 2022) to ₡505.82 (April 1, 2025), with inflation near zero. The result is that the colón financial statements of a lot of companies look far worse than the company actually is. Nobody suspects a number that shows losses: doubt is reserved for good news. And that’s where it slips in.</p> <p>I ran into it with an importer. Its functional currency is the dollar: it buys in dollars, its prices move with the dollar, its business thinks in dollars. Its presentation currency is the colón, because it’s based here and it reports here. Those two are not the same thing, and there’s an accounting standard that says how you translate one into the other: IAS 21.</p> <p>I have to confess something. I studied economics, I handle the vocabulary and I move comfortably on the macro side, but the accounting part wasn’t my turf. I had to sit down for a good while and study IAS 21 to understand what I was seeing in that model. It wasn’t a data problem. It was that I didn’t have the framework.</p> <p>What I understood was this. In the devaluation years, that company reported high colón profits that were nobody’s profit. It bought inventory at one exchange rate and sold it weeks or months later at a higher one, and the margin measured in colones inflates on its own, without anyone having bought better or sold better. On that inflated margin, tax was paid. So there was someone winning from that devaluation, but it wasn’t the owner and it wasn’t the customer: it was the government.</p> <p>Now the cycle has flipped and the opposite happens. In colones, those good years deflated and the statements look weak. In dollars, the company is better off than before – among other reasons because it stopped paying tax on a gain that never existed.</p> <p>Let me be clear on scope: I’m not an accountant and this isn’t accounting or tax advice. What interests me is what IAS 21 does to the board’s question. “Up 12% in what?” stops being a decimal-place detail. In a company like that, the answer flips sign: the same year is good in dollars and bad in colones, and both readings are correct. They aren’t two opinions. They’re two perimeters.</p> <p>A good share of my clients are agro-export or import businesses. For them this is the sign of the year.</p> <h2 id="a-correct-number-can-be-indefensible">A correct number can be indefensible</h2> <p>Here is the idea the whole post turns on. Technical correctness is the floor, not the bar.</p> <p>The +12% passed every arithmetic check. Recompute it ten times and you get +12% ten times. And it still died on the table, because correctness was never what the room needed. The room needed a number it could <em>defend</em> – one that survives the obvious questions, that means the same thing to the optimist and the skeptic, that a CEO can stand behind when the analyst is three floors down.</p> <p>Defensibility is what makes a number decision-grade. And defensibility comes from one thing: a declared perimeter. A correct number with no perimeter is not information. It is an unanswered question wearing the costume of an answer. The moment someone in authority asks it out loud, the costume comes off.</p> <h2 id="the-cure-declare-the-perimeter">The cure: declare the perimeter</h2> <p>The fix is almost embarrassingly simple. You say, on the slide, what the number includes, what it excludes, and what it compares against. You make the boundary visible before anyone has to ask.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sales Growth | 2025 vs 2024
+
+Perimeter:   32 stores open for the full 24 months
+Base:        same period in 2024
+Currency:    nominal colones, not inflation-adjusted
+Net of:      returns
+
+Existing catalog in comparable stores    contributes  +3.1 pp
+New line (launched spring 2025)          contributes  +1.7 pp
+8 stores opened in 2025                   contributes  +7.2 pp
+                                          Total:      +12.0%
+
+Note: the comparable-store contribution (+4.8 pp across existing
+catalog and new line) matches its own growth rate because in 2024
+the base was only those 32 stores. With a mixed base it wouldn't
+match, and you'd have to report rate and contribution separately.
+</code></pre></div></div> <p>That annotation is not bureaucracy, and it is not a disclaimer to cover yourself. It is what turns a number into something the CEO can defend without the analyst in the room. Read it again against the four questions: same stores? Answered. New stores? Broken out, +7.2 pp. Base period? Stated. Inflation? Flagged, and flagged as <em>not</em> adjusted, which is a declaration and not an omission. The new spring line? Inside the total and split onto its own row, +1.7 pp – the question the first version of this post left unanswered.</p> <p>Look at the note at the bottom of the block, because it’s the part that cost me the most to write. A contribution in percentage points and a growth rate are not the same thing, and here they match by an accident of the base. A post that preaches declaring the perimeter can’t add rates and contributions without saying which is which. If the block doesn’t carry that note, it commits in small the sin it denounces in large.</p> <p>There is a modeling habit that holds all this up, and it’s worth building in from the start: keep organic and inorganic as <em>separate measures</em> in the model, so the total is always decomposable on demand. When the split lives in the model, the annotated slide is a five-minute job instead of a fire drill. When it doesn’t, every board meeting is a scramble to reconstruct what the headline number actually contained.</p> <h2 id="closing">Closing</h2> <p>The CEO did not lose the room because the number was wrong. He lost it because the number was naked – correct, prominent, and completely undefended. One question undressed it, and after that, every other number on his deck inherited the same doubt. That is how trust erodes: not in a single wrong figure, but in the discovery that the right ones can’t be defended either.</p> <p>I already told you that meeting never happened. What did happen is everything else: the two-year contracts of 2010, the breakout the markets demand and the sales dashboards don’t, and an importer whose good years and bad years flip depending on the currency you read them in. I built the scene to gather into a single afternoon what in practice reaches you separated by years. If it sounded familiar, it’s because these four edges sit undeclared in almost every company.</p> <p>The fix is not a better number. It is the same +12% with its perimeter declared, so that when the director asks whether it includes the new stores, the answer is already on the slide: broken out, labeled, and impossible to misread. A number without a perimeter is a question presented as an answer. Give it a perimeter, and it finally becomes what everyone in the room assumed it already was: a fact you can act on.</p> <p>Which of the four edges is undeclared in the number you present every month? Start with the currency one – it’s the one the fewest people check.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-aggregation-lies/">When Aggregation Lies</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-glossary-isnt-semantics/">Your Glossary Isn't Semantics</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-table-is-not-the-concept/">The Table Is Not the Concept</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/false-semantic-consensus/">False Semantic Consensus</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/we-act-on-metadata/">We Act on Metadata</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/runbooks-as-infrastructure/">Runbooks as Infrastructure</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/battle-scars/">Battle Scars</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-schedulers-contract/">The Scheduler's Contract</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/metadata-all-the-way-down/">Metadata All the Way Down</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/bronze-should-be-boring/">Bronze Should Be Boring</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Technical books and courseware I have co-authored.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Javier Loria — data architect and mentor. 35+ years in software, 25+ specializing in BI and semantic models on the Microsoft data platform.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-the-number-without-perimeter",
+        
+          title: "The Number Without Perimeter",
+        
+        description: "+12%. Correct to the decimal. Nobody in the room could defend it.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-number-without-perimeter/";
+          
+        },
+      },{id: "post-when-aggregation-lies",
+        
+          title: "When Aggregation Lies",
+        
+        description: "The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-aggregation-lies/";
+          
+        },
+      },{id: "post-your-glossary-isn-39-t-semantics",
+        
+          title: "Your Glossary Isn&#39;t Semantics",
+        
+        description: "A definition tells you what a customer is. It doesn&#39;t tell you which rows qualify.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-glossary-isnt-semantics/";
+          
+        },
+      },{id: "post-the-table-is-not-the-concept",
+        
+          title: "The Table Is Not the Concept",
+        
+        description: "You can define the concept perfectly and still model it wrong.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-table-is-not-the-concept/";
+          
+        },
+      },{id: "post-false-semantic-consensus",
+        
+          title: "False Semantic Consensus",
+        
+        description: "Everyone agreed on the number. That was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/false-semantic-consensus/";
+          
+        },
+      },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler&#39;s Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "news-spoke-at-global-fabric-day-2026-hosted-by-microsoft-costa-rica-in-spanish",
+          title: 'Spoke at **Global Fabric Day 2026**, hosted by Microsoft Costa Rica. *(in Spanish)*...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-the-real-impact-of-ai-on-our-society-impacto-real-de-la-inteligencia-artificial-en-nuestra-sociedad-with-the-power-bi-panamá-community-in-spanish",
+          title: 'Spoke on *The Real Impact of AI on Our Society* (*Impacto Real de...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-mcp-for-power-bi-claude-code-with-unidos-por-venezuela-in-spanish",
+          title: 'Spoke on *MCP for Power BI + Claude Code* with Unidos por Venezuela....',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-modelling-amp-design-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Modelling &amp;amp; Design** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://substack.com/@pragmaticdataarchitect", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
