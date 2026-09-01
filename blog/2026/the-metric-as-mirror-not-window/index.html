@@ -1,0 +1,332 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="tMLR3lEPZQVDuO8yLy00aYO3RCBwTgFO5o4tZJJlkkw"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> The Metric as Mirror, Not Window | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know."> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling, data governance, business intelligence"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | The Metric as Mirror, Not Window"> <meta property="og:url" content="https://javierloria.com/blog/2026/the-metric-as-mirror-not-window/"> <meta property="og:description" content="The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know."> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="The Metric as Mirror, Not Window"> <meta name="twitter:description" content="The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know."> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://javierloria.com/blog/2026/the-metric-as-mirror-not-window/",
+        "@type": "BlogPosting",
+        "description": "The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know.",
+        "headline": "The Metric as Mirror, Not Window",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL","https://substack.com/@pragmaticdataarchitect"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javierloria.com/blog/2026/the-metric-as-mirror-not-window/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The Metric as Mirror, Not Window</h1> <p class="post-meta"> Created on September 01, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-governance"> <i class="fa-solid fa-hashtag fa-sm"></i> data-governance</a>   <a href="/blog/tag/data-management"> <i class="fa-solid fa-hashtag fa-sm"></i> data-management</a>   <a href="/blog/tag/business-intelligence"> <i class="fa-solid fa-hashtag fa-sm"></i> business-intelligence</a>   <a href="/blog/tag/semantic-modeling"> <i class="fa-solid fa-hashtag fa-sm"></i> semantic-modeling</a>   <a href="/blog/tag/data-quality"> <i class="fa-solid fa-hashtag fa-sm"></i> data-quality</a>   <a href="/blog/tag/data-ethics"> <i class="fa-solid fa-hashtag fa-sm"></i> data-ethics</a>   <a href="/blog/tag/vanity-metrics"> <i class="fa-solid fa-hashtag fa-sm"></i> vanity-metrics</a>   ·   <a href="/blog/category/trust-erosion"> <i class="fa-solid fa-tag fa-sm"></i> trust-erosion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><img src="/assets/img/feat-the-metric-as-mirror-not-window.webp" alt="The Metric as Mirror, Not Window"></p> <p><em>The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know.</em></p> <p>My daughter was in surgery. It was 2017, in San José, Costa Rica. Scheduled, routine, the kind the surgeon does before lunch and forgets by dinner. That does not make the waiting room any easier when you are the father in it.</p> <p>The hospital was private and, by every sign I could read, good. The waiting area sat next to the emergency room, and on the wall by the admissions desk there was a poster. A KPI, framed and proud: <em>99.5% of patients admitted in under 30 minutes. Target: 95%.</em></p> <p>I am a data person. The brain does not switch off, not even when it should. So while I waited for my daughter to come out, I did what I always do with a number on a wall: I asked what it actually measured. But let me be honest about what I had and what I did not. I had the unease – the number nagged at me – and I had the question. I did not have the frame. The distinction between a mirror and a window, which is what this whole post is about, did not occur to me in that chair; I went and found it years later, building a methodology of my own and writing this series. That day I only knew a perfect number was no use to me, and I could not have told you why.</p> <p>Nothing happened that day. No collapse, no body count. My daughter came out fine. This is not that kind of post. It is the quieter kind: a perfect number, a frightened parent, and the slow realization that the two had nothing to do with each other.</p> <h2 id="what-the-number-was-measuring">What the number was measuring</h2> <p>Start with the literal reading. The hospital was clocking how long it took to <em>administratively admit</em> a patient. From the moment you walk in to the moment your record exists in the system: name captured, ID photographed, a number printed. Under thirty minutes, 99.5% of the time. Beating a 95% target by four and a half points.</p> <p>That is a real measurement. Somebody built the timestamp logic, somebody pulls the report, somebody presents it to a committee that nods. The number is almost certainly true.</p> <p>Now ask what it leaves out. It does not measure how long until a doctor sees you. It does not measure time to diagnosis, time to treatment, time to the medication that stops the pain. It does not measure whether you got better. A patient could be admitted in eleven minutes, beautifully, then wait four hours bleeding in a chair – and the KPI would still read 99.5%. The clock stops the instant the paperwork clears.</p> <p>So the metric measures the speed of printing a number and photographing an ID. It does not measure care. And in an emergency room, care is the only thing anyone walked in for.</p> <h2 id="the-mirror-and-the-window">The mirror and the window</h2> <p>Here is the distinction I keep coming back to.</p> <p>A window shows you the world. You look through it and see what is actually out there: the weather, the street, whether it is safe to go outside. A mirror shows you yourself, and it shows you flattered, in the light you chose.</p> <p>That admissions KPI was a mirror. It reflected the hospital’s competence back at the hospital. <em>Look how fast we process people.</em> And the reflection was accurate. They probably were fast. The mirror was not lying about the face it showed.</p> <p>It just was never going to show me the thing I needed. Sitting in that chair, I did not care how quickly the next patient’s ID got photographed. I cared whether the people behind those doors knew what they were doing with the patients already inside. The metric on the wall could hit 99.5% forever and tell me nothing about that. A perfect mirror, and not a single pane of window in it.</p> <p>This is what a vanity metric is. Eric Ries, in <em>The Lean Startup</em>, drew the line between vanity metrics and actionable ones: numbers that go up but imply no learning and demand no action. The admissions KPI is the purest version I have ever seen framed and hung on a wall. It goes up. Nobody learns anything. No decision changes. It exists to be admired.</p> <h2 id="the-part-that-makes-it-dangerous">The part that makes it dangerous</h2> <p>You might expect me to say the hospital was cheating. It was not. That is exactly what makes this worth writing about.</p> <p>There is a different failure, and I will get to it in the next post. There the metric starts out sound: watch it passively and it reports the business honestly. Then somebody attaches a reward to it, and it stops representing reality. Bad faith may be in there and may not, and it matters less than you would expect, because anything you pay by the unit will start hunting for cheaper units, intention or no intention.</p> <p>The vanity metric never had that moment. No good number went bad under pressure. Admission speed was never going to tell you about care, before any reward existed and before anyone thought to optimize it. Watch it as passively as you like and it still points somewhere adjacent to what you came for. That is the distinction worth holding on to, because it survives where <em>was anybody cheating</em> does not: one failure is a sound metric corrupted by a target, and this one is a metric that was never aimed at the goal.</p> <p>Nobody at that hospital sat down to deceive me. The admissions team genuinely was efficient. Management genuinely had a number to be proud of. The committee genuinely saw improvement. Everyone was honest, and the result was still a poster that measured the wrong thing in plain sight.</p> <p>That is why it is more insidious than the cheat. A number bent under incentive can be caught, because it stops matching the world and the mismatch leaves a trail. But a vanity metric is true. You cannot catch it by checking the math, because the math is right. It survives precisely because it is honest, accurate, and beside the point. The mirror does not lie about your face. It just only ever shows your face, and calls that the room.</p> <h2 id="why-the-wall-is-full-of-mirrors">Why the wall is full of mirrors</h2> <p>Once you hold the mirror-and-window distinction, you start seeing mirrors everywhere, and not only on dashboards. Brazil against Japan, halftime, Japan up 1-0 against every expectation. A commentator reaches for the number that explains it: the Japanese team has run five kilometers more than Brazil. The stat is real and flattering. It also points at exactly the wrong thing. The other man in the booth, an old player, will not let it stand – in football you do not win by running, you win by scoring. The five kilometers measure effort, heart, how badly the team wanted it. They do not measure goals, and goals are the only thing on the scoreboard. What makes the moment worse is that at that exact minute the mirror agreed with the world: Japan <em>was</em> winning. That is when a vanity metric is most dangerous. Not when it contradicts the result, but when it happens to match it, because that is the moment it gets mistaken for the reason.</p> <p>Vanity metrics are not rare accidents. They breed, and the reasons they breed are structural.</p> <p>They are easy to measure. An admission timestamp is trivial to capture. A clinical outcome is hard, slow, and contested. So you measure the easy thing and let it stand in for the hard thing.</p> <p>They flatter everyone in the chain. The admissions staff look efficient. Management looks like it is managing. The committee looks like it is improving the institution. A number that makes everyone in the room look good does not get questioned in that room.</p> <p>And they rarely make anyone uncomfortable. The metrics worth tracking in an ER (time to treatment, diagnostic error rate, what happened to the patient after they left) are the ones that can embarrass somebody. The mirror metrics never do. They are safe. That is their job.</p> <p>So the dashboard fills with them. Likes that never convert. Course pass rates with no evidence of learning. A count of active projects with no link to value delivered. Each one easy, flattering, comfortable. Each one a mirror that somebody mistook for a window.</p> <h2 id="the-culture-that-asks-for-mirrors">The culture that asks for mirrors</h2> <p>So far I have described this as if mirrors appear by accident: the easy number was there, the hard one was not. Often that is true. But there is a version where the mirror is no accident at all: it is what the organization demanded. Some cultures do not forgive bad news. Walk into the executive meeting with a red number and you become the problem, not the number. People learn that fast, and the dashboards drift toward green. Not because anyone falsified anything, but because the metrics that can only ever look good are the safe ones to present. A culture that punishes the messenger ends up with no messengers. Only mirrors.</p> <p>This usually travels with low BI maturity, and the two feed each other. An organization that never learned to use data to find problems uses it to confirm comfort instead. The numbers smile, the reports applaud, and the ship can be taking on water the entire time, because nothing on that wall was ever built to show the waterline.</p> <p>Here is the hard part for anyone trying to fix this from below. You can pair every metric with the right outcome, build the cleanest window in the building, and it will not survive a culture that does not want to look through it. The repair does not start in the semantic model. It starts in the executive mindset: in a leadership that decides bad news is information, not insubordination, and rewards the person who brings the window over the person who polishes the mirror. Until that changes, the mirrors win. The mirrors are what the room is asking for.</p> <h2 id="what-we-leave-out-is-the-whole-story">What we leave out is the whole story</h2> <p>The trap is not in the number on the wall. It is in the number that is not there.</p> <p>William Bruce Cameron put it better than I can, back in 1963: <em>“Not everything that can be counted counts, and not everything that counts can be counted.”</em> The ER measured what was countable: the admission timestamp, clean and cheap. It left out what counted (whether the patient got better) because that is expensive and messy and slow to know.</p> <p>This is the ethical weight of a vanity metric, and it is a different weight than the one from <a href="/blog/2026/false-semantic-consensus/">the opening post</a>. The lie of an ambiguous definition is that two things wear the same name. The lie of a vanity metric is quieter: it is a true number standing in front of the question that matters, blocking the view. Nothing in it is false. Everything important is simply out of frame.</p> <p>When you report the mirror and stay silent about the window, you are making a choice about what the organization is allowed to see. Usually nobody decides that on purpose. It happens because the easy number was available and the hard one was not. But the effect is the same as if someone had chosen it: a hospital that knows, to one decimal place, how fast it admits people, and does not have the same confidence about whether it heals them.</p> <h2 id="the-cure-pair-the-mirror-with-a-window">The cure: pair the mirror with a window</h2> <p>You do not fix a vanity metric by deleting it. Admission speed is not worthless. In a mass-casualty event it might matter a great deal. You fix it by refusing to let it stand alone.</p> <p>The order matters, and it is the reverse of how most of us work. The two moves below are technical, and a technical fix either lands on a culture or it does not land at all. So the culture goes first.</p> <p>That part is organizational change work, not modeling work, and it is out of scope here. I am not going to pretend a post about metrics can teach you how to move people. What I will do is point at the map. Kotter’s change model is the one most of us reach for, and for this problem the first step is the one that counts: establish a sense of urgency. Which happens to be the exact step a wall of mirrors is built to prevent. All those green numbers are a complacency machine, and their job is to make everyone feel that nothing needs changing. The metric you need to fix is also what blocks the conditions for fixing it.</p> <p>Break that loop first. Get someone with authority to feel the gap between the number and the room. Do that and the two moves below are a Tuesday afternoon. Skip it and you will build the cleanest window in the building and watch nobody walk up to it.</p> <p>First, pair every vanity-prone metric with the outcome it is quietly substituting for. Admission speed sits next to time-to-treatment and to a clinical outcome measure. On its own, admission speed is a mirror. Sitting beside the thing it was pretending to represent, it becomes one input to a window: a fast intake is good <em>if</em> it feeds a fast treatment, and now you can see whether it does.</p> <p>Second, apply one diagnostic question to anything on your dashboard: <em>what decision changes if this number moves?</em> If admission speed drops from 99.5% to 96%, what does anyone do differently? If the honest answer is nothing (if the number only ever gets reported and admired), you are looking at a mirror. Frame it as decoration or take it off the wall, but stop pretending it is telling you about the world.</p> <h2 id="closing">Closing</h2> <p>My daughter came out of surgery fine, and the hospital was good – I want to be clear about that, because this is not a story about an incompetent institution. It is a story about a competent one measuring the wrong thing in full view, with the best of intentions and a 99.5% to show for it. The mirror was not wrong. It was just never going to answer the only question I had in that chair: whether the people behind those doors could take care of my daughter. A mirror cannot tell you that. It can only ever show you how good you look while you wait.</p> <p>The most flattering number in any dashboard is the one that measures something real and adjacent to nothing that matters. It will pass every audit, because it is true. It will survive every review, because it makes the room look good. And it will keep you from asking the harder question for exactly as long as you let it hang there, catching the light.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-number-without-perimeter/">The Number Without Perimeter</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-aggregation-lies/">When Aggregation Lies</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-glossary-isnt-semantics/">Your Glossary Isn't Semantics</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-table-is-not-the-concept/">The Table Is Not the Concept</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/false-semantic-consensus/">False Semantic Consensus</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/we-act-on-metadata/">We Act on Metadata</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/runbooks-as-infrastructure/">Runbooks as Infrastructure</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/battle-scars/">Battle Scars</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-schedulers-contract/">The Scheduler's Contract</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/metadata-all-the-way-down/">Metadata All the Way Down</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Technical books and courseware I have co-authored.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Javier Loria — data architect and mentor. 35+ years in software, 25+ specializing in BI and semantic models on the Microsoft data platform.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-the-metric-as-mirror-not-window",
+        
+          title: "The Metric as Mirror, Not Window",
+        
+        description: "The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-metric-as-mirror-not-window/";
+          
+        },
+      },{id: "post-the-number-without-perimeter",
+        
+          title: "The Number Without Perimeter",
+        
+        description: "+12%. Correct to the decimal. Nobody in the room could defend it.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-number-without-perimeter/";
+          
+        },
+      },{id: "post-when-aggregation-lies",
+        
+          title: "When Aggregation Lies",
+        
+        description: "The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-aggregation-lies/";
+          
+        },
+      },{id: "post-your-glossary-isn-39-t-semantics",
+        
+          title: "Your Glossary Isn&#39;t Semantics",
+        
+        description: "A definition tells you what a customer is. It doesn&#39;t tell you which rows qualify.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-glossary-isnt-semantics/";
+          
+        },
+      },{id: "post-the-table-is-not-the-concept",
+        
+          title: "The Table Is Not the Concept",
+        
+        description: "You can define the concept perfectly and still model it wrong.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-table-is-not-the-concept/";
+          
+        },
+      },{id: "post-false-semantic-consensus",
+        
+          title: "False Semantic Consensus",
+        
+        description: "Everyone agreed on the number. That was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/false-semantic-consensus/";
+          
+        },
+      },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler&#39;s Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "news-spoke-at-global-fabric-day-2026-hosted-by-microsoft-costa-rica-in-spanish",
+          title: 'Spoke at **Global Fabric Day 2026**, hosted by Microsoft Costa Rica. *(in Spanish)*...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-the-real-impact-of-ai-on-our-society-impacto-real-de-la-inteligencia-artificial-en-nuestra-sociedad-with-the-power-bi-panamá-community-in-spanish",
+          title: 'Spoke on *The Real Impact of AI on Our Society* (*Impacto Real de...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-mcp-for-power-bi-claude-code-with-unidos-por-venezuela-in-spanish",
+          title: 'Spoke on *MCP for Power BI + Claude Code* with Unidos por Venezuela....',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-modelling-amp-design-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Modelling &amp;amp; Design** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://substack.com/@pragmaticdataarchitect", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
