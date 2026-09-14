@@ -1,0 +1,354 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="tMLR3lEPZQVDuO8yLy00aYO3RCBwTgFO5o4tZJJlkkw"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> When Obedience Is the Disaster | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="Nobody gamed the number. They obeyed it perfectly. That was the disaster."> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling, data governance, business intelligence"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | When Obedience Is the Disaster"> <meta property="og:url" content="https://javierloria.com/blog/2026/when-obedience-is-the-disaster/"> <meta property="og:description" content="Nobody gamed the number. They obeyed it perfectly. That was the disaster."> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="When Obedience Is the Disaster"> <meta name="twitter:description" content="Nobody gamed the number. They obeyed it perfectly. That was the disaster."> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://javierloria.com/blog/2026/when-obedience-is-the-disaster/",
+        "@type": "BlogPosting",
+        "description": "Nobody gamed the number. They obeyed it perfectly. That was the disaster.",
+        "headline": "When Obedience Is the Disaster",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL","https://substack.com/@pragmaticdataarchitect"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javierloria.com/blog/2026/when-obedience-is-the-disaster/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">When Obedience Is the Disaster</h1> <p class="post-meta"> Created on September 14, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-governance"> <i class="fa-solid fa-hashtag fa-sm"></i> data-governance</a>   <a href="/blog/tag/data-management"> <i class="fa-solid fa-hashtag fa-sm"></i> data-management</a>   <a href="/blog/tag/business-intelligence"> <i class="fa-solid fa-hashtag fa-sm"></i> business-intelligence</a>   <a href="/blog/tag/data-quality"> <i class="fa-solid fa-hashtag fa-sm"></i> data-quality</a>   <a href="/blog/tag/data-ethics"> <i class="fa-solid fa-hashtag fa-sm"></i> data-ethics</a>   <a href="/blog/tag/perverse-incentives"> <i class="fa-solid fa-hashtag fa-sm"></i> perverse-incentives</a>   ·   <a href="/blog/category/trust-erosion"> <i class="fa-solid fa-tag fa-sm"></i> trust-erosion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><img src="/assets/img/feat-when-obedience-is-the-disaster.webp" alt="When Obedience Is the Disaster"></p> <p><em>Nobody gamed the number. They obeyed it perfectly. That was the disaster.</em></p> <p>My daughter got pregnant this year, which in our public health system (Costa Rica’s social security, the CCSS) means she gets priority for dental care. Good policy. Pregnancy and untreated dental infection are a bad combination, and the system is right to move expectant mothers to the front of the line.</p> <p>So she went. In March, to a CCSS clinic in Pérez Zeledón. She has eight cavities, the small ordinary kind. A dentist with a free afternoon could handle the lot in one sitting. Instead she was given ten appointments: one per cavity, plus the checkup and the cleaning booked separately. Ten separate trips, ten separate slots, each requiring her employer to grant separate permission to leave work, each consuming a morning a pregnant woman would rather spend almost any other way.</p> <p>No dentist in that clinic is lazy or dishonest. The cavities are real. Every appointment treats something that genuinely needs treating. Nobody is padding a number with fake work. And yet the result is absurd: a treatment plan optimized for inefficiency, ten visits where one or two would do, because the thing the system measures is <em>appointments attended</em>. Not cavities resolved, not mouths made healthy, not patient hours saved. Appointments. So appointments are what the system produces, in abundance, through the only rational response available to the people inside it.</p> <p>Now count what those eight extra visits cost the institution that ordered the metric. The drilling is the short part of an appointment. Around it sits the slot on a calendar, the record pulled and filed, the room turned over, the instruments sterilized, the disposables opened and discarded: gloves, needle, bib, burs. Do it once and you have paid for one setup. Do it ten times and you have paid for ten to deliver the dentistry of two. Then multiply that across a public system and the arithmetic turns ugly in the direction that hurts most, which is the queue. Every fragmented treatment plan eats slots that other patients were waiting for.</p> <p>The number went up. The institution’s actual capacity to treat people went down, and it went down <em>because of</em> the number.</p> <h2 id="obeying-the-metric-not-bending-it">Obeying the metric, not bending it</h2> <p>That is a perverse incentive, and it is a different animal from the one in <a href="/blog/2026/goodharts-law-in-practice/">the post before this</a>. The two get confused constantly. “But this is Goodhart again.” No. It looks like Goodhart, but it is not: in Goodhart the instrument lies; here the instrument tells the plain truth (the ten appointments happened, the count is exact) and the goal is what bleeds. So let me put the distinction where you can see it, and admit up front that this one is mine. Most writing on the subject uses the two names interchangeably: cases of Goodhart get filed as perverse incentives, and perverse incentives get filed as Goodhart, until the words stop doing separate work. I think the line is thin and worth keeping.</p> <p>Goodhart is about the <strong>instrument</strong>. A sound metric gets a reward attached and stops representing reality. The occupancy rate no longer tells you what the hotel is doing. Whether anybody acted in bad faith is a separate question, and usually unanswerable.</p> <p>The perverse incentive is about the <strong>goal</strong>. Here the instrument keeps working perfectly. Ten appointments really did happen, and the count is exact. Nothing about the measurement drifted an inch from the truth. What the reward damaged was the thing the measurement stood in for. And it damaged it in the way that matters most: it turned back on the institution that set the incentive up. The health service paid for eight extra setups and lengthened its own waiting list to score better on its own number.</p> <p>A vanity metric, <a href="/blog/2026/the-metric-as-mirror-not-window/">a couple of posts back</a>, does neither. It corrupts no instrument and damages no goal. It was never pointed at anything that mattered, and it hangs on the wall being admired.</p> <p>Which is why this one has nobody to blame. The dentists are not gaming anything. They are <em>obeying</em> the metric, in perfect good faith, doing real and necessary work the whole time. The system asked for appointments, and conscientious professionals delivered appointments. The harm is not in anyone’s character. It is built into the incentive itself, and it would happen with a staff of saints.</p> <p>Steven Kerr named it in 1975, in a management paper whose title says the whole thing: <a href="https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Motivation/Kerr_Folly_of_rewarding_A_while_hoping_for_B.pdf" rel="external nofollow noopener" target="_blank">“On the Folly of Rewarding A, While Hoping for B.”</a> You hope for B: healthy patients, efficiently treated. You reward A: appointment volume. And then you act surprised when you get a mountain of A and very little B. The folk version is the cobra effect: the often-told story of a colonial government that put a bounty on cobras to thin the population, and got an enthusiastic local industry breeding cobras for the reward. The bounty worked exactly as designed. It just was not designed to do what anyone actually wanted.</p> <p>You do not need someone cheating. You need a measure pointed at the wrong thing and a room full of reasonable people doing their honest best to move it.</p> <h2 id="it-punishes-the-conscientious">It punishes the conscientious</h2> <p>Here is the signature of a perverse incentive, the tell that distinguishes it from ordinary gaming: it punishes the people who do the right thing.</p> <p>A dentist who could have batched my daughter’s cavities into two efficient visits (the one actually serving the goal) would have posted lower appointment numbers than the one who stretched them across ten. On the dashboard, the conscientious dentist looks <em>worse</em>. The metric does not just fail to reward good practice. It actively penalizes it. The better you serve the real goal, the worse you score on the proxy.</p> <p>The same mechanism, with the same cruelty, I ran into once without looking for it. I did not come to that project to audit any metric. I came to model the new land-registry system for the Dominican Republic (the one that would be fed by what this team was capturing), and because I was the “SQL expert,” they also asked me to help with a performance problem on the team’s server. The perverse incentive turned up there, with my hands in the engine for another reason.</p> <p>Thirty clerks per shift, two shifts, worked through scanned images of old title books, pulling the legal substance out of each record: buyers, sellers, creditors. The data-quality control was serious: every record was keyed blind by two clerks who could not see each other’s work; if they matched, it passed; if not, a third broke the tie, and every batch of 2,000 was sampled and had to confirm at 98%. The <em>quality</em> of the data was well nailed down. <em>Productivity</em> was not: a clerk was measured on volume of records evaluated, and the records varied enormously. Some were dense with information that took real effort to transcribe correctly. Many carried only minor annotations. Some were blank.</p> <p>Sit with what that incentive does. A clerk who drew a dense record (exactly the one the whole project existed to capture) did ten minutes of careful, error-prone transcription for one unit of “record evaluated.” One who drew a blank page clicked twice, marked it empty, and booked the same unit in five seconds. Same credit, a fraction of the work, and none of the value the project was actually for.</p> <p>But the part I did not see coming was on the server. The next case was handed to each clerk by a SQL view: a heavy, slow, and – this is what matters – non-deterministic query. Every time it ran it returned a different record at the top. Troubleshooting the performance, I found why the machine was suffering: a single clerk was firing that view twenty or twenty-five times a minute. They were not working twenty records a minute. They were re-rolling the dice – run it, see if the case is easy, if not, run it again – until a blank or near-blank one came up. The view was their slot machine.</p> <p>Nobody had hacked anything. They pressed a button the system handed them, until the system handed them something easy. I sat down with the team’s director and the programmer to look at the results, and there was the cruel part: the clerks who consumed the view the most, the ones who re-rolled it hardest, were exactly the ones the dashboard crowned as <em>top performers</em>. The board was rewarding, by name, the people doing the least real work. The diligent clerks, the ones who carefully worked the hard records, posted the worst numbers. The metric rewarded skimming and punished exactly the careful capture that mattered most.</p> <h2 id="where-the-perverse-incentive-breaks-the-instrument-too">Where the perverse incentive breaks the instrument too</h2> <p>That land-records case is worth a second look, because it shows the boundary between the perverse incentive and the Goodhart gaming before it.</p> <p>The incentive was perverse by design: measuring records while ignoring difficulty made skimming the rational strategy before anyone did anything clever. A clerk who simply took cases as they came and happened to draw easy ones would have scored well without a single dishonest act. That is the pure perverse incentive, and it harms the goal all on its own.</p> <p>But then some clerks started re-running the view to fish for easy cases. Watch what that does to the instrument. Until then, “records evaluated” was an honest count that simply failed to weight difficulty. Once clerks are re-rolling the assignment until an easy case comes up, the count stops representing coverage of the archive at all: it measures how well somebody re-rolls the dice. The goal was already being damaged; now the number has stopped reporting reality too. That is the step across the line into the Goodhart territory we mapped last time. This is how it usually goes. Perverse incentives are the on-ramp. You point a metric at the wrong thing, good people respond rationally, and the most metric-aware among them eventually notice that the rational response can be sharpened into a deliberate one. Nobody starts out cheating. They start out obeying, and the obedience teaches them where the seams are.</p> <h2 id="you-measured-the-activity-not-the-goal">You measured the activity, not the goal</h2> <p>Strip these cases down and they are the same mistake. Somebody measured the activity instead of the outcome, because the activity is easy to count and the outcome is hard.</p> <p>Appointments are trivial to count. Restored dental health across a population is hard to measure. So the system counts appointments and quietly lets them stand in for health. Records are trivial to count. Knowledge faithfully captured from a crumbling archive is hard to measure. So the project counts records and lets them stand in for the knowledge. Call length is trivial to count; whether the customer’s problem actually got solved is not. So a call center tracks average handle time and lets speed stand in for resolution. And the agent who patiently works a hard call to the end posts worse numbers than the one who hurries the caller off the line. The conscientious one looks slow. Worse, the rushed call often comes back as a second call, so the very metric meant to tame the workload quietly multiplies it. In every case the easy proxy did more than fail to capture the goal: it pulled behavior directly away from it, because the proxy and the goal pointed in different directions and the proxy was the one with the reward attached.</p> <p>Donald Campbell put the warning almost as a law: the more any quantitative indicator is used to make decisions, the more it will distort and corrupt the very process it was meant to monitor. Not “might.” Will. The pressure of the reward bends the behavior toward the number and away from the thing the number was a proxy for. Measuring the activity is how you guarantee you get the activity – and only sometimes, by luck, the goal underneath it.</p> <h2 id="the-cure-reward-b-even-when-a-is-easier-to-count">The cure: reward B, even when A is easier to count</h2> <p>The fix is the hardest kind, because it asks you to measure the thing you actually want instead of the thing that is convenient.</p> <p>Reward the outcome, not the activity. If you cannot measure the outcome directly (and often you genuinely cannot), then at least pair the activity metric with something that moves the other way when the activity is being optimized at the goal’s expense. Appointment volume next to patient-visits-per-resolved-case, so that fragmenting care shows up as the inefficiency it is. Records evaluated next to a difficulty or completeness weighting, so the dense record is worth more than the blank one and the diligent clerk stops looking like the slow one.</p> <p>And before you attach a reward to any number, run Kerr’s question over it explicitly: what is the B I am hoping for, what is the A I am about to reward, and are they the same thing? If they are not (if it is possible to maximize A while starving B), then you have just built a machine that will, in perfect good faith, give you exactly the wrong result. Build it anyway and the most conscientious people on your team will be the ones it punishes first.</p> <h2 id="closing">Closing</h2> <p>Nobody in either of these stories did anything wrong, and that is the entire point. The dentists treated real cavities. The clerks evaluated real records. The numbers were honest, the work was honest, and the outcome was a system that booked ten appointments where two would do, and skimmed an archive for its easy records while its richest ones went quietly untouched.</p> <p>This is the failure no audit turns up, because everyone is doing exactly what was asked. There is nobody to fire and no fraud to catch. The metric was not bent and it was not wrong. It was obeyed, faithfully, by good people, all the way to a result nobody wanted – including the institution that asked for it. The cruelest part is who pays for it: not the cynic who works the system, but the conscientious professional who serves the real goal and watches the dashboard call it underperformance.</p> <p>You get what you measure. Not what you meant – what you measured. And if those two ever come apart, the people who suffer first are the ones still trying to deliver what you meant.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/goodharts-law-in-practice/">Goodhart's Law in Practice</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-metric-as-mirror-not-window/">The Metric as Mirror, Not Window</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-number-without-perimeter/">The Number Without Perimeter</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-aggregation-lies/">When Aggregation Lies</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-glossary-isnt-semantics/">Your Glossary Isn't Semantics</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-table-is-not-the-concept/">The Table Is Not the Concept</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/false-semantic-consensus/">False Semantic Consensus</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/we-act-on-metadata/">We Act on Metadata</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/runbooks-as-infrastructure/">Runbooks as Infrastructure</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/battle-scars/">Battle Scars</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Technical books and courseware I have co-authored.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Javier Loria — data architect and mentor. 35+ years in software, 25+ specializing in BI and semantic models on the Microsoft data platform.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-when-obedience-is-the-disaster",
+        
+          title: "When Obedience Is the Disaster",
+        
+        description: "Nobody gamed the number. They obeyed it perfectly. That was the disaster.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-obedience-is-the-disaster/";
+          
+        },
+      },{id: "post-goodhart-39-s-law-in-practice",
+        
+          title: "Goodhart&#39;s Law in Practice",
+        
+        description: "He won awards for the number. The number was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/goodharts-law-in-practice/";
+          
+        },
+      },{id: "post-the-metric-as-mirror-not-window",
+        
+          title: "The Metric as Mirror, Not Window",
+        
+        description: "The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-metric-as-mirror-not-window/";
+          
+        },
+      },{id: "post-the-number-without-perimeter",
+        
+          title: "The Number Without Perimeter",
+        
+        description: "+12%. Correct to the decimal. Nobody in the room could defend it.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-number-without-perimeter/";
+          
+        },
+      },{id: "post-when-aggregation-lies",
+        
+          title: "When Aggregation Lies",
+        
+        description: "The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-aggregation-lies/";
+          
+        },
+      },{id: "post-your-glossary-isn-39-t-semantics",
+        
+          title: "Your Glossary Isn&#39;t Semantics",
+        
+        description: "A definition tells you what a customer is. It doesn&#39;t tell you which rows qualify.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-glossary-isnt-semantics/";
+          
+        },
+      },{id: "post-the-table-is-not-the-concept",
+        
+          title: "The Table Is Not the Concept",
+        
+        description: "You can define the concept perfectly and still model it wrong.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-table-is-not-the-concept/";
+          
+        },
+      },{id: "post-false-semantic-consensus",
+        
+          title: "False Semantic Consensus",
+        
+        description: "Everyone agreed on the number. That was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/false-semantic-consensus/";
+          
+        },
+      },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler&#39;s Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "news-spoke-at-global-fabric-day-2026-hosted-by-microsoft-costa-rica-in-spanish",
+          title: 'Spoke at **Global Fabric Day 2026**, hosted by Microsoft Costa Rica. *(in Spanish)*...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-the-real-impact-of-ai-on-our-society-impacto-real-de-la-inteligencia-artificial-en-nuestra-sociedad-with-the-power-bi-panamá-community-in-spanish",
+          title: 'Spoke on *The Real Impact of AI on Our Society* (*Impacto Real de...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-mcp-for-power-bi-claude-code-with-unidos-por-venezuela-in-spanish",
+          title: 'Spoke on *MCP for Power BI + Claude Code* with Unidos por Venezuela....',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-modelling-amp-design-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Modelling &amp;amp; Design** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://substack.com/@pragmaticdataarchitect", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
