@@ -1,0 +1,376 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="tMLR3lEPZQVDuO8yLy00aYO3RCBwTgFO5o4tZJJlkkw"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> When Code Betrays the Model | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="The definition was right. The code said something else -- and nobody was reading the code."> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling, data governance, business intelligence"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | When Code Betrays the Model"> <meta property="og:url" content="https://javierloria.com/blog/2026/when-code-betrays-the-model/"> <meta property="og:description" content="The definition was right. The code said something else -- and nobody was reading the code."> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="When Code Betrays the Model"> <meta name="twitter:description" content="The definition was right. The code said something else -- and nobody was reading the code."> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://javierloria.com/blog/2026/when-code-betrays-the-model/",
+        "@type": "BlogPosting",
+        "description": "The definition was right. The code said something else -- and nobody was reading the code.",
+        "headline": "When Code Betrays the Model",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL","https://substack.com/@pragmaticdataarchitect"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javierloria.com/blog/2026/when-code-betrays-the-model/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">When Code Betrays the Model</h1> <p class="post-meta"> Created on September 22, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-governance"> <i class="fa-solid fa-hashtag fa-sm"></i> data-governance</a>   <a href="/blog/tag/data-management"> <i class="fa-solid fa-hashtag fa-sm"></i> data-management</a>   <a href="/blog/tag/business-intelligence"> <i class="fa-solid fa-hashtag fa-sm"></i> business-intelligence</a>   <a href="/blog/tag/semantic-modeling"> <i class="fa-solid fa-hashtag fa-sm"></i> semantic-modeling</a>   <a href="/blog/tag/data-modeling"> <i class="fa-solid fa-hashtag fa-sm"></i> data-modeling</a>   <a href="/blog/tag/data-quality"> <i class="fa-solid fa-hashtag fa-sm"></i> data-quality</a>   <a href="/blog/tag/metric-implementation"> <i class="fa-solid fa-hashtag fa-sm"></i> metric-implementation</a>   ·   <a href="/blog/category/trust-erosion"> <i class="fa-solid fa-tag fa-sm"></i> trust-erosion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><img src="/assets/img/feat-when-code-betrays-the-model.webp" alt="When Code Betrays the Model"></p> <p><em>The definition was right. The code said something else – and nobody was reading the code.</em></p> <p>An agricultural company I worked with tracked employee turnover, and the definition was textbook-clean: the number of employees who leave during a period, divided by the average headcount over that period. Nobody argued with it. There was nothing to argue with.</p> <p>What made me look was not distrust of the method. It was that the numbers did not add up against each other: the year’s turnover did not resemble the average of each month’s turnover, and it should have. An average of averages does not stray that far from its parts. So I went to see how the denominator was computed.</p> <p>It was the headcount on the first day of the period plus the headcount on the last, divided by two. A two-point average. For a company with a flat workforce, that is fine. This one was not: around 7,000 employees, close to 60% seasonal, the workforce swelling and shrinking with the harvest. Many of those seasonal workers travel to Nicaragua at year-end, so December 31 and January 1, the two exact days the calculation used as its denominator, always fell in the seasonal trough.</p> <p>Watch what that does. Those two days at the edge decide the whole average. Because here year-end was always a low, the two-point average came out low, the denominator shrank, and turnover looked higher than it was. In another company, where the cutoff landed on a peak, the opposite would happen: the denominator swells and turnover looks lower. Either way the number is lying about the year, because two days at the edges cannot represent a curve that moved all twelve months. I checked it the simplest way: between 15% and 20% of the people who worked that year did not appear in either cutoff. One in five real employees never entered the denominator that claimed to count them.</p> <p>The faithful version is not complicated – average the headcount across every month, all thirteen boundary points, so the denominator reflects the period it claims to describe. The definition said “average headcount over the period.” The code said “average of two days.” Those are two different claims about the company, and no one had noticed, because both of them produce a believable percentage.</p> <h2 id="a-formula-is-a-claim-about-the-business">A formula is a claim about the business</h2> <p>This failure is unlike any other in the series. Until now I have written about numbers that misled because of how they were defined, aggregated, bounded, or gamed. This one is about a number whose definition was correct and whose implementation was not.</p> <p>Code does not invent meaning. It materializes it. When the code that implements a metric drifts away from the definition the business agreed on, it does not throw an error and it does not raise an alert. It just quietly starts making a different claim about the business, in a number that looks exactly as plausible as the right one would have. There is no technical failure to catch. There is only a believable figure that means something other than what was promised.</p> <p>And that plausibility is the whole problem, because of how these things get reviewed. When someone validates a measure, almost nobody reads the formula against the definition. They look at the output and ask whether it seems reasonable. A turnover of 14% seems reasonable. A turnover of 19% seems reasonable too. A two-point average is invisible at the output layer, because its output is a perfectly ordinary-looking percentage. The review checks whether the number looks right, never whether the formula says what the model meant. The camouflage is built in.</p> <h2 id="the-one-everybody-half-remembers">The one everybody half-remembers</h2> <p>The textbook version of this is margin versus markup, and you have probably seen it argued about online. The model defines gross margin precisely:</p> <pre><code class="language-dax">// Definition: Gross Margin % = (Sales - Cost) / Sales
+</code></pre> <p>The developer implementing the measure writes this instead:</p> <pre><code class="language-dax">// WRONG -- this is markup, not gross margin
+Gross Margin % = DIVIDE( [Net Sales] - [Cost of Goods Sold], [Cost of Goods Sold] )
+</code></pre> <p>Both return a percentage. Both look reasonable on a dashboard. Nobody catches it, because nobody checks the formula against the definition: they check that the numbers “look fine.” The error surfaces three months later, when the category team compares against an industry benchmark. The model reports 42% margin in a category where the sector runs 28%. The gap is not the market. It is the denominator.</p> <p>Here is the part the online arguments miss. They fixate on the math: which denominator is correct, how to remember the difference. That is not the lesson. The lesson is that for three months, the dashboard had been making a <em>different claim about the business</em> than the one the company thought it was making, and people had been pricing, planning, and comparing on the strength of it. The fix is one line of DAX:</p> <pre><code class="language-dax">// CORRECT -- faithful to the model's definition
+Gross Margin % = DIVIDE( [Net Sales] - [Cost of Goods Sold], [Net Sales] )
+</code></pre> <p>One line. A quarter of decisions made on a different business than the one in the room. And notice where the betrayal lived: the same place it lived in the turnover case. The numerator was honest. The denominator was the lie. In the everyday case that is exactly the pattern: the numerator behaves and the denominator does the quiet damage. The boldest inventions can flip it, though, and move the lie into the numerator itself.</p> <h2 id="when-the-formula-goes-public">When the formula goes public</h2> <p>Inside a company, a betrayed formula costs you a few wrong decisions and an awkward meeting. When the formula is reported to investors, it can cost you a lawsuit.</p> <p>In 2004, Netflix reported subscriber churn. Their formula divided cancellations in the quarter by the sum of the beginning subscribers and the gross new subscribers added that quarter. Read that denominator again: it included the new subscribers. So in any quarter where Netflix was adding a lot of customers (which was most of them), the denominator ballooned and the churn rate came out low. Lower than the experience of customers actually leaving would suggest. The definition of churn that other companies used, telecoms like Sprint and Nextel, divided cancellations by the <em>average</em> number of subscribers over the period.</p> <p>When Netflix disclosed the actual cancellation numbers for prior quarters in July 2004, the gap was visible, and a shareholder suit followed, alleging the company had understated its churn through the calculation method itself. I am not telling you how that litigation resolved, and it does not matter for the point. The point is that a choice of denominator (the kind of thing that lives unremarked in a spreadsheet, decided once by whoever built the measure) became the basis of a securities-fraud allegation. The formula was a claim about the business, and claims a company makes to investors are legally load-bearing.</p> <p>It gets sharper when the formula is not a mistake but an invention. Groupon walked into its 2011 IPO with a metric it called Adjusted Consolidated Segment Operating Income. The trick was in what it left out: it amortized online-marketing costs as if they were a capital investment rather than the cost of buying the quarter’s customers. That one move turned a $420 million operating loss into $60 million of “income” – until the SEC pushed back and the metric came out before the company went public.</p> <p>WeWork did the same surgery on profitability. Its “Community-Adjusted EBITDA” subtracted the usual interest and taxes, and then kept subtracting – rent, marketing, general and administrative overhead – until a business losing money on every building read as profitable. The denominator games hide in plain percentages; these inventions rewrite the numerator itself, adding back the very costs that define whether the business works. Markets and regulators have learned to treat a creative formula as exactly what it is: a claim about the business, dressed up as a measurement.</p> <h2 id="the-cure-read-the-formula-against-the-promise">The cure: read the formula against the promise</h2> <p>You do not fix this with better arithmetic. You fix it by changing what gets reviewed.</p> <p><strong>Validate the formula against the definition, not against the output.</strong> The output will always look plausible – that is the trap, not the exception. Someone has to put the DAX or the SQL next to the model’s stated definition and confirm, line by line, that they make the same claim. At the agricultural company, no one had put those two things side by side; the day I finally did, the distance between “average over the period” and “average of two days” showed up in an afternoon. “Average headcount” in the definition has to be the same average the code computes. “Gross margin” has to divide by sales, because that is what the word was promised to mean. This is boring work and it is the only work that catches the betrayal.</p> <p><strong>Treat the model as the contract.</strong> When the code cannot implement the definition exactly (a data limitation, a performance ceiling), the move is to go back to the definition and change it, in the open, where everyone can see the new promise. You do not quietly patch the code to do something the definition does not describe. A silent patch is how a contract gets rewritten without anyone signing it, and it is indistinguishable, three months later, from the bug it pretends not to be.</p> <p><strong>Make the definition and the code traceable to each other.</strong> The measure should carry its definition with it: a description, documentation, the model under version control so the formula’s history is visible. Then a reviewer can check the promise against the implementation, and so can an auditor a year later, and so, if it ever comes to that, can the expert witness reading your measure in a deposition. A formula you cannot trace back to a definition is a claim nobody can defend.</p> <h2 id="closing">Closing</h2> <p>This is where the series began, turned inside out. <a href="/blog/2026/false-semantic-consensus/">The first post</a> was about a definition that everyone agreed on and no two people actually shared: meaning that was missing. This one is about a definition that everyone agreed on, that was captured and signed and correct, and that the code quietly ignored: meaning that was present, and then rewritten in translation, in the one place nobody was reading.</p> <p>A formula is not a technical detail to be delegated and forgotten. It is the most precise claim your organization makes about itself, and it is written in a language most of the people who depend on it cannot read. That gap (between the people who decide what a number means and the people who implement what it actually computes) is where the betrayal lives, silent and plausible, until the day it is a benchmark that does not match, a board that cannot defend its growth number, or a court reading your churn formula back to you.</p> <p>So read the formula against the promise. And when you want to know what a metric is really claiming, do what almost nobody does: read the part no one else bothers to (the denominator, or the quiet adjustment slipped into the numerator) because the numerator everyone quotes tells you what they measured, and that quiet part tells you what they meant.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-obedience-is-the-disaster/">When Obedience Is the Disaster</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/goodharts-law-in-practice/">Goodhart's Law in Practice</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-metric-as-mirror-not-window/">The Metric as Mirror, Not Window</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-number-without-perimeter/">The Number Without Perimeter</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-aggregation-lies/">When Aggregation Lies</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-glossary-isnt-semantics/">Your Glossary Isn't Semantics</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-table-is-not-the-concept/">The Table Is Not the Concept</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/false-semantic-consensus/">False Semantic Consensus</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/we-act-on-metadata/">We Act on Metadata</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/runbooks-as-infrastructure/">Runbooks as Infrastructure</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Technical books and courseware I have co-authored.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Javier Loria — data architect and mentor. 35+ years in software, 25+ specializing in BI and semantic models on the Microsoft data platform.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-when-code-betrays-the-model",
+        
+          title: "When Code Betrays the Model",
+        
+        description: "The definition was right. The code said something else -- and nobody was reading the code.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-code-betrays-the-model/";
+          
+        },
+      },{id: "post-when-obedience-is-the-disaster",
+        
+          title: "When Obedience Is the Disaster",
+        
+        description: "Nobody gamed the number. They obeyed it perfectly. That was the disaster.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-obedience-is-the-disaster/";
+          
+        },
+      },{id: "post-goodhart-39-s-law-in-practice",
+        
+          title: "Goodhart&#39;s Law in Practice",
+        
+        description: "He won awards for the number. The number was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/goodharts-law-in-practice/";
+          
+        },
+      },{id: "post-the-metric-as-mirror-not-window",
+        
+          title: "The Metric as Mirror, Not Window",
+        
+        description: "The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-metric-as-mirror-not-window/";
+          
+        },
+      },{id: "post-the-number-without-perimeter",
+        
+          title: "The Number Without Perimeter",
+        
+        description: "+12%. Correct to the decimal. Nobody in the room could defend it.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-number-without-perimeter/";
+          
+        },
+      },{id: "post-when-aggregation-lies",
+        
+          title: "When Aggregation Lies",
+        
+        description: "The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-aggregation-lies/";
+          
+        },
+      },{id: "post-your-glossary-isn-39-t-semantics",
+        
+          title: "Your Glossary Isn&#39;t Semantics",
+        
+        description: "A definition tells you what a customer is. It doesn&#39;t tell you which rows qualify.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-glossary-isnt-semantics/";
+          
+        },
+      },{id: "post-the-table-is-not-the-concept",
+        
+          title: "The Table Is Not the Concept",
+        
+        description: "You can define the concept perfectly and still model it wrong.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-table-is-not-the-concept/";
+          
+        },
+      },{id: "post-false-semantic-consensus",
+        
+          title: "False Semantic Consensus",
+        
+        description: "Everyone agreed on the number. That was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/false-semantic-consensus/";
+          
+        },
+      },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler&#39;s Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "news-spoke-at-global-fabric-day-2026-hosted-by-microsoft-costa-rica-in-spanish",
+          title: 'Spoke at **Global Fabric Day 2026**, hosted by Microsoft Costa Rica. *(in Spanish)*...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-the-real-impact-of-ai-on-our-society-impacto-real-de-la-inteligencia-artificial-en-nuestra-sociedad-with-the-power-bi-panamá-community-in-spanish",
+          title: 'Spoke on *The Real Impact of AI on Our Society* (*Impacto Real de...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-mcp-for-power-bi-claude-code-with-unidos-por-venezuela-in-spanish",
+          title: 'Spoke on *MCP for Power BI + Claude Code* with Unidos por Venezuela....',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-modelling-amp-design-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Modelling &amp;amp; Design** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-governance-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Governance** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "news-awarded-the-cdmp-practitioner-certification-dama-international",
+          title: 'Awarded the **CDMP Practitioner** certification (DAMA International).',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://substack.com/@pragmaticdataarchitect", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
