@@ -1,0 +1,382 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="tMLR3lEPZQVDuO8yLy00aYO3RCBwTgFO5o4tZJJlkkw"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> The Discipline of Distrust | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="Every number in this series lied. The fix was never a better number -- it was a better reader."> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling, data governance, business intelligence"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | The Discipline of Distrust"> <meta property="og:url" content="https://javierloria.com/blog/2026/the-discipline-of-distrust/"> <meta property="og:description" content="Every number in this series lied. The fix was never a better number -- it was a better reader."> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="The Discipline of Distrust"> <meta name="twitter:description" content="Every number in this series lied. The fix was never a better number -- it was a better reader."> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://javierloria.com/blog/2026/the-discipline-of-distrust/",
+        "@type": "BlogPosting",
+        "description": "Every number in this series lied. The fix was never a better number -- it was a better reader.",
+        "headline": "The Discipline of Distrust",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL","https://substack.com/@pragmaticdataarchitect"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javierloria.com/blog/2026/the-discipline-of-distrust/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The Discipline of Distrust</h1> <p class="post-meta"> Created on September 29, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-governance"> <i class="fa-solid fa-hashtag fa-sm"></i> data-governance</a>   <a href="/blog/tag/data-management"> <i class="fa-solid fa-hashtag fa-sm"></i> data-management</a>   <a href="/blog/tag/business-intelligence"> <i class="fa-solid fa-hashtag fa-sm"></i> business-intelligence</a>   <a href="/blog/tag/data-quality"> <i class="fa-solid fa-hashtag fa-sm"></i> data-quality</a>   <a href="/blog/tag/data-ethics"> <i class="fa-solid fa-hashtag fa-sm"></i> data-ethics</a>   <a href="/blog/tag/data-culture"> <i class="fa-solid fa-hashtag fa-sm"></i> data-culture</a>   ·   <a href="/blog/category/trust-erosion"> <i class="fa-solid fa-tag fa-sm"></i> trust-erosion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><img src="/assets/img/feat-the-discipline-of-distrust.webp" alt="The Discipline of Distrust"></p> <p><em>Every number in this series lied. The fix was never a better number – it was a better reader.</em></p> <p>On April 1, 2026, four astronauts were strapped into the Orion capsule on top of a fully fueled rocket at Kennedy Space Center, counting down to the first crewed flight to the Moon since 1972. And in the final stretch of that countdown, an instrument started reporting bad news.</p> <p>A temperature sensor on one of the launch abort system’s batteries read higher than it should have. Out of family, in the language of the room. On a vehicle carrying people, with the abort system being the one thing meant to save their lives if the rocket fails, a battery running hot is not a number you wave away.</p> <p>So watch what NASA did, because it is the whole post. They did not act on the reading. They interrogated it. A high temperature could mean two completely different things: the battery is actually overheating, or the sensor is lying about a battery that is fine. Those two possibilities demand opposite responses (one scrubs the launch, the other ignores the alarm), and the whole decision came down to telling them apart under time pressure: four lives and a few billion dollars riding on getting it right.</p> <p>They judged it an instrumentation problem. Not the battery – the sensor. The mission management team accepted the change, the hold resumed, and at 6:35 that evening the rocket flew. (<a href="https://www.nasa.gov/blogs/missions/2026/04/01/live-artemis-ii-launch-day-updates/" rel="external nofollow noopener" target="_blank">NASA’s launch-day log has the play-by-play.</a>)</p> <h2 id="the-move-almost-nobody-makes">The move almost nobody makes</h2> <p>What NASA did has a name in engineering, but it does not have a name in most boardrooms, because most boardrooms do not do it. They separated the signal from the source of the signal.</p> <p>“The sensor says the battery is hot” is not the same statement as “the battery is hot.” One is a reading. The other is reality. Between them sits an instrument that can be wrong, and the entire question is whether you trust it on this particular reading, at this particular moment. NASA held those two statements apart and tested the gap. Most organizations collapse it on instinct: the number said X, therefore X, now let’s go figure out what to do about X.</p> <p>This was not luck or a one-time stroke of caution. NASA does it as a matter of discipline. Back in 2022, during an Artemis I countdown, a sensor on engine 3 read about 40 degrees Fahrenheit too warm. Same fork in the road: bad engine, or bad sensor? They determined the <a href="https://www.fierceelectronics.com/sensors/bad-temperature-sensor-engine-3-traced-scrubbed-artemis-i-launch" rel="external nofollow noopener" target="_blank">sensor was faulty, not the engine</a>, and treated the reading accordingly. Twice now, at the worst possible moment to be wrong, the same posture: distrust the instrument, verify, then decide.</p> <h2 id="the-whole-series-in-one-sentence">The whole series, in one sentence</h2> <p>I have spent this series taking apart numbers that lied.</p> <p>A definition everyone signed off on and no two people shared. A table whose rows quietly stopped matching the concept they claimed. A sum of things that could not be summed, sitting in a column with a confident decimal. A growth number with no declared perimeter, correct and indefensible. A flattering metric that measured the wrong thing in plain sight. A metric gamed for someone’s bonus, and another obeyed in perfect good faith, all the way to harm. A formula that quietly claimed something other than the definition it was built from. Different mechanisms, but one family underneath them all: a number that looks like a fact and rests on something nobody declared.</p> <p>And here is what every one of those posts was really about, even when I was writing about definitions or denominators or perimeters. The failure was almost never the number. It was a reader who took the reading at face value. The customer count, the average price, the +12%, the flattering KPI, the occupancy rate, the ten appointments where two would do – each of them would have been caught by one person in the room doing what NASA did with that battery sensor: asking, before acting, whether the instrument was telling the truth.</p> <p>The fix was never a better number. There is no better number waiting to be built. The fix is a better reader.</p> <h2 id="the-opposite-posture">The opposite posture</h2> <p>There is a failure on the other side of this, and it is just as expensive. To see it, I have to take you from a launch pad to a museum.</p> <p>I was at the Museum of Flight in Seattle, walking through the first jet Air Force One: a Boeing VC-137 that flew presidents from Eisenhower to Nixon. The guide told us a story that the museum tells too, so I am fairly sure it is real. President Lyndon Johnson was famously fussy about the cabin temperature, and he badgered the flight crew about it constantly. So they did something about it. They installed a thermostat in the conference room.</p> <p>It was not connected to anything. (<a href="https://blog.museumofflight.org/quirks-of-the-first-jet-powered-air-force-one" rel="external nofollow noopener" target="_blank">The museum’s own blog tells the story.</a>) Johnson would turn the dial, feel that he had taken charge of his environment, and never notice that the temperature did not change. The version we got on the tour added that the actual adjustments happened up front, on a quiet word from the cabin crew to the cockpit. A perfect placebo: the full sensation of control, wired to nothing.</p> <p>Johnson trusted an instrument that was wired to nothing. NASA distrusted an instrument that was wired to a battery and happened to be wrong. Hold those two side by side, because together they are the whole story.</p> <h2 id="the-dashboard-as-placebo-knob">The dashboard as placebo knob</h2> <p>Most of this series warned you about instruments that lie. The placebo knob is the warning I had not gotten to yet: the instrument that is not connected to anything.</p> <p>I see them everywhere. In vendor demos, in the pitches of service providers, in hotels, in agribusiness, in banking. Placebo knobs, often enough that to me they are just normal. But the case that will not leave me is a private university in Costa Rica, in 2024.</p> <p>They brought me in as a consultant to lead the process, and we walked the entire hard road. The university’s team mapped its value chain, we ran workshops for each of the seven primary activities and the seven support ones, requirements sessions with the people involved, balance analysis across indicators. The nearly 70 indicators in the final report were not mine to bring: their own people built them, guided by me and on sound principles, each one tied to a real activity of the institution. It was real work.</p> <p>The board took it apart. They cut more than 50 of those indicators and wired up knobs in their place. Maintenance Cost per square meter – a number you can drive down by letting the buildings decay, whether or not anyone ever complained about their condition. Number of Courses Offered, regardless of whether a single student enrolled. Social media followers, which is the perfect knob because it climbs on its own: new students arrive every year, almost nobody unfollows you, and the needle moves without anyone in the room having moved anything. You can turn any of the three without touching a single one of the levers that decide whether a university survives: enrollment, retention, learning. The room watches the green and feels it is steering. What actually moves the institution is decided by someone else, somewhere else, on signals that never reached that board.</p> <p>I never fully understood that ending. The people who hired me were the CFO and IT; the work was dismantled by the board of directors. Why an organization pays for the long road – the workshops, the off-sites, the consulting – only to wipe the slate clean with metrics that climb on their own, is something I still cannot explain. I suspect, I do not know.</p> <p>And beauty makes it worse, not better. A polished dashboard deepens the placebo: confidence in the instrument rises while its connection to reality does not. The most dangerous version of the placebo knob is the one with good design and a quarterly cadence and an executive who has learned to relax when the numbers are green.</p> <h2 id="the-third-posture">The third posture</h2> <p>Verify and pretend do not exhaust the options. There is a third thing an organization can do with an instrument, and it is the most expensive of the three, because it is the one you reach for when the instrument is working.</p> <p>Go back to NASA, forty years earlier.</p> <p>On the evening of January 27, 1986, engineers at Morton Thiokol, the contractor that built the shuttle’s solid rocket boosters, got on a teleconference with NASA to argue against launching Challenger the next morning. The forecast was 26 to 29 degrees Fahrenheit. Their recommendation was unanimous: do not launch below 53.</p> <p>They were not guessing, and they were not new to the argument. Roger Boisjoly sat on the seal task force at Thiokol, and six months earlier he had put the risk in writing to his vice president of engineering. The memo ends like this:</p> <blockquote> <p>“It is my honest and very real fear that if we do not take immediate action to dedicate a team to solve the problem, with the field joint having the number one priority, then we stand in jeopardy of losing a flight along with all the launch pad facilities.”</p> </blockquote> <p>That was July 31, 1985. In October he wrote again. This time the subject was the team assigned to the problem: it was not getting management support, and “even NASA perceives that the team is being blocked in its engineering efforts to accomplish its task.” The signal was inside the building, in writing, twice.</p> <p>Now here is what happened on that call, and it is not what people remember. Nobody suppressed anything. Thiokol’s managers asked for a caucus and went offline without their own engineers. In that room, someone told the vice president of engineering to take off his engineering hat and put on his management hat. Boisjoly, testifying to the Rogers Commission the following month: “it was clearly a management decision from that point.” Thiokol came back on the line and told NASA the data were inconclusive.</p> <p>Inconclusive. That is the entire move.</p> <p>The engineers were not overruled and they were not silenced. Their reading was reclassified. It went from a recommendation to a maybe, and a maybe is something you are allowed to launch through. Seven people died the next morning, seventy-three seconds after liftoff.</p> <p>Put that next to April 2026. Same agency, four decades later, four people on top of a fueled rocket and an instrument saying something nobody wanted to hear. The question in that room was “is it the battery, or is it the sensor?” – and they went and found out. In 1986 the same question got answered by people who did not go and find out. “The data are inconclusive” is the courteous way to say “the sensor is probably wrong.”</p> <p>So I want to revise something I implied at the top of this post. Disciplined distrust is not a personality trait NASA happens to have. It is something the agency learned, and it is worth sitting with what it cost to learn it.</p> <p>The pattern is not aerospace, and it is not American. On December 30, 2019, an ophthalmologist named Li Wenliang posted a warning in a private WeChat group of fellow doctors. Seven patients at his hospital in Wuhan had pneumonia and had tested positive for SARS. He told his colleagues to protect themselves. Four days later the local police summoned him and had him sign a letter of reprimand for making false comments on the internet. He was one of eight doctors warned over the same thing. He died of COVID-19 on February 7, 2020.</p> <p>That March, an official investigation concluded the reprimand had been inappropriate. The police revoked it and apologized to his family. Read that carefully, because the detail is the useful part: the finding was that the reprimand was <em>inappropriate</em>, not that it was unlawful, and it arrived weeks after the thing it might have prevented. The organization did come around to its instrument in the end. It came around late and partially, after the bill had been paid in full. That is the ordinary shape of this. Discrediting a reading does not cancel the cost of what the reading was about. It decides how much of that cost you pay, and how late.</p> <p>And here is the thing it took me nine posts to be able to say.</p> <p>For nine posts the instrument was a number: a definition, a denominator, a perimeter, a formula. In these two it is a person. That matters more than it sounds, because a person is the highest-sensitivity, lowest-latency instrument any organization owns. A person can register an anomaly before there is data for it to appear in. Boisjoly did not have o-ring failure statistics for 29 degrees; nobody did. He had judgment about cold rubber, and judgment arrives earlier than evidence.</p> <p>Which is precisely why this posture is the expensive one. A number you discredit can be recalculated later. A person you discredit stops reporting – and so does everyone who watched it happen.</p> <h2 id="three-postures-one-variable">Three postures, one variable</h2> <p>NASA, Johnson, and Thiokol look like three different stories. They are one story with the reader swapped out.</p> <table> <thead> <tr> <th>Posture</th> <th>Case</th> <th>Was the instrument telling the truth?</th> <th>What the organization did</th> </tr> </thead> <tbody> <tr> <td><strong>Verify</strong></td> <td>Artemis II, 2026</td> <td>Unknown at the time</td> <td>Triangulated: battery, or sensor?</td> </tr> <tr> <td><strong>Pretend</strong></td> <td>Johnson’s thermostat</td> <td>No, and nobody checked</td> <td>Settled for the sensation of control</td> </tr> <tr> <td><strong>Discredit</strong></td> <td>Challenger 1986, Wuhan 2019</td> <td><strong>Yes</strong></td> <td>Downgraded the reading and moved on</td> </tr> </tbody> </table> <p>All three are about the relationship between a reading and reality, and in all three the outcome was decided by the posture of the person holding the instrument, not by the instrument itself. The sensor did not save the Artemis crew; the engineers who interrogated it did. The knob did not fool Johnson; Johnson fooled himself by never asking what it was wired to. And the o-ring data did not fail Challenger; a room that needed the reading to be inconclusive found it inconclusive. The instrument is neutral. The posture is everything.</p> <p>So here’s what the mature posture actually looks like, gathered from every cure in this series:</p> <p>Before you act on a number, ask what would have to be true for it to be wrong, and then go check that, the way NASA checked the battery instead of the reading. Ask what your instrument is connected to: does this metric move because the business moved, or because someone can turn it without moving anything? Keep the signal and its source apart – “sales are up” is a reading, and whether sales are actually up is a separate question you are allowed to ask. And keep a human in the loop, because NASA’s call was made by people interrogating data, not by data tripping an automatic switch. The instrument informs the judgment. It does not get to replace it.</p> <p>Then one more, and it is the one that catches the expensive failure. Watch the vocabulary you reach for when a reading is unwelcome. When something you did not want to hear gets moved into <em>inconclusive</em>, or <em>preliminary</em>, or <em>anecdotal</em>, or <em>needs more data</em>, ask whether anybody actually went and checked – or whether the label was allowed to stand in for the checking. Reclassifying a reading feels like rigor. It costs nothing and it sounds responsible. It is also the cheapest way there is to make a true signal go away.</p> <h2 id="closing">Closing</h2> <p>The same discipline that let NASA fly four people around the Moon on the strength of a distrusted sensor is the discipline a boardroom needs to avoid betting the company on a trusted one. The same comfort that let a president turn a dial connected to nothing is the comfort a leadership team feels in front of a dashboard connected to nothing. And the same instinct that turned a unanimous engineering recommendation into <em>inconclusive</em> is the instinct that turns your most uncomfortable analyst into someone who stops volunteering things.</p> <p>A mature data culture reads like NASA. An immature one holds on to placebo knobs. And a culture that downgrades every reading it did not want does not have instruments at all. It has decoration.</p> <p>The number was never the point. The instrument was never the point. The point is the person reading it – whether they interrogate the reading like an engineer at T-minus-ten, or turn the knob and feel better. Every number in this series lied. The ones that did real damage were the ones read by someone who never thought to ask.</p> <p>So read every number the way NASA read that sensor: as a claim to be verified, not a fact to be obeyed. And every once in a while, walk up to your favorite dashboard (the one that always makes you feel in control) and ask it the question nobody in the room wants to ask. Is this knob connected to anything?</p> <p>Then ask the harder one, because it is not about the dashboard. When somebody walks into your office with a reading you did not request and do not want, what happens to them in the next ten seconds? That answer is your real instrumentation policy. It is not written down anywhere, everyone who works for you already knows it, and it determines which readings ever reach you at all.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-code-betrays-the-model/">When Code Betrays the Model</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-obedience-is-the-disaster/">When Obedience Is the Disaster</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/goodharts-law-in-practice/">Goodhart's Law in Practice</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-metric-as-mirror-not-window/">The Metric as Mirror, Not Window</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-number-without-perimeter/">The Number Without Perimeter</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-aggregation-lies/">When Aggregation Lies</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-glossary-isnt-semantics/">Your Glossary Isn't Semantics</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-table-is-not-the-concept/">The Table Is Not the Concept</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/false-semantic-consensus/">False Semantic Consensus</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/we-act-on-metadata/">We Act on Metadata</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Technical books and courseware I have co-authored.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Javier Loria — data architect and mentor. 35+ years in software, 25+ specializing in BI and semantic models on the Microsoft data platform.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-the-discipline-of-distrust",
+        
+          title: "The Discipline of Distrust",
+        
+        description: "Every number in this series lied. The fix was never a better number -- it was a better reader.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-discipline-of-distrust/";
+          
+        },
+      },{id: "post-when-code-betrays-the-model",
+        
+          title: "When Code Betrays the Model",
+        
+        description: "The definition was right. The code said something else -- and nobody was reading the code.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-code-betrays-the-model/";
+          
+        },
+      },{id: "post-when-obedience-is-the-disaster",
+        
+          title: "When Obedience Is the Disaster",
+        
+        description: "Nobody gamed the number. They obeyed it perfectly. That was the disaster.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-obedience-is-the-disaster/";
+          
+        },
+      },{id: "post-goodhart-39-s-law-in-practice",
+        
+          title: "Goodhart&#39;s Law in Practice",
+        
+        description: "He won awards for the number. The number was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/goodharts-law-in-practice/";
+          
+        },
+      },{id: "post-the-metric-as-mirror-not-window",
+        
+          title: "The Metric as Mirror, Not Window",
+        
+        description: "The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-metric-as-mirror-not-window/";
+          
+        },
+      },{id: "post-the-number-without-perimeter",
+        
+          title: "The Number Without Perimeter",
+        
+        description: "+12%. Correct to the decimal. Nobody in the room could defend it.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-number-without-perimeter/";
+          
+        },
+      },{id: "post-when-aggregation-lies",
+        
+          title: "When Aggregation Lies",
+        
+        description: "The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-aggregation-lies/";
+          
+        },
+      },{id: "post-your-glossary-isn-39-t-semantics",
+        
+          title: "Your Glossary Isn&#39;t Semantics",
+        
+        description: "A definition tells you what a customer is. It doesn&#39;t tell you which rows qualify.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-glossary-isnt-semantics/";
+          
+        },
+      },{id: "post-the-table-is-not-the-concept",
+        
+          title: "The Table Is Not the Concept",
+        
+        description: "You can define the concept perfectly and still model it wrong.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-table-is-not-the-concept/";
+          
+        },
+      },{id: "post-false-semantic-consensus",
+        
+          title: "False Semantic Consensus",
+        
+        description: "Everyone agreed on the number. That was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/false-semantic-consensus/";
+          
+        },
+      },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler&#39;s Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "news-spoke-at-global-fabric-day-2026-hosted-by-microsoft-costa-rica-in-spanish",
+          title: 'Spoke at **Global Fabric Day 2026**, hosted by Microsoft Costa Rica. *(in Spanish)*...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-the-real-impact-of-ai-on-our-society-impacto-real-de-la-inteligencia-artificial-en-nuestra-sociedad-with-the-power-bi-panamá-community-in-spanish",
+          title: 'Spoke on *The Real Impact of AI on Our Society* (*Impacto Real de...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-mcp-for-power-bi-claude-code-with-unidos-por-venezuela-in-spanish",
+          title: 'Spoke on *MCP for Power BI + Claude Code* with Unidos por Venezuela....',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-modelling-amp-design-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Modelling &amp;amp; Design** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-governance-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Governance** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "news-awarded-the-cdmp-practitioner-certification-dama-international",
+          title: 'Awarded the **CDMP Practitioner** certification (DAMA International).',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://substack.com/@pragmaticdataarchitect", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
