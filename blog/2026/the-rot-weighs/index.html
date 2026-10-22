@@ -1,0 +1,404 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="tMLR3lEPZQVDuO8yLy00aYO3RCBwTgFO5o4tZJJlkkw"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> The ROT Weighs | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="Redundant, obsolete and trivial data has mass. The cloud keeps it, and nobody decided to."> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling, data governance, business intelligence"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | The ROT Weighs"> <meta property="og:url" content="https://javierloria.com/blog/2026/the-rot-weighs/"> <meta property="og:description" content="Redundant, obsolete and trivial data has mass. The cloud keeps it, and nobody decided to."> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="The ROT Weighs"> <meta name="twitter:description" content="Redundant, obsolete and trivial data has mass. The cloud keeps it, and nobody decided to."> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://javierloria.com/blog/2026/the-rot-weighs/",
+        "@type": "BlogPosting",
+        "description": "Redundant, obsolete and trivial data has mass. The cloud keeps it, and nobody decided to.",
+        "headline": "The ROT Weighs",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL","https://substack.com/@pragmaticdataarchitect"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javierloria.com/blog/2026/the-rot-weighs/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The ROT Weighs</h1> <p class="post-meta"> Created on October 22, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-governance"> <i class="fa-solid fa-hashtag fa-sm"></i> data-governance</a>   <a href="/blog/tag/data-management"> <i class="fa-solid fa-hashtag fa-sm"></i> data-management</a>   <a href="/blog/tag/business-intelligence"> <i class="fa-solid fa-hashtag fa-sm"></i> business-intelligence</a>   <a href="/blog/tag/data-quality"> <i class="fa-solid fa-hashtag fa-sm"></i> data-quality</a>   <a href="/blog/tag/rot-data"> <i class="fa-solid fa-hashtag fa-sm"></i> rot-data</a>   <a href="/blog/tag/data-gravity"> <i class="fa-solid fa-hashtag fa-sm"></i> data-gravity</a>   ·   <a href="/blog/category/who-decided-that"> <i class="fa-solid fa-tag fa-sm"></i> who-decided-that</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><img src="/assets/img/feat-the-rot-weighs.webp" alt="The ROT Weighs"></p> <p><em>Redundant, obsolete and trivial data has mass. The cloud keeps it, and nobody decided to.</em></p> <p>Last week I said <a href="/blog/2026/the-reader-changed/">the reader changed</a>. Before we get to the new reader, I want to look at what it reads: the mass that piles up around the good data, and that nobody decided to keep.</p> <h2 id="2008-mexico-city">2008, Mexico City</h2> <p>In 2008 I spent two weeks in Mexico City building a proof of concept for Nacional Monte de Piedad, the pawn institution that has been lending money against jewelry, watches and household goods in Mexico since 1775. Microsoft co-funded it. The goal was to show two things SQL Server 2008 was bringing to market: data mining and the new geospatial types. Monte de Piedad brought the business question. They planned to open 80 branches in three years, and they wanted to know where.</p> <p>The question sounds simple. It isn’t. It’s a classic problem of <em>spatial analysis</em>, the discipline that studies how location shapes behavior, and in retail it has its own name: <em>site selection</em>. Where a new branch will get its customers depends on how big it is, how far people are willing to travel, and who is already open down the street. Retail geography answered that question almost a century ago by borrowing from physics: a store pulls customers the way a mass pulls another mass. The bigger the store, the stronger the pull. The farther away the customer, the weaker it gets. I wasn’t a retail geographer. Before those two weeks in Mexico I spent about six months reading that literature, trying to understand why stores attract, how the pull fades with distance, and why competitors cluster on the same street instead of spreading out.</p> <p>With that in hand, we built a database: the location of every branch in the country, ours and the competition’s, and the commercial performance of Monte de Piedad’s own branches. Later came the points of interest around each one. On top of it we wrote views that did the geospatial math, and those views trained the data mining models. What came out the other end was a Virtual Earth map. Red dots for Monte de Piedad, blue dots for the competition. Around each branch the model drew a catchment area: the zone a branch pulls its customers from, wider when the branch is bigger, fading the farther away the customer lives. Where blue dots clustered with no red dot nearby, we had a candidate zone. Competitors in a cluster pull more together than they would apart, and Monte de Piedad wasn’t there to get any of that pull. Worse, it was leaving that market to the competition.</p> <p><img src="/assets/img/the-rot-weighs-guadalajara.webp" alt="One of the views from the national study: Guadalajara. Red dots are Monte de Piedad branches, blue dots are competitors. The red zones are simple catchment areas. The blue cluster at the bottom center is a candidate zone: competitors grouped together with no Monte de Piedad branch."> <em>One of the views from the national study: Guadalajara. Red, Monte de Piedad; blue, the competition. The blue cluster at the bottom center is a strong candidate zone.</em></p> <p>The model didn’t decide anything. It drew a map for the people who knew the business. My part ended with the POC; Microsoft turned it into videos and demos, and I never learned where Monte de Piedad finally opened its branches, or with which model.</p> <p>What stayed with me was the gravity. It was my first encounter with a gravity model outside physics: Newton’s equation, written for planets, with square meters where the mass goes and kilometers where the distance goes. And it described a street in Guadalajara well enough to argue over where to put real money. Not perfectly. Well enough. Since then I’ve believed, and I have no way to prove it, that gravity is more universal than physics: whatever accumulates pulls, and whatever is far away pulls less. I kept the screenshot and gave sessions on the SQL behind the map. And for all that belief, in my head it was a business tool. It never crossed my mind to point it at my own work, at the tables behind the map, which had a gravity of their own.</p> <p>I had gravity in my hands, and I didn’t see that data has mass too.</p> <h2 id="someone-else-saw-it">Someone else saw it</h2> <p>I read Dave McCrory’s “Data Gravity” years after he published it on his blog, in December 2010. I nodded, and I forgot it. I never used the term with a client.</p> <p>This year a friend brought it back. Adrian Miranda Cordero’s article <a href="https://www.linkedin.com/pulse/control-de-costos-en-la-nube-cuando-elasticidad-se-el-adrian-ndg9e/" rel="external nofollow noopener" target="_blank"><em>“Control de costos en la nube: cuando la elasticidad se convierte en el problema”</em></a> (Cloud cost control: when elasticity becomes the problem) puts data gravity first on his list of patterns behind cloud bills that grow while the business doesn’t. This time the idea landed, because I had something to set it against: ROT data, data that is Redundant, Obsolete or Trivial. The tension between those two, data gravity and ROT data, is what lit this post. Each one, on its own, explained half of what I see in today’s data platforms. I needed them pulling against each other.</p> <p>McCrory’s definition, in his words:</p> <blockquote> <p>“Consider Data as if it were a Planet or other object with sufficient mass. As Data accumulates (builds mass) there is a greater likelihood that additional Services and Applications will be attracted to this data.”</p> </blockquote> <p>McCrory asked us to treat data as a planet, so let’s take him at his word and use Newton:</p> <p><strong>g = G · M / r²</strong></p> <p><em>g</em> is the pull you feel, <em>M</em> is the mass (call it gigabytes), <em>r</em> is the distance. I’m leaving <em>G</em> alone. It’s a constant, and the moment you start mapping physical constants onto IT, a useful metaphor turns into pseudoscience.</p> <p>Look at what’s in the equation, and what isn’t. There’s no <em>V</em> (Value). A petabyte of duplicated snapshots pulls your architecture exactly as hard as a petabyte of general ledger balances or transactions. And mass adds up: two bodies close together pull like one. Hold on to that. It comes back later.</p> <p>I want to make the comparison explicit, because it runs through this whole series. In 2008 we drew the map of a city. Here we’re drawing the map of your data platform. The equation doesn’t change. What each letter measures does:</p> <table> <thead> <tr> <th> </th> <th>Site selection, 2008</th> <th>Your data platform</th> </tr> </thead> <tbody> <tr> <td>What pulls</td> <td>A branch</td> <td>A table, a model, a dataset</td> </tr> <tr> <td>Mass (<em>M</em>)</td> <td>Square meters</td> <td>Gigabytes</td> </tr> <tr> <td>Who gets pulled</td> <td>A customer</td> <td>A user, a report, a pipeline</td> </tr> <tr> <td>Distance (<em>r</em>)</td> <td>Kilometers from home to the branch</td> <td>The effort to reach the data</td> </tr> </tbody> </table> <p>Now picture your data platform the way McCrory asked us to, as a solar system. The lakehouse is a gas giant, and the warehouse next to it is another one. Around them orbit the data marts, smaller planets with moons of their own. And everywhere there are asteroids: the Excel files on everyone’s laptop. Each one pulls with its mass.</p> <p>Two different things pull here. Mass pulls the architecture: services, pipelines, backups, cost. It doesn’t care about value. What pulls a user is something else, and we’ll get to it.</p> <p>By mass, the lakehouse should win every time. It doesn’t. The Excel file on my machine weighs almost nothing, but it’s right there: I double-click and I’m in. The lakehouse is enormous, and it’s far. I have to find the right workspace, request access, wait for someone to approve it, work out which of forty tables is the one, and then learn what the columns mean. That’s <em>r</em>. Not kilometers, not milliseconds. Effort.</p> <p>And in Newton <em>r</em> is squared. I won’t defend the exponent for effort, but the shape is right: distance doesn’t just weaken the pull, it crushes it. That’s how the Excel file on my laptop pulls me harder than a lakehouse with a hundred thousand times its data. And notice what nobody checks when the closest planet wins: whether the Excel file is still true. Often it’s last month’s export.</p> <h2 id="the-cloud-doesnt-delete-it-gives-you-a-discount">The cloud doesn’t delete. It gives you a discount.</h2> <p>In April 2011, four months after “Data Gravity”, McCrory published “Defying Data Gravity”, ten strategies to live with heavy data, from caching and replication to compression. Every one of them moves the data, copies it, hides it, or brings the application closer. McCrory never says it this way, but most of them are playing with <em>r</em>. None of them deletes anything. That’s not a criticism: he was solving latency, not governance. A year later he even named the incentive that made it worse, <em>artificial data gravity</em>: inbound transfer to S3 and Azure was free. Putting data in got cheaper on purpose. Deciding what to do with it didn’t.</p> <p>Adrian Miranda reads the same gravity through cost. Data, he writes, “gravitates and accumulates”, a property applications don’t have: “An application server can be restarted every night without a second thought” (my translation). A data platform can’t. His <em>storage sprawl</em> is a list I recognized right away: historical data online by default with no retention policy, execution logs kept forever, redundant backups. That’s ROT data, the O and the R, described without the name. One of his questions for a technology director is the bridge to this post: “How much historical data is online that hasn’t been queried in the last six months?” He brings the cost. I want to add the risk.</p> <p>Every row you keep is something you have to protect, something an auditor can ask you about, and something that can leak. A customer’s name, tax ID and phone number are value and liability in the same record. Most privacy laws say the same thing in different words: keep personal data only as long as the purpose that justified collecting it is still alive. When the data is relevant, the value pays for the risk. When it’s ROT data, you carry the risk and nobody collects the value. That part never shows up on the cloud bill.</p> <p>There’s one more cost that never shows up on the cloud bill, and it’s <em>r</em>. Every ROT table in the lakehouse is one more place someone has to look, one more “which of these is the right one?”, one more message to the colleague who might know. ROT data doesn’t only weigh. It pushes the good data farther away. Your cloud provider doesn’t bill you for that effort. You pay it in payroll, by the hour, to people who were hired to use the data, not to go looking for it.</p> <p>Fifteen years after McCrory’s list, the tools still sit in the same place. Cloud storage has lifecycle rules that can delete, and in the projects I’ve worked on they almost never get turned on for curated data.</p> <p>So most of the time the cloud doesn’t delete. It gives you a discount. Hot to cool, cool to archive, a smaller line on the invoice, and the data stays exactly where it was in your architecture, still pulling.</p> <p>And there’s a deeper problem. Storage decides by file and by date. ROT data lives in rows and in meaning.</p> <h2 id="the-name">The name</h2> <p>If the cloud doesn’t delete, who does? It has to be someone who can read rows and meaning, not files and dates. But before anyone can look for it, the thing they’re looking for needs a name.</p> <p>I found the term this year, studying for the CDMP. The DMBOK2 (DAMA’s <em>Data Management Body of Knowledge</em>, 2nd edition) uses it exactly once, in chapter 1, among the implications of the data lifecycle (§2.5.9):</p> <blockquote> <p>“Data Management efforts should focus on the most critical data: Organizations produce a lot of data, a large portion of which is never actually used. Trying to manage every piece of data is not possible. Lifecycle management requires focusing on an organization’s most critical data and minimizing data ROT (Data that is Redundant, Obsolete, Trivial) (Aiken, 2014).”</p> </blockquote> <p>That’s all of it. (The DMBOK credits Aiken; I’m quoting the DMBOK, not him.) Three sentences were enough to hook me. Nobody seems to know who coined the term. It has been around since at least the early 2000s, and it’s at home in records management and information governance, two worlds BI barely talks to. That’s how I spent 25 years in BI without hearing it.</p> <p>Back in the DMBOK, chapter 9 (Document and Content Management) has the psychology, without the acronym. One of its reasons organizations don’t remove non-value-added information: “Perceived cost of making a decision and removing physical and electronic records.” The cost of <em>making a decision</em>. That’s the subtitle of this series, sitting in the DMBOK.</p> <p>The odd part is that I had described ROT data before I knew its name. On Halloween 2017 I wrote a post for the Primus Data blog called <a href="https://www.primusdata.net/2017/10/31/la-bodega-de-datos-zombis/" rel="external nofollow noopener" target="_blank">“La bodega de datos zombis”</a> (The zombie data warehouse). The zombie warehouse moves, with daily or weekly loads, but the movement is automatic: “The Zombie-DW is an automaton that cannot explain why certain processes or tasks are done, nor what the value of the stored information is.” And like any zombie it feeds on its own kind: it “burns valuable resources” in IT maintenance and support (my translation, both). That’s Adrian’s cost, nine years early. In 2017 I called it a zombie. In 2026 I found out it already had a name. Less cinematic than mine, but fair enough: zombies do rot.</p> <p>The same post had a sentence I saw come true again about a year ago, at a client: “even having users, this model can be a zombie, because the warehouse’s customers use it like automatons.” On a project for a large company I was responsible for one tabular model, and while checking adoption I left the filter open to see all the others. In two of them, the most active user was the developer, running weekly regression tests that compared production metrics against the new version. After eight years in production, the only “adoption” those models had was the developer’s own proof that they were still alive. The zombie was generating its own usage. The technology had changed completely since 2017. The behavior hadn’t.</p> <h2 id="back-to-mexico-newton-wasnt-enough">Back to Mexico: Newton wasn’t enough</h2> <p>Back to the map. Our first iteration in Mexico was exactly the formula above, with <em>M</em> in square meters of branch. It wasn’t enough, for two reasons.</p> <p>The first one is agglomeration. Pawnshops cluster. Five of them on the same avenue don’t behave like five small masses; customers read the street as the place you go to pawn something, and the cluster pulls harder than the five of them added up. That blue group at the bottom of the Guadalajara map is exactly that.</p> <p>Remember I asked you to hold on to “mass adds up”? This is where Newton falls short, in Mexico and in data. Data agglomerates too, but what attracts is different things that belong together. Customers, purchases and products, each on its own, attract very few users. Put them together, a purchase pointing to a customer and a product, and they answer questions none of them could answer alone. The attraction jumps. In a corporation, the customers of one company attract a few users. The customers of every company, integrated in silver, attract far more.</p> <p>Now cluster <code class="language-plaintext highlighter-rouge">customer</code>, <code class="language-plaintext highlighter-rouge">customer_v2</code> and <code class="language-plaintext highlighter-rouge">customer_old</code> instead. They can weigh exactly the same as the integrated set. They don’t attract the same. Five pawnshops on one avenue are five real offers to compare. Three copies of the customer table are one offer and two echoes.</p> <p>Picture a food court. It works because it’s agglomeration done right: tacos, sushi, pizza and a Costa Rican <em>casado</em>, different offers that pull harder together than the four of them added up. Now picture one where ten counters sell the same menu. One still has last year’s prices, another has a dish crossed out with tape, and nobody tells you which kitchen is still cooking. You don’t have ten options. You have one, and the job of figuring out which line to stand in.</p> <p>ROT data adds to the weight of the good data, and you pay for that weight. It adds nothing to what that data can tell you.</p> <p>The second reason: size alone didn’t explain attraction. Two branches of the same size didn’t pull the same. So we added what was around each one (transit stops, schools, parks, churches) and let a decision tree tell us which of those mattered. Attraction turned out to have several attributes, and it was the data, not our intuition, that picked them.</p> <p>Data models have attributes too, but nobody has run that decision tree for them, not that I know of. So the list below comes from the only source I have: years of watching people adopt one model and ignore the one next to it. It’s mine, from field work, not from a paper. Take it as a first attempt:</p> <table> <thead> <tr> <th>Attribute</th> <th>What it means in a data model</th> </tr> </thead> <tbody> <tr> <td>Names in business language</td> <td>“Net Sales”, not <code class="language-plaintext highlighter-rouge">amt_net_lcl</code>. The user recognizes what they’re looking at.</td> </tr> <tr> <td>Easy to navigate</td> <td>Few tables, clear relationships. You find what you need without a map.</td> </tr> <tr> <td>Explanatory metadata</td> <td>Descriptions that tell you what a measure includes and what it leaves out.</td> </tr> <tr> <td>Quality</td> <td>The numbers are right, and they reconcile with the books.</td> </tr> <tr> <td>Hides technical complexity</td> <td>Surrogate keys, staging columns and load flags stay out of sight.</td> </tr> <tr> <td>Relevance (signal, not noise)</td> <td>It answers a question the business is asking today.</td> </tr> </tbody> </table> <p>That’s the something else I promised: what attracts a user to a model isn’t its size. It’s these six. Now ask the uncomfortable question: can an old copy, the model nobody retired, attract the same way? Go down the list. The names: yes, a copy inherits them. Easy to navigate: yes, and the old model is often the simpler one. The metadata: yes, the descriptions got copied too, or were written back when they were true. Quality, the way most people check it: yes. The data was correct once, it still is, and it still reconciles with the books it came from. The one quality dimension it fails is timeliness, and nobody checks timeliness when they’re picking a model. What died is the context. Hiding complexity: yes, age has nothing to do with it. Relevance: no.</p> <p>ROT data can win on five of six. The one it can’t fake is relevance: the obsolete and the trivial don’t have it, and the redundant only has it on loan from the original. That much is just the definition. What matters is that the other five, the ones you can see, can’t tell you which is which. And relevance doesn’t show up in the schema.</p> <h2 id="dark-matter-weight-without-light">Dark matter: weight without light</h2> <p>Astronomers ran into this problem too, at a much bigger scale. Galaxies move too fast for the mass you can see. The stars at their edges orbit as if something were holding them, and with only what shines, they should fly apart. Newton, counting only the visible mass, doesn’t add up. So there has to be mass nobody can see: <em>dark matter</em>. It pulls like any other mass, but it doesn’t emit, absorb or reflect light. (The more academic readers will recognize Fritz Zwicky, who called it <em>dunkle Materie</em> in 1933, and Vera Rubin, whose galaxy rotation curves in the 1970s made it hard to ignore.)</p> <p>That’s ROT data. It counts in the gravity. It keeps backups, pipelines and a developer’s regression tests in orbit, and it shows up on the bill. Your platform behaves as if it were much heavier than the data you actually use, and that’s the clue that it’s there. But it gives off no light, and by light I mean information that supports decisions. Attraction is what makes you walk over. Light is what you find when you get there. ROT data can borrow attraction, five attributes out of six. Once you’re there, it has nothing to show you. No light is a verdict about a purpose, though: not everything dark is ROT data, and that’s a post of its own.</p> <p><strong>The lesson:</strong> ROT data has mass and no light. Mass explains the cost, and the exposure. The other risk is what happens when it attracts anyway: someone, or something, picks it, and decides in the dark.</p> <h2 id="drawing-the-map-of-a-customer-table">Drawing the map of a customer table</h2> <p>Relevance doesn’t show up in the schema. You have to measure it.</p> <p>Recently I worked on an accounts receivable model for a client. The plan was the obvious one: use the same customer dimension every other model already used. A conformed dimension, in Kimball’s language. And here’s a misreading I see all the time: people take <em>conformed</em> to mean <em>the same data</em>. It doesn’t. Conformed means the same column names, the same attribute meanings and the same domain values, so a customer looks the same in every model that touches it. The rows can be identical to the full dimension, or a subset of it (for the purists, that’s Kimball’s conformance test, and it accepts both). The default is identical. Nobody asks.</p> <p>Then I profiled the table, and I couldn’t make sense of it. Electronic invoicing had been mandatory for a long time. Why was a customer table this dirty? Whole blocks of strange tax IDs and odd names.</p> <p>It took me a while to see it. The data wasn’t dirty. It was old. Some context, if your country doesn’t have this: in Costa Rica, an electronic invoice goes to the tax authority, which validates it, and it has to name a customer the tax authority can identify. Before it became mandatory, the old system stored whatever name the customer gave at the register, with an ID number nobody could trust. After it, a customer was someone the tax authority could find. The meaning of “customer” changed, and nobody went back to mark the records from the old regime.</p> <p>Last week I wrote that meaning comes first. In that distributor, nobody had decided what a customer was. Here somebody had, and then the meaning moved, and the old records stayed where they were. Deciding once isn’t enough. Somebody has to go back.</p> <p>When I measured it, about two out of every three customers in that table were ROT records. Most of the rest were good records that had nothing to do with receivables: real customers, valid IDs, no balances, no collections. The customers that actually mattered to receivables were about 4% of the table.</p> <p>Those two-thirds didn’t rot with age. They rotted in one block, the day the rules changed. They’re obsolete by regime change, not by date. No rule based on creation dates would ever find them, because they aren’t files. They’re rows in a live table.</p> <p>“Delete them, then.” No. The historical invoices point at those customers. There’s the gravity: correct invoices holding on to dead customers. Delete the customer and you break the invoice. And the DMBOK warns about disposing too early just as clearly as about keeping too long: some of what looks like ROT data is the record you’ll need the day after an audit.</p> <p>The risk was real too, even though it never showed up on an invoice. The default sent the personal data of the whole table, names and tax IDs included, into every model, for a purpose that needed 4% of it. Nobody had approved that exposure. Nobody had been asked.</p> <p>So I drew the map. If you run it on your own data on Monday, remember: it isn’t a tool for deleting. It’s for deciding.</p> <p>It has two axes, and it should work on any entity with a business process behind it, not only customers.</p> <p>The first axis is activity: the last business event of the process, inside a window you choose. Age is measured from the last activity, never from creation. That’s how the regime change shows up: the old records were created on a thousand different days, so creation date can’t find them. The ones that rotted went quiet once the rules changed. The ones that kept moving stay, with a label. You write the exceptions down explicitly: what’s legal or vital stays, whatever its activity. In the receivables model, accounts in legal collection got a much longer window than everything else.</p> <p>One rule before you measure activity, courtesy of the zombie with one user: don’t count the activity your own systems generate. For a model, that’s the developer’s regression tests and the account that refreshes it. For a customer, it can be a lot louder. In 2008, at a retailer in Brazil, a monitoring robot logged into the website and placed an order every five minutes, invoice included, so it could raise an alert if the site or the invoicing went down. By invoice count, it was probably their most loyal customer. Activity means the business did something.</p> <p>The second axis is verification, in three states: verified by an external authority (for us, the tax authority), valid format but unverified, and invalid. For most entities, the verification column needs a different authority; sometimes it’s your own master data.</p> <p>(For the data quality people: invalid fails <em>validity</em>, verified passes <em>accuracy</em>, and <em>timeliness</em> is the activity axis’s job.)</p> <table> <thead> <tr> <th> </th> <th>Verified</th> <th>Valid format, unverified</th> <th>Invalid</th> </tr> </thead> <tbody> <tr> <td><strong>With activity</strong></td> <td>Keep. Labeled <em>verified</em> </td> <td>Keep. Labeled <em>unverified</em> </td> <td>Keep. Labeled <em>invalid</em> </td> </tr> <tr> <td><strong>No activity</strong></td> <td>Pseudonymized historical record</td> <td>Pseudonymized historical record</td> <td>Pseudonymized historical record</td> </tr> </tbody> </table> <p>Look at what each axis decides. Activity decides whether the record stays identified. Verification decides nothing: it becomes metadata the user can see. It’s tempting to filter out the invalid IDs, or put them in quarantine. Don’t. An active customer with an invalid ID isn’t noise. It’s a signal: someone has to fix that record, and collections wants to know before they call. That’s the “explanatory metadata” attribute from the table above, doing its job.</p> <p>With the map on the table, there were two cuts. The first one in the full customer dimension, the one every model uses: customers with no activity became pseudonymized historical records. The invoices still point at someone; nobody’s name or tax ID rides along anymore. (Pseudonymized, not anonymized: the tax ID is hashed with a salt we keep, so it could be reversed. We don’t.) That cut didn’t need my argument. The data protection law already asked for it, and the records from before electronic invoicing were nobody’s idea of an asset. The second one only for receivables: a dimension that conforms to the full one, same names, same meanings, same values, carrying only the customers with credit and something to collect. A cash customer is real and alive. For receivables, it’s trivial. Nothing deleted. How we built it deserves its own post later in this series; the principle fits in one line: the mass stays, the exposure goes.</p> <p>The product owner signed the second one. For the wrong reasons. I was arguing governance; the business heard performance. Going from the whole table to about one customer in twenty-five changes how a model behaves, especially when the customer dimension carries dozens, even hundreds, of attributes. The model got faster, and that’s what sold it.</p> <p>I’ll take it. A right decision for the wrong reason is still a decision. But think about what it means: if the model had been fast enough, nobody would have signed anything, and receivables would still be carrying the whole table to collect from 4% of it.</p> <p><strong>The lesson:</strong> whether something is ROT data gets decided by relevance, not by quality. And someone has to decide it.</p> <h2 id="nobody-drew-the-map">Nobody drew the map</h2> <p>In 2008 I never found out who decided where the 80 branches went. But there was a map, and the people who knew the business had it in front of them.</p> <p>Nobody ever drew the map of that customer table. Two out of every three customers rode into every model for years, and not because someone decided they should. Nobody had put the dots on a map. When someone finally did, the decisions got made: one because the law required it, the other for a reason I wouldn’t have picked.</p> <p>So, how much of your data gravity is ROT data? And who decided that?</p> <p>Next time we’ll come back to <em>r</em>, and to who chooses when the one choosing isn’t a person.</p> <p><em>This is the first of ten posts in</em> Who Decided That? <em>The cloud and AI made it cheap to create, copy and keep data. They didn’t make it any cheaper to decide.</em></p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-reader-changed/">The Reader Changed</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-discipline-of-distrust/">The Discipline of Distrust</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-code-betrays-the-model/">When Code Betrays the Model</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-obedience-is-the-disaster/">When Obedience Is the Disaster</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/goodharts-law-in-practice/">Goodhart's Law in Practice</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-metric-as-mirror-not-window/">The Metric as Mirror, Not Window</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-number-without-perimeter/">The Number Without Perimeter</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-aggregation-lies/">When Aggregation Lies</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-glossary-isnt-semantics/">Your Glossary Isn't Semantics</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-table-is-not-the-concept/">The Table Is Not the Concept</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Technical books and courseware I have co-authored.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Javier Loria — data architect and mentor. 35+ years in software, 25+ specializing in BI and semantic models on the Microsoft data platform.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-the-rot-weighs",
+        
+          title: "The ROT Weighs",
+        
+        description: "Redundant, obsolete and trivial data has mass. The cloud keeps it, and nobody decided to.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-rot-weighs/";
+          
+        },
+      },{id: "post-the-reader-changed",
+        
+          title: "The Reader Changed",
+        
+        description: "I closed Trust Erosion saying the fix is a better reader. Then the reader changed: now it&#39;s an AI agent, and it doesn&#39;t ask questions.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-reader-changed/";
+          
+        },
+      },{id: "post-the-discipline-of-distrust",
+        
+          title: "The Discipline of Distrust",
+        
+        description: "Every number in this series lied. The fix was never a better number -- it was a better reader.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-discipline-of-distrust/";
+          
+        },
+      },{id: "post-when-code-betrays-the-model",
+        
+          title: "When Code Betrays the Model",
+        
+        description: "The definition was right. The code said something else -- and nobody was reading the code.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-code-betrays-the-model/";
+          
+        },
+      },{id: "post-when-obedience-is-the-disaster",
+        
+          title: "When Obedience Is the Disaster",
+        
+        description: "Nobody gamed the number. They obeyed it perfectly. That was the disaster.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-obedience-is-the-disaster/";
+          
+        },
+      },{id: "post-goodhart-39-s-law-in-practice",
+        
+          title: "Goodhart&#39;s Law in Practice",
+        
+        description: "He won awards for the number. The number was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/goodharts-law-in-practice/";
+          
+        },
+      },{id: "post-the-metric-as-mirror-not-window",
+        
+          title: "The Metric as Mirror, Not Window",
+        
+        description: "The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-metric-as-mirror-not-window/";
+          
+        },
+      },{id: "post-the-number-without-perimeter",
+        
+          title: "The Number Without Perimeter",
+        
+        description: "+12%. Correct to the decimal. Nobody in the room could defend it.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-number-without-perimeter/";
+          
+        },
+      },{id: "post-when-aggregation-lies",
+        
+          title: "When Aggregation Lies",
+        
+        description: "The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-aggregation-lies/";
+          
+        },
+      },{id: "post-your-glossary-isn-39-t-semantics",
+        
+          title: "Your Glossary Isn&#39;t Semantics",
+        
+        description: "A definition tells you what a customer is. It doesn&#39;t tell you which rows qualify.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-glossary-isnt-semantics/";
+          
+        },
+      },{id: "post-the-table-is-not-the-concept",
+        
+          title: "The Table Is Not the Concept",
+        
+        description: "You can define the concept perfectly and still model it wrong.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-table-is-not-the-concept/";
+          
+        },
+      },{id: "post-false-semantic-consensus",
+        
+          title: "False Semantic Consensus",
+        
+        description: "Everyone agreed on the number. That was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/false-semantic-consensus/";
+          
+        },
+      },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler&#39;s Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "news-spoke-at-global-fabric-day-2026-hosted-by-microsoft-costa-rica-in-spanish",
+          title: 'Spoke at **Global Fabric Day 2026**, hosted by Microsoft Costa Rica. *(in Spanish)*...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-the-real-impact-of-ai-on-our-society-impacto-real-de-la-inteligencia-artificial-en-nuestra-sociedad-with-the-power-bi-panamá-community-in-spanish",
+          title: 'Spoke on *The Real Impact of AI on Our Society* (*Impacto Real de...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-mcp-for-power-bi-claude-code-with-unidos-por-venezuela-in-spanish",
+          title: 'Spoke on *MCP for Power BI + Claude Code* with Unidos por Venezuela....',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-modelling-amp-design-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Modelling &amp;amp; Design** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-governance-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Governance** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "news-awarded-the-cdmp-practitioner-certification-dama-international",
+          title: 'Awarded the **CDMP Practitioner** certification (DAMA International).',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://substack.com/@pragmaticdataarchitect", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
