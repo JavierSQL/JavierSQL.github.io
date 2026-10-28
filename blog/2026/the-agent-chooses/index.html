@@ -1,0 +1,415 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="tMLR3lEPZQVDuO8yLy00aYO3RCBwTgFO5o4tZJJlkkw"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> The Agent Chooses | Javier Loria </title> <meta name="author" content="Javier Loria"> <meta name="description" content="For an agent, every table is one step away. Only the name is left to choose by. Who decided which tables it sees?"> <meta name="keywords" content="Javier Loria, semantic models, data architect, Microsoft data platform, Power BI, tabular models, DAX, data modeling, data governance, business intelligence"> <meta property="og:site_name" content="Javier Loria"> <meta property="og:type" content="article"> <meta property="og:title" content="Javier Loria | The Agent Chooses"> <meta property="og:url" content="https://javierloria.com/blog/2026/the-agent-chooses/"> <meta property="og:description" content="For an agent, every table is one step away. Only the name is left to choose by. Who decided which tables it sees?"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="The Agent Chooses"> <meta name="twitter:description" content="For an agent, every table is one step away. Only the name is left to choose by. Who decided which tables it sees?"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Javier Loria"
+        },
+        "url": "https://javierloria.com/blog/2026/the-agent-chooses/",
+        "@type": "BlogPosting",
+        "description": "For an agent, every table is one step away. Only the name is left to choose by. Who decided which tables it sees?",
+        "headline": "The Agent Chooses",
+        
+        "sameAs": ["https://www.linkedin.com/in/javiersql","https://github.com/JavierSQL","https://substack.com/@pragmaticdataarchitect"],
+        
+        "name": "Javier Loria",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%93%8A&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://javierloria.com/blog/2026/the-agent-chooses/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Javier Loria </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">writing </a> </li> <li class="nav-item "> <a class="nav-link" href="/speaking/">speaking </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The Agent Chooses</h1> <p class="post-meta"> Created on October 28, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-governance"> <i class="fa-solid fa-hashtag fa-sm"></i> data-governance</a>   <a href="/blog/tag/data-management"> <i class="fa-solid fa-hashtag fa-sm"></i> data-management</a>   <a href="/blog/tag/business-intelligence"> <i class="fa-solid fa-hashtag fa-sm"></i> business-intelligence</a>   <a href="/blog/tag/data-quality"> <i class="fa-solid fa-hashtag fa-sm"></i> data-quality</a>   <a href="/blog/tag/rot-data"> <i class="fa-solid fa-hashtag fa-sm"></i> rot-data</a>   <a href="/blog/tag/ai-agents"> <i class="fa-solid fa-hashtag fa-sm"></i> ai-agents</a>   <a href="/blog/tag/metadata"> <i class="fa-solid fa-hashtag fa-sm"></i> metadata</a>   ·   <a href="/blog/category/who-decided-that"> <i class="fa-solid fa-tag fa-sm"></i> who-decided-that</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><img src="/assets/img/feat-the-agent-chooses.webp" alt="The Agent Chooses"></p> <p><em>For an agent, every table is one step away. Only the name is left to choose by. Who decided which tables it sees?</em></p> <h2 id="the-table-that-promised-too-much">The table that promised too much</h2> <p><a href="/blog/2026/the-rot-weighs/">Last week</a> I promised to come back to <em>r</em>, and to who chooses when the one choosing isn’t a person. Two weeks ago, introducing this series, I drew a map with a row waiting for this story: “the agent that picks the table by its name”. Here it is: an agent that built a whole model on the wrong table, because of the table’s name.</p> <p>It happened at a business conglomerate in Central America (retail and distribution): an agent built an inventory model on the wrong table. Nobody told it to. The name did.</p> <p>The agent was Claude, Opus 5.5, directed by one of the junior consultants at Primus. I’m saying it up front for two reasons. It’s true, and this post is also being written with Claude. It would be strange to hide one and not the other.</p> <p>The request was an inventory model: stock, cost, and the kardex behind them. Kardex is what we call the inventory ledger in Latin America: every movement that adds or takes a unit or its cost from the warehouse. In the source system there’s a table whose name, translated, is <code class="language-plaintext highlighter-rouge">inventory_movements</code>. Read the name again. Where would you go looking for the kardex? The agent went there too. It built silver on that table, then gold, then the semantic model, and it did a clean job: readable names, sensible relationships, measures that worked.</p> <p>Then the numbers reached the semantic model, and the junior himself saw that they made no sense for the operation. Credit where it’s due: the agent didn’t catch it. The person did.</p> <p>Here’s what nobody knew yet. <code class="language-plaintext highlighter-rouge">inventory_movements</code> doesn’t hold all the inventory movements, as it does in most ERP systems. It holds the ones no other document explains: the physical movements inside the warehouse. A sale moves inventory too. So does a purchase. A revaluation moves its value without moving a single unit. The real kardex is a <code class="language-plaintext highlighter-rouge">UNION ALL</code> of six tables (sales, purchases, revaluations and inventory movements among them), and it doesn’t live in any table. It lives in code. Each of those tables speaks its own dialect, too: in sales the cost sits in <code class="language-plaintext highlighter-rouge">total_cost</code>, which plays the role <code class="language-plaintext highlighter-rouge">total_amount</code> plays in purchases, and revaluations don’t use quantity at all.</p> <p>In their defense, nobody thought to compare the number of sales transactions against the number of movements. Sales wasn’t even in silver. The evidence showed up in bronze, where the invoice lines outnumbered the movements by far. The truth was sitting in the one layer nobody had promoted.</p> <p>The junior and Claude put together a remediation plan: rebuild the kardex in gold as a <code class="language-plaintext highlighter-rouge">UNION ALL</code>. It was partly right. The senior consultant on the project wasn’t sure, and it landed on my desk.</p> <p>Look at what kind of mistake this is, because it isn’t the one this series has been about. <code class="language-plaintext highlighter-rouge">inventory_movements</code> isn’t ROT data. It’s alive, it loads every day, and every row in it is correct. Its only problem is a name that promises more than the table holds. And the right answer, the full kardex, wasn’t a table at all. It had no name. Last time I closed by saying nobody drew the map. This time the right store wasn’t even on it, and a store that isn’t on the map isn’t even one of the options. Nobody walks into it, not a person and not an agent.</p> <p>One more thing, which I’ll pay off later: for the first hour, I thought the junior and Claude were the ones who had it wrong.</p> <h2 id="what-i-didnt-tell-you-about-the-map">What I didn’t tell you about the map</h2> <p>Last time I told you about the red and blue dots in Guadalajara. I left one piece out, because it belongs here.</p> <p>A catchment area draws customers <em>from</em> somewhere, and in Mexico that somewhere had a name: the AGEB. INEGI, the national statistics institute, divides the cities into <em>Áreas Geoestadísticas Básicas</em>, units of up to a few dozen blocks each, and publishes them in surprising detail: the polygon, plus the population and the characteristics of the housing inside it. Part of my two weeks went into reading those shapefiles, loading them into the SQL Server 2008 beta, and letting the new spatial types compute centroids, areas and distances. Our customers didn’t come from dots on a map. They came from AGEBs.</p> <p>That matters because of the formula. Newton, the formula I used last time, only has one mass pulling on another. In 1963 David Huff, a geographer, wrote down what retail had been missing: a customer choosing among stores. He turned the attraction into a probability: not “this customer goes to that store” but “this customer goes to that store this often”. He writes it like this:</p> <p><strong>P(i→j) = (Aⱼ / Dᵢⱼ^β) / Σₖ (Aₖ / Dᵢₖ^β)</strong></p> <p><em>j</em> is a store. <em>A</em> is how attractive it is. <em>D</em> is the distance from the customer’s origin <em>i</em> to the store (the <em>r</em> from last time, with a new letter), and <em>β</em> says how fast the attraction fades with that distance. The denominator adds up every store that customer could reach. What comes out isn’t a verdict, it’s a share: of the people living in <em>i</em>, how many end up at <em>j</em>.</p> <p>The letter I want you to look at is <em>i</em>. It’s the origin, and in our model the origin was the AGEB: a centroid to measure distance from, and a census unit that told you who lived there. Once you have that, the question changes. It stops being “how attractive is this branch?” and becomes “how attractive is this branch to the people who live here?” A pawnshop doesn’t mean the same thing to every neighborhood.</p> <p>(I’m taking a liberty here, and I’d rather say so. In Huff’s formula <em>A</em> belongs to the store, the same for everyone. Letting it depend on who’s looking is my stretch, not Huff’s.)</p> <p>In data, the origin is a community of consumption: people who share a vocabulary, a set of skills and a purpose. Often that’s a department, not always. My list of what attracts a user to a model started with “names in business language”. Fine. Which business? For the warehouse, “inventory movements” means boxes moving between locations. For accounting, it means the kardex. Same name, two communities, two meanings, and both of them are right.</p> <p><strong>The lesson:</strong> attractiveness isn’t a property of the table. It’s a property of the table and whoever is looking at it.</p> <p>Which leaves the question this post is really about. What happens when whoever is looking has no profile at all?</p> <h2 id="every-copy-is-a-new-store">Every copy is a new store</h2> <p>Before I get there, one more thing the map taught me in 2008: cannibalism.</p> <p>Monte de Piedad wanted 80 new branches, and the first temptation with a list like that is to put them where you already do well. The formula punishes that. Open a branch next to one of your own and the denominator grows for every customer in the area. The new branch takes share from the competition, sure, but it also takes share from your own branch down the street. You can lose customers to yourself. And in the formula, it holds for any store: a new one doesn’t have to beat the best one to hurt it. It only has to exist and look acceptable.</p> <p>Now replace branches with tables. You ask for last quarter’s sales and four candidates answer to the name: <code class="language-plaintext highlighter-rouge">sales</code>, the certified table in gold; <code class="language-plaintext highlighter-rouge">sales_final_v2</code>, an analyst’s copy frozen in March; <code class="language-plaintext highlighter-rouge">fact_sales</code>, from the old warehouse, which stopped loading after the migration; and <code class="language-plaintext highlighter-rouge">sales_bkp_2023</code>, a full snapshot, the heaviest of the four. Every one of them sits in the denominator. Every one takes a piece of the probability that belonged to <code class="language-plaintext highlighter-rouge">sales</code>.</p> <p>In the last post I said a cluster of copies adds weight without adding attraction. Here’s the other half: it competes for the attraction the good table already had. And the way it competes depends on who’s choosing.</p> <p>A person who knows that business doesn’t see four tables. They see one table and three copies. “Those are the old ones.” They pick between <em>the real one</em> and <em>the copies</em> first, and only then, if at all, among the copies. Adding a fourth copy barely moves their odds. The formula doesn’t know how to do that. For Huff every alternative competes on its own, and a fourth copy takes its share from everyone, every time.</p> <p>(Economists know this as the red bus / blue bus problem: add a blue bus identical to the red one and the model thinks you’ve created a new way to travel. The fix, from the seventies, is to group similar alternatives into nests and choose among nests first – the <em>nested logit</em> – which is exactly what the person with context does without thinking about it.)</p> <p>So for the agent, every copy whose name doesn’t give it away is a new store. For the person, every copy is one more shelf in the same old store.</p> <p>Which means Huff, written in 1963 to describe shoppers, doesn’t describe very well the human who knows the data. It describes the agent, facing copies with good names.</p> <h2 id="an-origin-with-no-profile">An origin with no profile</h2> <p>Go back to the formula and put an agent in place of the customer.</p> <p>Start with <em>D</em>.</p> <p>Madrid and Barcelona taught me what <em>D</em> measures. In the 2010s I made that trip dozens of times, and I almost always took the AVE, the high-speed train. On paper the plane wins: about an hour and a quarter in the air, against two and a half hours by train. But the train let me show up five minutes before departure, at a station in the middle of the city, and work from the first minute. The plane meant an airport, security, boarding, and a laptop that stayed closed until the seatbelt sign went off. (I took the Puente Aéreo, the no-reservation shuttle, exactly once.)</p> <p>I wasn’t the exception. Since the AVE opened in 2008, it has taken most of that market from the plane, about three passengers in four by 2023, without shortening a single kilometer. What it shortened was the effort.</p> <p>Remember the Excel file on my laptop, the asteroid that pulls harder than the lakehouse because it’s right there. For a person, distance is effort, and effort can play either way: it keeps the old Excel file close, and the dead table far. For the agent, that distance disappears. Everything in the schema it was given is one step away. No ticket, no search, no colleague to ask. <em>D</em> goes to one for every table, and <em>β</em> goes with it: whatever its value, one to any power is still one. The only thing left in the formula is <em>A</em>. (When the schema is too big and the agent searches it first, <em>D</em> comes back, as a search ranking. And the ranking is decided by the same thing: the name and the description.)</p> <p>A person pays for <em>r</em> in payroll. The agent doesn’t pay in distance. Every table in its scope is one more thing to read, ROT data included, so it pays in tokens, and in wrong answers.</p> <p>In the last post I said attraction is what makes you walk over, and light is what you find when you get there. ROT data has the first and not the second. A person who gets to <code class="language-plaintext highlighter-rouge">fact_sales</code> might notice the dates stop last year. The agent doesn’t look. It reads the label and gets to work.</p> <p>Then look at <em>i</em>: an origin with no profile. It doesn’t belong to the warehouse or to accounting. It doesn’t know which tables “are the old ones”. It judges attractiveness from the only thing it can see, the schema: the names, the columns and, if someone wrote one, the description. In other words, by the average of what a name means to anyone, and that’s the ground where ROT data competes best.</p> <p>There’s evidence that the name carries a lot of weight. Researchers took a standard text-to-SQL benchmark and rewrote the questions, swapping the words that pointed at tables and columns for natural synonyms, nothing else, and the models’ accuracy dropped by roughly 20 to 30 points. (Gan and colleagues, ACL 2021, the <em>Spider-Syn</em> paper. Their phrase is that the models “rely on the lexical matching” between the question and the schema.)</p> <p>That’s the failure from one side: take the matching name away and they get lost. Turn it around and you get the kardex: give the wrong table the matching name, and the same reliance sends the agent straight to it.</p> <p>To be fair, the newer models are better at this than that paper suggests. A 2024 study found that strong reasoning models can pick out the relevant schema even when you hand them a lot of irrelevant tables (Maamari and colleagues, “The Death of Schema Linking?”). I believe it. But irrelevant isn’t the problem. <code class="language-plaintext highlighter-rouge">bkp_customers_old</code> is irrelevant, and any decent model throws it away. <code class="language-plaintext highlighter-rouge">fact_sales</code> isn’t irrelevant. It answers the question. It just answers it with last year’s data.</p> <p>Remember the list from the last post: ROT data can match the good data on five of six attributes – the names, ease of navigation, metadata, quality, hidden complexity – and the one it can’t fake is relevance, which doesn’t show up in the schema. The agent judges exactly those five, from the schema alone. Microsoft’s own guidance for Fabric data agents says as much in plain words: don’t put archived staging tables in the agent’s scope, and if two of the objects you selected hold similar data, tell the agent which one is authoritative. In their words: “Don’t rely on naming alone.”</p> <h2 id="the-wrong-profile">The wrong profile</h2> <p>Now the hour I promised.</p> <p>When the senior brought me the remediation plan, I read it and thought the junior and Claude had gotten lost. In my head <code class="language-plaintext highlighter-rouge">inventory_movements</code> <em>was</em> the kardex. I didn’t have to think about it. I studied economics, I spent my first working years in administration, and for anyone who grew up near accounting, “inventory movements” means every entry that changes the quantity or the value of what’s on the shelf. That’s the kardex. In that system, it means boxes moving inside the warehouse.</p> <p>I had the same reading as the agent. Worse: the agent was guessing from the name, with no profile. I had a profile, from another community, and it made me sure. The agent’s guess can be caught by someone who looks at the numbers. My certainty had to be caught by me.</p> <p>What changed my mind wasn’t an argument. It was a pattern. In every inventory model I’ve built, the kardex is at least as long as sales and purchases put together, because every invoice line moves something off a shelf or onto one. So I went back to bronze and profiled the data myself, and I didn’t need more than the row counts. For the operation of a company that size, the table had far too few rows. Next to sales and purchases, it wasn’t even close. That ended the hour.</p> <p>The rest was confirmation. I took the numbers to the client’s IT team, and they agreed: <code class="language-plaintext highlighter-rouge">inventory_movements</code> only held the warehouse’s own movements. Later, when I got access to their code, I found the <code class="language-plaintext highlighter-rouge">UNION ALL</code>. The kardex had been there all along. It just lived in code, where no map could see it.</p> <p><strong>The lesson:</strong> no profile is a risk. The wrong profile can be a bigger one, because it doesn’t feel like a guess.</p> <p>Once I saw it, the junior and Claude had the <em>what</em> right. The kardex needed to exist as something with a name. Where I disagreed was the <em>where</em>. Their plan built it in gold, inside one model, and I want business rules to live in silver, defined once, so data scientists, agents and gold can all reuse them instead of each of them rebuilding the logic in a schema that fits only their own use. So the concept went to silver, in the business vault: built once, not ingested, with views for the data scientists and for the gold star schema. Bronze didn’t change.</p> <p>That’s the part I care about more than the modeling. A <code class="language-plaintext highlighter-rouge">UNION ALL</code> hidden in code has zero attractiveness, because it has no name. Giving it a name puts the right store on the map. And where you put it matters: in gold, it’s the private knowledge of one model. In silver, every community – warehouse, accounting, the next agent – walks past the same door.</p> <p>Anthropic found the same thing from the inside, in <a href="https://claude.com/resources/articles/how-anthropic-enables-self-service-data-analytics-with-claude" rel="external nofollow noopener" target="_blank">the article I recommended before this series started</a>. They gave their agent grep access to thousands of SQL files, every piece of prior work they had, and accuracy moved less than a point: “our bottleneck wasn’t access to prior work, it was structure.” The kardex had been in code all along. Code isn’t a name.</p> <h2 id="the-rot-data-version-with-numbers">The ROT data version, with numbers</h2> <p>The kardex was the case where the right answer had no name. In my experience, ROT data is the more common case: I rarely meet a company with an archival plan. And it’s the worse one: the right answer has a name, and so do three impostors.</p> <p>Here are the four sales tables again, with numbers. A warning before you look: <strong>this is a mental model, not a measurement.</strong> The scores are made up, and nobody has calibrated Huff for tables. I set <em>β</em> to 1. In Huff it’s estimated from data, and 1 is the conservative choice here: a steeper decay, say Newton’s square, only widens the gap. The person goes to 76%, the agent doesn’t move. The point is the shape, not the decimals.</p> <table> <thead> <tr> <th>Table</th> <th>What it really is</th> <th>Person with context: A / D</th> <th>Agent: A (schema only), D = 1</th> </tr> </thead> <tbody> <tr> <td><code class="language-plaintext highlighter-rouge">sales</code></td> <td>Gold, certified. The right one</td> <td>8 / 1 = 8</td> <td>4 (“sales table”, generic)</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">sales_final_v2</code></td> <td>Analyst’s copy, frozen in March</td> <td>2 / 1 = 2 (it’s in their workspace)</td> <td>3 (“final” sounds definitive)</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">fact_sales</code></td> <td>Old warehouse, stopped loading</td> <td>0.5 / 2 = 0.25 (“that one’s dead”)</td> <td>3.5 (<code class="language-plaintext highlighter-rouge">fact_</code> looks official)</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">sales_bkp_2023</code></td> <td>Full snapshot, the heaviest</td> <td>1.5 / 2 = 0.75</td> <td>0.5 (“bkp” gives it away)</td> </tr> <tr> <td><strong>Chance of the right pick</strong></td> <td> </td> <td>8 / 11 = <strong>73%</strong> </td> <td>4 / 11 = <strong>36%</strong> </td> </tr> </tbody> </table> <p>I’m using Huff for both columns so they’re comparable. For the person, <em>D</em> is effort: 1 for anything in a workspace they already open, 2 for the old warehouse and the archive, which they’d have to go find. The real person does better than 73%: they nest, and the copies barely register. The agent’s 36% is what Huff actually predicts.</p> <p>Set the person’s <em>D</em> to 1 and they still get 67% (8 out of 12). Distance isn’t what separates them. The profile is.</p> <p>Look at the bottom row and then at the heaviest table. The backup, the one that weighs the most, is the least dangerous: its name gives it away. The dangerous one is <code class="language-plaintext highlighter-rouge">fact_sales</code>, small and attractive. <strong>The dangerous ROT data isn’t the heavy one. It’s the attractive one.</strong> Mass explains the cost and the exposure; attraction explains the other risk.</p> <p>Now the levers, same made-up numbers, applied to the agent:</p> <table> <thead> <tr> <th>What you do</th> <th>Agent’s chance of the right pick</th> </tr> </thead> <tbody> <tr> <td>Nothing</td> <td>36%</td> </tr> <tr> <td>Say <code class="language-plaintext highlighter-rouge">sales</code> is certified where the agent reads it: its description (A from 4 to 8)</td> <td>53%</td> </tr> <tr> <td>Also mark <code class="language-plaintext highlighter-rouge">fact_sales</code> as deprecated (A from 3.5 to 0.5)</td> <td>67%</td> </tr> <tr> <td>Take <code class="language-plaintext highlighter-rouge">fact_sales</code> and the backup out of the agent’s scope</td> <td>73%</td> </tr> <tr> <td>Retire <code class="language-plaintext highlighter-rouge">sales_final_v2</code> too (only <code class="language-plaintext highlighter-rouge">sales</code> is left)</td> <td>100%</td> </tr> </tbody> </table> <p>Certifying and deprecating get the agent from 36 to 67, and stop there. That’s ranking: the bad table is still in the race, just further back. Getting to the person’s 73% takes eligibility: taking things out of scope, so the impostors never enter the denominator. Anthropic’s version is structural: for their canonical datasets, “the agent is structurally routed to them first”, by tooling, by CI and by mandate.</p> <p>The 100% is the model being trivial: one store, nothing to choose. It lasts exactly as long as the scope does. Hand the agent all of silver instead of the doors you chose for it, and the denominator fills up again. The scope is a decision with an owner, not a setting.</p> <p>The vendors are building those first two. Fabric shows endorsed items with a badge and lists them first in some places; Databricks lets you mark a table certified or deprecated and says that helps Genie One prioritize the assets your organization vouches for; and plenty of catalog search tools rank results by popularity. Useful, all of them. But notice the last one: if everyone uses <code class="language-plaintext highlighter-rouge">sales_final_v2</code>, popularity pushes it up. A ranking by use rewards attractive ROT data.</p> <p>And it gets worse with time. Say <code class="language-plaintext highlighter-rouge">sales_final_v2</code> was the right table for six months, and everyone learned to use it. Then <code class="language-plaintext highlighter-rouge">sales_final_v3</code> shows up. What should the agent do? By name, v3 looks newer, so a curious agent jumps to it the day it appears, validated or not. By popularity, v2 stays on top for months after it stopped being right. Neither signal answers the question, because the answer is a decision: who certified v3, and when v2 retires. A version suffix is a decision nobody wrote down.</p> <p>Copies aren’t the only impostors. Time makes them too: last year’s rows, still sitting in the right table. Those take deleting, and deleting doesn’t have to be final. In the last few years I’ve stopped writing gold SLAs as “data since 2020”. A fixed start date is a contract that fills up with ROT data a little more every year. I write them as a window instead, usually the last five to seven calendar years. On January 1, 2027, the load stops bringing 2020 into gold and removes what was there. The layer underneath doesn’t change: silver, the data vault and the business vault, or the warehouse, when the architecture is a warehouse with data marts on top. The marts get the same window. The history stays where it’s governed. It just leaves the shelf where users and agents shop.</p> <p>Anthropic marks deprecated models in its lineage graph, and as far as their article says, it doesn’t delete them. Marking something old is a decision anyone can make. Deleting it needs an owner, and so does any cut that takes something off the shelf without deleting it. Last time, the customer table got one: the product owner signed a subset for receivables. Nothing deleted, and the same eligibility move, made for a model instead of an agent.</p> <h2 id="your-monday-worksheet">Your Monday worksheet</h2> <blockquote> <p><strong>Probability of a right pick.</strong> Twenty minutes, one question.</p> <ol> <li>Pick a question your users or your agent get asked often. “Sales last quarter” works.</li> <li>List every table or dataset whose <em>name</em> would answer it. Include every version, not only the latest.</li> <li>Give each one an A from 0 to 10, twice: once as someone who knows the business, once reading only the schema.</li> <li>For the person column, give each a D from 1 to 3 (1 = already in my workspace, 2 = I’d have to go find it, 3 = I’d need a ticket). The agent’s D is 1, unless it searches the schema first; then score the search, not the distance.</li> <li>Compute each table’s A/D, and the right one’s share in both columns.</li> <li>Decide per row: make its certification visible, deprecate it, take it out of the agent’s scope, or retire it. Score again.</li> <li>Before you trust any table, do the check nobody did in the kardex case: compare its row count against something whose size you already know. Invoice lines against movements would have caught it in five minutes.</li> </ol> <p>My rule of thumb: if, by your own scores, the agent is more likely to pick a wrong table than the right one (under 50% in the agent column), don’t point an agent at that area yet. The number is as rough as your scores. The comparison isn’t.</p> </blockquote> <p>And one question the worksheet can’t answer for you: when you scored “as someone who knows the business”, <em>which</em> business were you?</p> <h2 id="who-decided-what-the-agent-sees">Who decided what the agent sees?</h2> <p>The agent built a model on <code class="language-plaintext highlighter-rouge">inventory_movements</code> because the name promised it. Who decided that the kardex would live in code, with no name, where nothing could choose it? Who decided which tables the agent would see, and which of them it would believe? Nobody. Somebody handed it a schema, and the names did the rest.</p> <p>In 2008 the map had every branch on it, and the people who knew the business argued over it. In that conglomerate the right store wasn’t on the map, and the only one arguing was a junior who looked at the numbers and didn’t believe them. He was right. I needed an hour to catch up.</p> <p>One last thing, because it’s the next post. Suppose that, to help the next agent, someone asks an LLM to write the description of <code class="language-plaintext highlighter-rouge">inventory_movements</code>. I’m fairly sure what it would write: “Contains all inventory movements.” The next agent would read it and believe it, this time with a description to back it up. Who wrote that description?</p> <p><em>This is the second of ten posts in</em> Who Decided That? <em>The cloud and AI made it cheap to create, copy and keep data. They didn’t make it any cheaper to decide.</em></p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-rot-weighs/">The ROT Weighs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-reader-changed/">The Reader Changed</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-discipline-of-distrust/">The Discipline of Distrust</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-code-betrays-the-model/">When Code Betrays the Model</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-obedience-is-the-disaster/">When Obedience Is the Disaster</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/goodharts-law-in-practice/">Goodhart's Law in Practice</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-metric-as-mirror-not-window/">The Metric as Mirror, Not Window</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/the-number-without-perimeter/">The Number Without Perimeter</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/when-aggregation-lies/">When Aggregation Lies</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-glossary-isnt-semantics/">Your Glossary Isn't Semantics</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Javier Loria. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-writing",
+          title: "writing",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-speaking",
+          title: "speaking",
+          description: "Talks on semantic models, data warehousing, and AI in the data workflow — practical sessions for practitioners.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/speaking/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Technical books and courseware I have co-authored.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Javier Loria — data architect and mentor. 35+ years in software, 25+ specializing in BI and semantic models on the Microsoft data platform.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-the-agent-chooses",
+        
+          title: "The Agent Chooses",
+        
+        description: "For an agent, every table is one step away. Only the name is left to choose by. Who decided which tables it sees?",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-agent-chooses/";
+          
+        },
+      },{id: "post-the-rot-weighs",
+        
+          title: "The ROT Weighs",
+        
+        description: "Redundant, obsolete and trivial data has mass. The cloud keeps it, and nobody decided to.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-rot-weighs/";
+          
+        },
+      },{id: "post-the-reader-changed",
+        
+          title: "The Reader Changed",
+        
+        description: "I closed Trust Erosion saying the fix is a better reader. Then the reader changed: now it&#39;s an AI agent, and it doesn&#39;t ask questions.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-reader-changed/";
+          
+        },
+      },{id: "post-the-discipline-of-distrust",
+        
+          title: "The Discipline of Distrust",
+        
+        description: "Every number in this series lied. The fix was never a better number -- it was a better reader.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-discipline-of-distrust/";
+          
+        },
+      },{id: "post-when-code-betrays-the-model",
+        
+          title: "When Code Betrays the Model",
+        
+        description: "The definition was right. The code said something else -- and nobody was reading the code.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-code-betrays-the-model/";
+          
+        },
+      },{id: "post-when-obedience-is-the-disaster",
+        
+          title: "When Obedience Is the Disaster",
+        
+        description: "Nobody gamed the number. They obeyed it perfectly. That was the disaster.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-obedience-is-the-disaster/";
+          
+        },
+      },{id: "post-goodhart-39-s-law-in-practice",
+        
+          title: "Goodhart&#39;s Law in Practice",
+        
+        description: "He won awards for the number. The number was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/goodharts-law-in-practice/";
+          
+        },
+      },{id: "post-the-metric-as-mirror-not-window",
+        
+          title: "The Metric as Mirror, Not Window",
+        
+        description: "The number said the ER was excellent. Sitting in that waiting room, it told me nothing I needed to know.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-metric-as-mirror-not-window/";
+          
+        },
+      },{id: "post-the-number-without-perimeter",
+        
+          title: "The Number Without Perimeter",
+        
+        description: "+12%. Correct to the decimal. Nobody in the room could defend it.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-number-without-perimeter/";
+          
+        },
+      },{id: "post-when-aggregation-lies",
+        
+          title: "When Aggregation Lies",
+        
+        description: "The general manager wanted his quantity column. The model kept returning a blank. The thirty minutes that followed were not about the formula.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-aggregation-lies/";
+          
+        },
+      },{id: "post-your-glossary-isn-39-t-semantics",
+        
+          title: "Your Glossary Isn&#39;t Semantics",
+        
+        description: "A definition tells you what a customer is. It doesn&#39;t tell you which rows qualify.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-glossary-isnt-semantics/";
+          
+        },
+      },{id: "post-the-table-is-not-the-concept",
+        
+          title: "The Table Is Not the Concept",
+        
+        description: "You can define the concept perfectly and still model it wrong.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-table-is-not-the-concept/";
+          
+        },
+      },{id: "post-false-semantic-consensus",
+        
+          title: "False Semantic Consensus",
+        
+        description: "Everyone agreed on the number. That was the problem.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/false-semantic-consensus/";
+          
+        },
+      },{id: "post-we-act-on-metadata",
+        
+          title: "We Act on Metadata",
+        
+        description: "How a boring ingestion layer becomes the foundation for ops, quality, and governance -- without a separate catalog project",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/we-act-on-metadata/";
+          
+        },
+      },{id: "post-runbooks-as-infrastructure",
+        
+          title: "Runbooks as Infrastructure",
+        
+        description: "The 3am test, and why the instruction for a human is engineering, not documentation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/runbooks-as-infrastructure/";
+          
+        },
+      },{id: "post-battle-scars",
+        
+          title: "Battle Scars",
+        
+        description: "What happens when a YAML-driven platform meets production reality",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/battle-scars/";
+          
+        },
+      },{id: "post-the-scheduler-39-s-contract",
+        
+          title: "The Scheduler&#39;s Contract",
+        
+        description: "How scheduling becomes infrastructure -- data freshness as a promise, not a hope",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-schedulers-contract/";
+          
+        },
+      },{id: "post-metadata-all-the-way-down",
+        
+          title: "Metadata All the Way Down",
+        
+        description: "Governing your ingestion metadata with more metadata -- and knowing which metadata is which",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/metadata-all-the-way-down/";
+          
+        },
+      },{id: "post-bronze-should-be-boring",
+        
+          title: "Bronze Should Be Boring",
+        
+        description: "Designing a metadata-driven ingestion layer that disappears behind a YAML commit",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bronze-should-be-boring/";
+          
+        },
+      },{id: "news-spoke-at-global-fabric-day-2026-hosted-by-microsoft-costa-rica-in-spanish",
+          title: 'Spoke at **Global Fabric Day 2026**, hosted by Microsoft Costa Rica. *(in Spanish)*...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-the-real-impact-of-ai-on-our-society-impacto-real-de-la-inteligencia-artificial-en-nuestra-sociedad-with-the-power-bi-panamá-community-in-spanish",
+          title: 'Spoke on *The Real Impact of AI on Our Society* (*Impacto Real de...',
+          description: "",
+          section: "News",},{id: "news-spoke-on-mcp-for-power-bi-claude-code-with-unidos-por-venezuela-in-spanish",
+          title: 'Spoke on *MCP for Power BI + Claude Code* with Unidos por Venezuela....',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-modelling-amp-design-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Modelling &amp;amp; Design** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "news-passed-the-cdmp-data-governance-specialist-exam-dama-international",
+          title: 'Passed the **CDMP Data Governance** specialist exam (DAMA International).',
+          description: "",
+          section: "News",},{id: "news-awarded-the-cdmp-practitioner-certification-dama-international",
+          title: 'Awarded the **CDMP Practitioner** certification (DAMA International).',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%4A%6C%6F%72%69%61@%70%72%69%6D%75%73%64%61%74%61.%6E%65%74", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/javiersql", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/JavierSQL", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://substack.com/@pragmaticdataarchitect", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
