@@ -1,11 +1,11 @@
 {
   "basics": {
     "name": "Javier Loria",
-    "label": "Data Architect · The bridge between business strategy and technology execution",
+    "label": "Data Architecture, Governance & AI Engineering · The bridge between business strategy and technology execution",
     "image": "",
     "email": "Jloria@primusdata.net",
     "phone": "",
-    "summary": "Data architect with 35+ years in software and 25+ specializing in business intelligence and semantic models on the Microsoft data platform. I have spent my career on both ends of the bridge between business strategy and technology execution -- the first half in management, the second in technology -- so I model your business, not just your tables. Founder and mentor at Primus Data, where the method is learning by doing: every client builds lasting internal capability.",
+    "summary": "Data architect with 35+ years in software and 25+ specializing in business intelligence and semantic models on the Microsoft data platform. I have spent my career on both ends of the bridge between business strategy and technology execution -- the first half in management, the second in technology -- so I model your business, not just your tables. Today I work across three connected fronts: data architecture and engineering, data governance (CDMP Practitioner), and AI engineering -- building agents and the governed, well-modeled data they need to be trusted. Founder and mentor at Primus Data, where the method is learning by doing: every client builds lasting internal capability.",
     "location": {
       "address": "",
       "postalCode": "",
@@ -328,42 +328,59 @@
   ],
   "skills": [
     {
-      "name": "Microsoft Data Platform",
-      "level": "Expert",
-      "icon": "fa-solid fa-database",
-      "keywords": [
-        "Microsoft Fabric",
-        "Power BI",
-        "SQL Server",
-        "T-SQL",
-        "DAX",
-        "SSIS",
-        "SSAS",
-        "SSRS"
-      ]
-    },
-    {
-      "name": "Data Architecture",
+      "name": "Data Architecture & Engineering",
       "level": "Expert",
       "icon": "fa-solid fa-diagram-project",
       "keywords": [
         "Semantic models",
         "Dimensional modeling",
-        "Data warehousing",
-        "Data lakehouse",
+        "Data warehouse & lakehouse",
         "Medallion architecture",
-        "ETL / ELT"
+        "ETL / ELT pipelines",
+        "Microsoft Fabric",
+        "Spark / PySpark notebooks",
+        "Power BI & DAX",
+        "SQL Server & T-SQL",
+        "SQL Server BI stack (SSAS, SSIS)"
       ]
     },
     {
-      "name": "Delivery & Enablement",
+      "name": "Data Governance",
+      "level": "Expert",
+      "icon": "fa-solid fa-scale-balanced",
+      "keywords": [
+        "DAMA-DMBOK framework",
+        "Governance operating models (ownership, stewardship)",
+        "Business glossary & semantic consensus",
+        "Metadata management",
+        "Data quality",
+        "KPI & metric definition",
+        "Data modeling & design"
+      ]
+    },
+    {
+      "name": "AI Engineering",
+      "level": "Advanced",
+      "icon": "fa-solid fa-robot",
+      "keywords": [
+        "AI-assisted development (GitHub Copilot)",
+        "Agentic AI & AI agents",
+        "Model Context Protocol (MCP)",
+        "AI-ready semantic models (grounding LLMs on governed data)",
+        "Copilot in Fabric & Power BI",
+        "Copilot Studio",
+        "Azure AI Foundry"
+      ]
+    },
+    {
+      "name": "Mentoring & Enablement",
       "level": "Expert",
       "icon": "fa-solid fa-people-group",
       "keywords": [
-        "Hands-on mentoring",
+        "Learning-by-doing mentoring",
         "Team enablement",
         "Solution architecture",
-        "Knowledge transfer"
+        "Speaking & technical writing"
       ]
     }
   ],
