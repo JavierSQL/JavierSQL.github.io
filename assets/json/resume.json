@@ -186,6 +186,13 @@
   ],
   "certificates": [
     {
+      "name": "GitHub Copilot",
+      "date": "2026-10-24",
+      "issuer": "Microsoft",
+      "url": "https://learn.microsoft.com/api/credentials/share/en-us/JavierLoria-5344/28AA51C75BBC6A0?sharingId=D65B8A9332E6C13B",
+      "icon": "fa-solid fa-certificate"
+    },
+    {
       "name": "Certified Data Management Professional (CDMP) — Practitioner",
       "date": "2026-09-21",
       "issuer": "DAMA International",
