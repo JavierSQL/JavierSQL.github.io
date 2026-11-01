@@ -1,0 +1,36 @@
+# Blog series. Source of truth for series navigation (_plugins/series_nav.rb),
+# the /blog/series/ page and the "Read by series" strip on /blog/.
+#
+# The key is the post category slug: a post belongs to a series when its
+# `categories` include the key. Parts are ordered by date; a post can force its
+# position with `series_part: N` in its front matter.
+#
+# prologue / epilogue: slug of a post (file name without date) that sits at the
+# start / end of the series without counting as a numbered part. A post used as
+# epilogue of one series and prologue of another is shown as a bridge.
+#
+# status: ongoing | complete   (ongoing → the last post invites to subscribe)
+# order:  position on the series page and the /blog/ strip (1 = first)
+
+who-decided-that:
+  title: "Who Decided That?"
+  tagline: "Data piles up, agents pick tables by their name, and nobody remembers deciding any of it."
+  status: ongoing
+  planned: 10
+  order: 1
+  prologue: the-reader-changed
+
+trust-erosion:
+  title: "The Trust Erosion Series"
+  tagline: "Every number in this series was correct. None of them earned the room's trust."
+  status: complete
+  planned: 10
+  order: 2
+  epilogue: the-reader-changed
+
+yaml-ingestion:
+  title: "YAML Metadata-Driven Ingestion"
+  tagline: "A Bronze layer that disappears behind a YAML commit, and what production taught us about it."
+  status: complete
+  planned: 6
+  order: 3

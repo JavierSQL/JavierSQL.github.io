@@ -328,7 +328,7 @@ jekyll-archives:
     enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
 
 display_tags: ["semantic-modeling", "data-governance", "data-modeling", "data-quality", "microsoft-fabric"] # these tags will be displayed on the front page of your blog
-display_categories: ["trust-erosion", "yaml-ingestion"] # these categories will be displayed on the front page of your blog
+display_categories: [] # series are shown by the "Read by series" strip (_data/series.yml)
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar

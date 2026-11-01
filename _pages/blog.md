@@ -56,6 +56,17 @@ pagination:
   </div>
   {% endif %}
 
+{% unless paginator.page > 1 %}{% if site.data.series_index and site.data.series_index.size > 0 %}
+<div class="series-strip">
+<div class="series-strip-head"><h2 class="series-strip-title">Read by series</h2><a href="{{ '/blog/series/' | relative_url }}">All series &rarr;</a></div>
+<div class="series-strip-grid">
+{%- for s in site.data.series_index %}
+<a class="series-card series-strip-card" href="{{ '/blog/series/' | relative_url }}#{{ s.key }}"><span class="series-card-body"><span class="series-card-dir">{% if s.status == "ongoing" %}In progress &middot; {{ s.published }} of {{ s.total }}{% else %}Complete &middot; {{ s.published }} parts{% endif %}</span><span class="series-card-title">{{ s.title }}</span><span class="series-card-desc">{{ s.tagline }}</span></span></a>
+{%- endfor %}
+</div>
+</div>
+{% endif %}{% endunless %}
+
 {% assign featured_posts = site.posts | where: "featured", "true" %}
 {% if featured_posts.size > 0 %}
 <br>
@@ -197,7 +208,7 @@ pagination:
 
   <hr style="margin:2.5rem 0 2rem;border:0;border-top:1px solid rgba(0,0,0,.12);" />
 
-  <div style="max-width:520px;margin:0 auto 1rem;">
+  <div id="subscribe" style="max-width:520px;margin:0 auto 1rem;scroll-margin-top:4.5rem;">
 
 <!-- MailerLite Universal -->
 <script>
